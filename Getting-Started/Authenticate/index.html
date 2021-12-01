@@ -50,19 +50,6 @@ Idem suggests the following steps for passing credentials:</p>
 <div class=gdoc-tabs>
 <input type=radio class="gdoc-tabs__control hidden" name=tabs-install id=tabs-install-0 checked>
 <label for=tabs-install-0 class=gdoc-tabs__label>
-idem-aws
-</label>
-<div class="gdoc-markdown--nested gdoc-tabs__content">
-<p>Create a <code>credentials.yaml</code> file - the <code>default</code> profile will be used unless specified in the command or state file:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>aws</span><span class=p>:</span><span class=w>
-</span><span class=w>  </span><span class=nt>default</span><span class=p>:</span><span class=w>
-</span><span class=w>    </span><span class=nt>aws_access_key_id</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Access Key ID&gt;</span><span class=w>
-</span><span class=w>    </span><span class=nt>aws_secret_access_key</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Secret Access Key&gt;</span><span class=w>
-</span><span class=w>    </span><span class=nt>region_name</span><span class=p>:</span><span class=w> </span><span class=l>&lt;AWS Region&gt;</span><span class=w>
-</span></code></pre></div>
-</div>
-<input type=radio class="gdoc-tabs__control hidden" name=tabs-install id=tabs-install-1>
-<label for=tabs-install-1 class=gdoc-tabs__label>
 idem-azure-auto
 </label>
 <div class="gdoc-markdown--nested gdoc-tabs__content">
@@ -85,7 +72,7 @@ idem-azure-auto
 </code></pre></div><p>Idem retrieves the credentials from these variables while executing states. These values can also be passed as <code>--acct-key</code> and <code>--acct-file</code> options while applying the states.</p>
 <p>Credentials can be grouped using Profiles and you can define multiple profiles in same file (e.g. default, dev, staging, etc).</p>
 <div class=edit-meta>
-Last updated on 26 Nov 2021
+Last updated on 1 Dec 2021
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Authenticate/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/Cloud-Providers/ title="Cloud Providers"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Cloud Providers</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Getting-Started/Basic-Commands/ title="Basic Commands">Next - Basic Commands <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
