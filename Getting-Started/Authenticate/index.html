@@ -71,8 +71,26 @@ idem-azure-auto
 <span class=nb>export</span> <span class=nv>ACCT_FILE</span><span class=o>=</span>/path/to/credentials.yaml.fernet
 </code></pre></div><p>Idem retrieves the credentials from these variables while executing states. These values can also be passed as <code>--acct-key</code> and <code>--acct-file</code> options while applying the states.</p>
 <p>Credentials can be grouped using Profiles and you can define multiple profiles in same file (e.g. default, dev, staging, etc).</p>
-<div class=edit-meta>
-Last updated on 1 Dec 2021
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>azurerm</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>default</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>client_id</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&lt;Your Client ID&gt;&#34;</span><span class=w>
+</span><span class=w>      </span><span class=nt>secret</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&lt;Your Secret key&gt;&#34;</span><span class=w>
+</span><span class=w>      </span><span class=nt>subscription_id</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&lt;Your Subcription Key ID&gt;&#34;</span><span class=w>
+</span><span class=w>      </span><span class=nt>tenant</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&lt;Your Tenant Key ID&gt;&#34;</span><span class=w>
+</span><span class=w>   </span><span class=nt>tmm</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>client_id</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&lt;Your Client ID&gt;&#34;</span><span class=w>
+</span><span class=w>      </span><span class=nt>secret</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&lt;Your Secret key&gt;&#34;</span><span class=w>
+</span><span class=w>      </span><span class=nt>subscription_id</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&lt;Your Subcription Key ID&gt;&#34;</span><span class=w>
+</span><span class=w>      </span><span class=nt>tenant</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&lt;Your Tenant Key ID&gt;&#34;</span><span class=w>
+</span><span class=w></span><span class=nt>aws</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>default</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=nt>aws_access_key_id</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Access Key ID&gt;</span><span class=w>
+</span><span class=w>    </span><span class=nt>aws_secret_access_key</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Secret Access Key&gt;</span><span class=w>
+</span><span class=w>    </span><span class=nt>region_name</span><span class=p>:</span><span class=w> </span><span class=l>&lt;AWS Region&gt;</span><span class=w>
+</span></code></pre></div><p>Then you can reference those account profiles with the option <code>--acct-profile</code></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines --acct-profile tmm
+</code></pre></div><div class=edit-meta>
+Last updated on 3 Dec 2021
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Authenticate/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/Cloud-Providers/ title="Cloud Providers"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Cloud Providers</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Getting-Started/Basic-Commands/ title="Basic Commands">Next - Basic Commands <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
