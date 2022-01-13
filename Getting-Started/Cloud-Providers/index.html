@@ -4,7 +4,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Cloud Providers - Learn Idem</title>
 <meta name=description content="   Powered by Idem Project">
-<meta name=generator content="Hugo 0.91.2">
+<meta name=generator content="Hugo 0.92.0">
 <link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml>
 <link rel=canonical href=https://learnidem.github.io/Getting-Started/Cloud-Providers/>
 <link rel=stylesheet href=https://learnidem.github.io/css/theme.css>
@@ -44,7 +44,9 @@
 </div>
 </header>
 <div class=content-container>
-<main><h1>Cloud Providers</h1><p>For Installing Cloud Providers you can use &ldquo;pip&rdquo; tool :</p>
+<main><h1>Cloud Providers</h1><p>For Installing Cloud Providers you can use Python Package Installer <a href=https://pypi.org/project/pip/ target=_blank>
+<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> pip
+</a>" tool :</p>
 <div class=gdoc-tabs>
 <input type=radio class="gdoc-tabs__control hidden" name=tabs-install id=tabs-install-0 checked>
 <label for=tabs-install-0 class=gdoc-tabs__label>
@@ -55,9 +57,17 @@ idem-azure-auto
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>pip3 install idem-azure-auto
 </code></pre></div><p>or you can install / upgrade to an specific release</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>pip install idem-azure-auto<span class=o>==</span>0.0.2
-</code></pre></div><p>Please note that the provider may have version dependencies, such as &ldquo;idem-aiohttp&rdquo; & &ldquo;idem&rdquo; itself but the &ldquo;pip&rdquo; install will update them as well.</p>
-<p>You can verify installation with &ldquo;pip&rdquo;</p>
+</code></pre></div><p>Please note that the provider may have version dependencies, such as &ldquo;idem-aiohttp&rdquo; & <a href=Getting-Started/Install-Idem/>
+idem
+</a> itself but the <a href=https://pypi.org/project/pip/ target=_blank>
+<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> pip
+</a> install will update them as well.</p>
+<p>You can verify installation with <a href=https://pypi.org/project/pip/ target=_blank>
+<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> pip
+</a></p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>pip3 list <span class=p>|</span> grep idem-azure-auto
+</code></pre></div><p>And obtain more details, including version and required dependencies</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>pip3 show idem-azure-auto
 </code></pre></div><p><span style=font-size:18pt>Current Supported Resources states in &ldquo;idem-azure-auto&rdquo;</span></p>
 <ul>
 <li><p><b>authorization:</b></p>
@@ -89,7 +99,7 @@ authentication
 You can find use case examples here
 </a></p>
 <div class=edit-meta>
-Last updated on 1 Dec 2021
+Last updated on 13 Jan 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Cloud%20Providers/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/Install-Idem/ title="Install Idem"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Install Idem</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Getting-Started/Authenticate/ title=Authenticate>Next - Authenticate <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
