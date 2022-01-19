@@ -2,11 +2,11 @@
 <head><meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Use Cases - Learn Idem</title>
+<title>SLS States - Learn Idem</title>
 <meta name=description content="   Powered by Idem Project">
 <meta name=generator content="Hugo 0.92.0">
 <link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml>
-<link rel=canonical href=https://learnidem.github.io/Use-Cases/>
+<link rel=canonical href=https://learnidem.github.io/Use-Cases/SLS-States/>
 <link rel=stylesheet href=https://learnidem.github.io/css/theme.css>
 <link rel=stylesheet href=/css/lightbox.min.css>
 <link rel=stylesheet href=/css/custom.css>
@@ -20,15 +20,15 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8R0DEW1VZM"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-8R0DEW1VZM')</script>
 <style>:root{--custom-font-color:#0065ab;--custom-background-color:#FFFFFF}</style>
-<meta property="og:title" content="Use Cases">
+<meta property="og:title" content="SLS States">
 <meta property="og:description" content="   Powered by Idem Project">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://learnidem.github.io/Use-Cases/"><meta property="og:image" content="https://learnidem.github.io/images/service-broker.svg"><meta property="og:site_name" content="Learn Idem">
+<meta property="og:url" content="https://learnidem.github.io/Use-Cases/SLS-States/"><meta property="og:image" content="https://learnidem.github.io/images/service-broker.svg"><meta property="og:site_name" content="Learn Idem">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://learnidem.github.io/images/service-broker.svg">
-<meta name=twitter:title content="Use Cases">
+<meta name=twitter:title content="SLS States">
 <meta name=twitter:description content="   Powered by Idem Project">
-<meta itemprop=name content="Use Cases">
+<meta itemprop=name content="SLS States">
 <meta itemprop=description content="   Powered by Idem Project"></head>
 <body><div class=container><header>
 <div class=header-image>
@@ -44,20 +44,24 @@
 </div>
 </header>
 <div class=content-container>
-<main><h1>Use Cases</h1><p>Make sure to export the encryption key and path to the fernet file as an environment variable as described in the <a href=/Getting-Started/Authenticate/>
+<main><h1>SLS States</h1><p>States are yaml file definitions with extension <b>SLS</b> <br>
+States can be accessed by their relative location in idem-azure-auto/idem_azure_auto/states.<br>
+For example, in the <b>State SLS</b> yaml file below, Azure resource group state can be created and subsequently updated with the <a href=/Getting-Started/Basic-Commands/>
+Present
+</a> state function.</p>
+<p>The following examples showcase how to use the available <a href=/Getting-Started/Basic-Commands/>
+idem states
+</a> to work with Azure Resources.
+Make sure to export the encryption key and path to the fernet file as an environment variable as described in the <a href=/Getting-Started/Authenticate/>
 authentication section
 </a> before trying the commands below</p>
 <div class=gdoc-tabs>
 <input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-0 checked>
 <label for=tabs-usecases-0 class=gdoc-tabs__label>
-Create Azure Resources
+Present
 </label>
 <div class="gdoc-markdown--nested gdoc-tabs__content">
-<p>States can be accessed by their relative location in idem-azure-auto/idem_azure_auto/states.
-For example, in the <b>State SLS</b> yaml file below, Azure resource group state can be created with the <a href=/Getting-Started/Basic-Commands/>
-Present
-</a> function :</p>
-<p><i>my_resource_group_state.sls:</i></p>
+<p>Create an Azure Resource Group : <i>my_resource_group_state.sls:</i></p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>my-azure-resource-group</span><span class=p>:</span><span class=w>
 </span><span class=w>  </span><span class=nt>azure.resource_management.resource_groups.present</span><span class=p>:</span><span class=w>
 </span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Azure Resource Group Name&gt;</span><span class=w>
@@ -83,11 +87,29 @@ Present
 <b>URI Parameters</b> should be specified in snake case with “-” in front. All parameters of the API <b>request body</b> should be specified in exactly the same way as what’s in the <a href=https://docs.microsoft.com/en-us/rest/api/azure/ target=_blank>
 <i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Azure REST API doc
 </a>.</p>
-<p>You can include multiple resources in a single SLS yaml file.</p>
+<p>You can include multiple resources in a single SLS yaml file.
+Some resources may have dependencies among them, for that you include <a href=/Use-Cases/reconciler-flag/>
+reconciler=basic flag
+</a>, This allows Idem-azure-auto to run Idem state
+with Idem&rsquo;s reconciliation loop.</p>
 </div>
 <input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-1>
 <label for=tabs-usecases-1 class=gdoc-tabs__label>
-Create Azure Virtual Machine
+Present | Update
+</label>
+<div class="gdoc-markdown--nested gdoc-tabs__content">
+Update an existing an Azure Resource Group : <i>my_resource_group_state.sls:</i>
+</div>
+<input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-2>
+<label for=tabs-usecases-2 class=gdoc-tabs__label>
+Absent
+</label>
+<div class="gdoc-markdown--nested gdoc-tabs__content">
+Remove an existing Azure Resource Group : <i>my_resource_group_state.sls:</i>
+</div>
+<input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-3>
+<label for=tabs-usecases-3 class=gdoc-tabs__label>
+Basic End to End Azure Virtual Machine
 </label>
 <div class="gdoc-markdown--nested gdoc-tabs__content">
 <p>This example showcases how to create a basic Azure Virtual Machine, we will create the Resource Group, Re-Use an existing NIC and create the Azure Virtual Machine resource then we could update the metadata:</p>
@@ -703,20 +725,16 @@ Function: azure.resource_management.resource_groups.absent
   Result: True
  Comment: <span class=s1>&#39;moff-idem-01&#39;</span> already absent
  Changes: None
-</code></pre></div>
-</div>
-<input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-2>
-<label for=tabs-usecases-2 class=gdoc-tabs__label>
-Create your first plugin
-</label>
-<div class="gdoc-markdown--nested gdoc-tabs__content">
-Read an API and create a plugin from the API automatically
+</code></pre></div><p>Some resources may have dependencies among them, for that you include <a href=/Use-Cases/reconciler-flag/>
+reconciler=basic flag
+</a>, This allows Idem-azure-auto to run Idem state
+with Idem&rsquo;s reconciliation loop.</p>
 </div>
 </div>
 <div class=edit-meta>
 Last updated on 18 Jan 2022
-<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Use%20Cases/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/Troubleshooting/ title=Troubleshooting><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Troubleshooting</a>
-<a class="nav nav-next" href=https://learnidem.github.io/Use-Cases/Describe/ title="Describe command">Next - Describe command <i class="fas fa-arrow-right" aria-hidden=true></i></a>
+<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Use%20Cases/SLS%20States/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Use-Cases/Describe/ title="Describe command"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Describe command</a>
+<a class="nav nav-next" href=https://learnidem.github.io/Use-Cases/Filter-flag/ title="Filter Flag">Next - Filter Flag <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
 </footer>
 </main>
@@ -738,11 +756,11 @@ Last updated on 18 Jan 2022
 </li>
 </ul>
 </li>
-<li class="parent active"><a href=https://learnidem.github.io/Use-Cases/>Use Cases</a>
+<li class=parent><a href=https://learnidem.github.io/Use-Cases/>Use Cases</a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/Use-Cases/Describe/>Describe command</a>
 </li>
-<li><a href=https://learnidem.github.io/Use-Cases/SLS-States/>SLS States</a>
+<li class="parent active"><a href=https://learnidem.github.io/Use-Cases/SLS-States/>SLS States</a>
 </li>
 <li><a href=https://learnidem.github.io/Use-Cases/Filter-flag/>Filter Flag</a>
 </li>

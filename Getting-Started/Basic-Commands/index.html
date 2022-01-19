@@ -47,18 +47,22 @@
 <main><h1>Basic Commands</h1><p>For Idem, you have the <a href=/Getting-Started/Install-Idem/>
 idem cli
 </a> with the following Basic Commands:</p>
-<ul>
-<li><p><b>encrypt</b></p>
-Use the acct subsystem to encrypt data, e.g. Encrypt the credentials file</li>
-<li><p><b>decrypt</b></p>
-Use the acct subsystem to decrypt data</li>
-<li><p><b>describe</b></p>
-Commands to run description routines, e.g.Listing existing VMs details</li>
-<li><p><b>exec</b></p>
-Commands to run execution routines, normally used internally in idem code</li>
-<li><p><b>state</b></p>
-Commands to run idempotent states, e.g. create, update, and in general manage your resources </li>
-</ul>
+<p><b>encrypt</b><br>
+Use the acct subsystem to encrypt data, e.g. <a href=/Getting-Started/Authenticate/>
+Encrypt the credentials file
+</a></p>
+<p><b>decrypt</b><br>
+Use the acct subsystem to decrypt data</p>
+<p><b>describe</b><br>
+Commands to run description routines, e.g. <a href=/Use-Cases/Describe/>
+Listing existing VMs details
+</a></p>
+<p><b>exec</b><br>
+Commands to run execution routines, normally used internally in idem code</p>
+<p><b>state</b><br>
+Commands to run idempotent states, e.g. <a href=/Use-Cases/SLS-States/>
+create, update, and in general manage your resources
+</a></p>
 <p>You will use mostly a combination of <b>describe</b> (Discover status and helper for crafting a state file to update resource) and <b>state</b> commands (for managing the resources states), <br> let&rsquo;s take a closer look to <b>state</b> operations.</p>
 <p><span style=font-size:18pt>STATES</span><br>
 Idem states are used to make sure resources are in a desired state. The desired state of a resource can be specified in sls file.</p>
@@ -76,7 +80,7 @@ idem cli
 use cases
 </a></p>
 <div class=edit-meta>
-Last updated on 14 Jan 2022
+Last updated on 18 Jan 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Basic%20Commands/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/Authenticate/ title=Authenticate><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Authenticate</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Getting-Started/Troubleshooting/ title=Troubleshooting>Next - Troubleshooting <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
@@ -101,6 +105,18 @@ Last updated on 14 Jan 2022
 </ul>
 </li>
 <li><a href=https://learnidem.github.io/Use-Cases/>Use Cases</a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/Use-Cases/Describe/>Describe command</a>
+</li>
+<li><a href=https://learnidem.github.io/Use-Cases/SLS-States/>SLS States</a>
+</li>
+<li><a href=https://learnidem.github.io/Use-Cases/Filter-flag/>Filter Flag</a>
+</li>
+<li><a href=https://learnidem.github.io/Use-Cases/reconciler-flag/>Reconcilier Flag</a>
+</li>
+<li><a href=https://learnidem.github.io/Use-Cases/Force-Update/>Force Update</a>
+</li>
+</ul>
 </li>
 <li><a href=https://learnidem.github.io/Developer-Resources/>Developer Resources</a>
 </li>
