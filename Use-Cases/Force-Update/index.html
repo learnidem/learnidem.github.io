@@ -45,27 +45,75 @@
 </header>
 <div class=content-container>
 <main><h1>Force Update</h1><p>New Idem state feature:
-&ldquo;force_update&rdquo; are supported on most resources. This flag is default to False.
-If the flag is set to True in an sls file, the resource will be updated via PUT
-operation with Azure. This will allow parameters that aren&rsquo;t supported in the
-PATCH operation to be updated. However, this is also a riskier operation since
-PUT operation can wipe out some existing data of the resource on Azure. So use
-with caution.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>my-virtual-network:
-  azure.virtual_networks.virtual_networks.present:
-  - force_update: True
-  - resource_group_name: my-azure-resource-group
-  - virtual_network_name: my-virtual-network
+<b>force_update</b> are supported on most resources. This flag is default to &ldquo;False&rdquo;.<br>
+If the flag is set to &ldquo;True&rdquo; in an SLS file, the resource will be updated via &ldquo;PUT&rdquo;
+operation. This will allow parameters that aren&rsquo;t supported in the &ldquo;PATCH&rdquo; operation to be updated.<br>
+However, this is also a riskier operation since &ldquo;PUT&rdquo; operation can wipe out some existing data of the resource, <b style=color:red>use
+with caution.</b></p>
+<p>Let&rsquo;s say I have already the Azure Virtual Network : vNet1-Idem</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=o>(</span>my_idem_env<span class=o>)</span> demouser@idem:~/environments$ idem describe azure.virtual_networks.virtual_networks  --filter<span class=o>=</span><span class=s2>&#34;[?resource[?virtual_network_name==&#39;vNet1-Idem&#39;]]&#34;</span> 
+? /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/Moff-RG01-CAS/providers/Microsoft.Network/virtualNetworks/vNet1-Idem
+: azure.virtual_networks.virtual_networks.present:
+  - resource_group_name: Moff-RG01-CAS
+  - virtual_network_name: vNet1-Idem
   - parameters:
-    location: eastus
-    properties:
-      addressSpace:
-        addressPrefixes:
-        - 10.12.13.0/25
-      flowTimeoutInMinutes: <span class=m>10</span>
-
-</code></pre></div><div class=edit-meta>
-Last updated on 18 Jan 2022
+      etag: W/<span class=s2>&#34;4b58c957-49a6-49d5-b607-258bf9275080&#34;</span>
+      id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/Moff-RG01-CAS/providers/Microsoft.Network/virtualNetworks/vNet1-Idem
+      location: centralus
+      name: vNet1-Idem
+      properties:
+        addressSpace:
+          addressPrefixes:
+          - 10.0.0.0/24
+        enableDdosProtection: <span class=nb>false</span>
+        provisioningState: Succeeded
+        resourceGuid: 5416c5e5-72e8-4f02-9276-8b028d045a4f
+        subnets: <span class=o>[]</span>
+        virtualNetworkPeerings: <span class=o>[]</span>
+      type: Microsoft.Network/virtualNetworks
+</code></pre></div><p>and we need to update the Address Prefix from 10.0.0.0/24 to 10.12.13.0/25, we could do it by updating an SLS file and executing <a href=/Use-Cases/SLS-States/>
+idem state
+</a>, however due to the nature of the virtual network resource, it needs to be recreated, so we could only do it by running the same SLS file but this time explicitly including the <b>force_update</b> set to &ldquo;True&rdquo;</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>vNet1-Idem</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.virtual_networks.virtual_networks.present</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>force_update</span><span class=p>:</span><span class=w> </span><span class=kc>True</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>Moff-RG01-CAS</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>virtual_network_name</span><span class=p>:</span><span class=w> </span><span class=l>vNet1-Idem</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>centralus</span><span class=w>
+</span><span class=w>      </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>vNet1-Idem</span><span class=w>
+</span><span class=w>      </span><span class=nt>properties</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span><span class=nt>addressSpace</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>addressPrefixes</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span>- <span class=m>10.12.13.0</span><span class=l>/25</span><span class=w>
+</span><span class=w>        </span><span class=nt>enableDdosProtection</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>
+</span></code></pre></div><p>We apply our changes:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state update_virtual_network_addPrefix.sls
+</code></pre></div><p>Then we verify that the Address Prefix was indeed updated</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=o>(</span>my_idem_env<span class=o>)</span> demouser@idem:~/environments$ idem describe azure.virtual_networks.virtual_networks  --filter<span class=o>=</span><span class=s2>&#34;[?resource[?virtual_network_name==&#39;vNet1-Idem&#39;]]&#34;</span> 
+? /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/Moff-RG01-CAS/providers/Microsoft.Network/virtualNetworks/vNet1-Idem
+: azure.virtual_networks.virtual_networks.present:
+  - resource_group_name: Moff-RG01-CAS
+  - virtual_network_name: vNet1-Idem
+  - parameters:
+      etag: W/<span class=s2>&#34;f36439b9-78db-48b1-96aa-92a4a950397d&#34;</span>
+      id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/Moff-RG01-CAS/providers/Microsoft.Network/virtualNetworks/vNet1-Idem
+      location: centralus
+      name: vNet1-Idem
+      properties:
+        addressSpace:
+          addressPrefixes:
+          - 10.12.13.0/25
+        enableDdosProtection: <span class=nb>false</span>
+        provisioningState: Succeeded
+        resourceGuid: 636fd30a-b0d8-471d-9868-c684ad602597
+        subnets: <span class=o>[]</span>
+        virtualNetworkPeerings: <span class=o>[]</span>
+      type: Microsoft.Network/virtualNetworks
+</code></pre></div><script id=asciicast-2Ae7Ar7RECBy8Io3124LEh3Wk src=https://asciinema.org/a/2Ae7Ar7RECBy8Io3124LEh3Wk.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
+<div class=edit-meta>
+Last updated on 20 Jan 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Use%20Cases/Force%20Update/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Use-Cases/reconciler-flag/ title="Reconcilier Flag"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Reconcilier Flag</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Developer-Resources/ title="Developer Resources">Next - Developer Resources <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
