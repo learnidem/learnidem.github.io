@@ -44,30 +44,57 @@
 </div>
 </header>
 <div class=content-container>
-<main><h1>Reconcilier Flag</h1><p>You can lists all the current Azure resources of the same resource type under the subscription id specified in the credential profile.<br>
+<main><h1>Reconcilier Flag</h1><p>Suppose you have an SLS file with both virtual-network and subnet.
+Because a subnet depends on a virtual-network, if you just run Idem state once, requesting a subnet will fail.
+However whenever you include the <b>reconciler=basic</b> flag, this instruct idem to run a <b>reconciliation loop</b> that will automatically re-run <a href=/Use-Cases/SLS-States/>
+Idem state
+</a>, until the subnet gets created successfully.</p>
+<p>The following examples showcase how to use the the <b>reconciler=basic</b> flag to create an Azure Resource Group and a Virtual-Network which depends on the same Resource Group we will create.<br>
 Make sure to export the encryption key and path to the fernet file as an environment variable as described in the <a href=/Getting-Started/Authenticate/>
 authentication section
 </a> before trying the commands below</p>
-<div class=gdoc-tabs>
-<input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-0 checked>
-<label for=tabs-usecases-0 class=gdoc-tabs__label>
-Describe Azure Resources
-</label>
-<div class="gdoc-markdown--nested gdoc-tabs__content">
-<p>We will use <a href=/Getting-Started/Basic-Commands/>
-describe
-</a> directive and the specific Azure Resource</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.<span class=o>[</span> supported Azure State<span class=o>]</span>.<span class=o>[</span>Azure Resource<span class=o>]</span> 
-</code></pre></div><p>Example, if we want to list existing VMs</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines
-</code></pre></div><p>or</p>
-<p>if we want to list existing Virtual Networks</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.virtual_networks.virtual_networks
-</code></pre></div>
-</div>
-</div>
+<p>Create an Azure Resource Group : <i>my_resource_group_and_virtual_networkstate.sls:</i></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>tmm-idem-01</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.resource_management.resource_groups.present</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>tmm-idem-01</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>centralus</span><span class=w>
+</span><span class=w>      </span><span class=nt>tags</span><span class=p>:</span><span class=w> </span>{}<span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=nt>vNet1-Idem</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.virtual_networks.virtual_networks.present</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>tmm-idem-01</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>virtual_network_name</span><span class=p>:</span><span class=w> </span><span class=l>vNet1-Idem</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>centralus</span><span class=w>
+</span><span class=w>      </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>vNet1-Idem</span><span class=w>
+</span><span class=w>      </span><span class=nt>properties</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span><span class=nt>addressSpace</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>addressPrefixes</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span>- <span class=m>10.0.0.0</span><span class=l>/24</span><span class=w>
+</span><span class=w>        </span><span class=nt>enableDdosProtection</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></code></pre></div><p>The <b>State SLS</b> file can be executed with:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state my_resource_group_state.sls --reconciler<span class=o>=</span>basic
+</code></pre></div><p>You will see a similar output indicating how idem will create the dependency (the resource group) then use it as an attribute for the virtual network.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>Sleeping <span class=m>3</span> seconds <span class=k>for</span> cli
+Retry <span class=m>1</span> <span class=k>for</span> cli
+Sleeping <span class=m>3</span> seconds <span class=k>for</span> cli
+Retry <span class=m>2</span> <span class=k>for</span> cli
+--------
+      ID: tmm-idem-01
+Function: azure.resource_management.resource_groups.present
+  Result: True
+ Comment: <span class=s1>&#39;tmm-idem-01&#39;</span> has no property need to be updated.
+ Changes: 
+--------
+      ID: vNet1-Idem
+Function: azure.virtual_networks.virtual_networks.present
+  Result: True
+ Comment: <span class=s1>&#39;vNet1-Idem&#39;</span> has no property need to be updated.
+ Changes: 
+</code></pre></div><script id=asciicast-6QzLF42ABz0BA6V9YCJhBRSXn src=https://asciinema.org/a/6QzLF42ABz0BA6V9YCJhBRSXn.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
 <div class=edit-meta>
-Last updated on 18 Jan 2022
+Last updated on 20 Jan 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Use%20Cases/reconciler%20flag/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Use-Cases/Filter-flag/ title="Filter Flag"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Filter Flag</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Use-Cases/Force-Update/ title="Force Update">Next - Force Update <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
