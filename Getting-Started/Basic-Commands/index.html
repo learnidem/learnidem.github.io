@@ -80,18 +80,22 @@ Commands to run execution routines, normally used internally in idem code</p>
 </div>
 <input type=radio class="gdoc-tabs__control hidden" name=tabs-commands id=tabs-commands-1>
 <label for=tabs-commands-1 class=gdoc-tabs__label>
-States
+States - SLS
 </label>
 <div class="gdoc-markdown--nested gdoc-tabs__content">
-<ul>
-<li><p><b>Present State</b></p>
-makes sure a resource exists in a desired state. If a resource does not exist, running present will create the resource on the provider. If a resource exists, running present will update the resource on the provider. (Only the values that the Cloud Provider REST API supports can be updated.)</li>
-<li><p><b>Absent State</b></p>
-makes sure a resource does not exist. If a resource exits, running absent will delete the resource. If a resource does not exist, running absent is a no-operation.</li>
-<li><p><b>Describe State</b></p>
-lists all the current resources of the same resource type under the <b>subscription id</b> specified in the credential profile.</li>
-</ul>
-<p>You can learn and learn more about each state at the <b><a href=/Use-Cases/>
+<p><b>Present State</b>
+makes sure a <b>resource exists in a desired state</b>. If a resource does not exist, running present will create the resource on the provider. If a resource exists, running present will <b>update</b> the resource on the provider. (Only the values that the Cloud Provider REST API supports can be updated). <br>
+You can indicate this state by adding &ldquo;&#171;Your Provider&#187;.&#171;Your Provider Resource&#187;<b>.present</b>&rdquo;
+<br></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>my-virtual-network:
+azure.virtual_networks.virtual_networks.present:
+</code></pre></div><p><b>Absent State</b>
+makes sure a <b>resource does not exist</b>. If a resource exits, running absent will <b>delete</b> the resource. If a resource does not exist, running absent is a no-operation<br>
+You can indicate this state by adding &ldquo;&#171;Your Provider&#187;.&#171;Your Provider Resource&#187;<b>.absent</b>&rdquo;
+<br></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>my-virtual-network:
+azure.virtual_networks.virtual_networks.absent:
+</code></pre></div><p>You can learn and learn more about each state at the <b><a href=/Use-Cases/>
 use cases
 </a></b></p>
 </div>
