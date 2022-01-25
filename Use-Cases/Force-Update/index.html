@@ -48,8 +48,8 @@
 <b>force_update</b> are supported on most resources. This flag is default to &ldquo;False&rdquo;.<br>
 If the flag is set to &ldquo;True&rdquo; in an SLS file, the resource will be updated via &ldquo;PUT&rdquo;
 operation. This will allow parameters that aren&rsquo;t supported in the &ldquo;PATCH&rdquo; operation to be updated.<br>
-However, this is also a riskier operation since &ldquo;PUT&rdquo; operation can wipe out some existing data of the resource, <b style=color:red>use
-with caution.</b></p>
+<b style=color:#000>Use
+with caution;</b> <b style=color:red>&ldquo;PUT&rdquo; operation can wipe out some existing data or replace the whole resource</b>, e.g. it could destroy and recreate a Virtual Machine.</p>
 <p>Let&rsquo;s say I have already the Azure Virtual Network : vNet1-Idem</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=o>(</span>my_idem_env<span class=o>)</span> demouser@idem:~/environments$ idem describe azure.virtual_networks.virtual_networks  --filter<span class=o>=</span><span class=s2>&#34;[?resource[?virtual_network_name==&#39;vNet1-Idem&#39;]]&#34;</span> 
 ? /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/Moff-RG01-CAS/providers/Microsoft.Network/virtualNetworks/vNet1-Idem
@@ -113,7 +113,7 @@ idem state
       type: Microsoft.Network/virtualNetworks
 </code></pre></div><script id=asciicast-2Ae7Ar7RECBy8Io3124LEh3Wk src=https://asciinema.org/a/2Ae7Ar7RECBy8Io3124LEh3Wk.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
 <div class=edit-meta>
-Last updated on 20 Jan 2022
+Last updated on 24 Jan 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Use%20Cases/Force%20Update/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Use-Cases/reconciler-flag/ title="Reconcilier Flag"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Reconcilier Flag</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Developer-Resources/ title="Developer Resources">Next - Developer Resources <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
