@@ -4,7 +4,7 @@
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Install Idem - Learn Idem</title>
 <meta name=description content="   Powered by Idem Project">
-<meta name=generator content="Hugo 0.92.0">
+<meta name=generator content="Hugo 0.92.1">
 <link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml>
 <link rel=canonical href=https://learnidem.github.io/Getting-Started/Install-Idem/>
 <link rel=stylesheet href=https://learnidem.github.io/css/theme.css>
@@ -44,32 +44,37 @@
 </div>
 </header>
 <div class=content-container>
-<main><h1>Install Idem</h1><p>Idem can be installed in different ways in multiple Operating System and Containers<br>
+<main><h1>Install Idem</h1><p>Idem can be installed in different ways in multiple Operating System and in Containers, also as a single binary (coming soon!)<br>
 <a href=https://www.python.org/downloads/ target=_blank>
 <i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Python 3.6+
-</a> is required as prerequisite.</p>
+</a> is required as prerequisite for version 15.0.X, however newer idem versions may require also newer <a href=https://www.python.org/downloads/ target=_blank>
+<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Python 3.7+
+</a> releases.</p>
 <div class=gdoc-tabs>
 <input type=radio class="gdoc-tabs__control hidden" name=tabs-install id=tabs-install-0 checked>
 <label for=tabs-install-0 class=gdoc-tabs__label>
-MacOS
+macOS
 </label>
 <div class="gdoc-markdown--nested gdoc-tabs__content">
-<p>Installation instructions for MacOS using <a href=https://brew.sh/ target=_blank>
-<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Homebrew
+<p>Idem and providers at the moment are version related for idem-azure-auto v0.0.3 is recommended idem v15.0.0 <br>
+macOS 12.1 & <a href=https://www.python.org/downloads/release/python-373/ target=_blank>
+<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Python 3.7.3
 </a>:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># Install pyenv and pyenv-virtualenv</span>
-brew install pyenv pyenv-virtualenv
-<span class=c1># Install Python 3.9.0</span>
-pyenv install 3.9.0
-<span class=c1># Create a virtualenv called &#34;salt-idem&#34; using Python 3.9.0</span>
-virtualenv 3.9.0 salt-idem
-<span class=c1># Activate the virtualenv</span>
-pyenv <span class=nb>local</span> salt-idem
-<span class=c1># Update Python package manager</span>
-python -m pip install --upgrade pip
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># Optional but recommended, you can create a Virtual Enviroment  </span>
+mkdir environments
+<span class=nb>cd</span> environments
+python3 -m venv my_idem_env
+<span class=nb>source</span> my_idem_env/bin/activate
+<span class=c1># Upgrade to the latest PIP to meet the Crypto requirements</span>
+python3 -m pip install --upgrade pip
 <span class=c1># Install Idem </span>
-pip install idem 
-</code></pre></div>
+pip3 install idem
+<span class=c1># Install Specific Idem Version</span>
+pip3 install <span class=nv>idem</span><span class=o>==</span>15.0.0
+<span class=c1># Verify Version</span>
+idem --version
+</code></pre></div><p><b>Idem installation - macOS</b></p>
+<script id=asciicast-8BqTYhsLKbJNhLEK2z1GnpAVP src=https://asciinema.org/a/8BqTYhsLKbJNhLEK2z1GnpAVP.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
 </div>
 <input type=radio class="gdoc-tabs__control hidden" name=tabs-install id=tabs-install-1>
 <label for=tabs-install-1 class=gdoc-tabs__label>
@@ -92,7 +97,8 @@ idem --version
 Ubuntu
 </label>
 <div class="gdoc-markdown--nested gdoc-tabs__content">
-<p>Ubuntu 18.04 & <a href=https://www.python.org/downloads/release/python-369/ target=_blank>
+<p>Idem and providers at the moment are version related for idem-azure-auto v0.0.3 is recommended idem v15.0.1<br>
+Ubuntu 18.04 & <a href=https://www.python.org/downloads/release/python-369/ target=_blank>
 <i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Python 3.6.9
 </a>:</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># Install Base Packages</span>
@@ -107,6 +113,8 @@ python3 -m venv my_idem_env
 python3 -m pip install --upgrade pip
 <span class=c1># Install Idem </span>
 pip3 install idem 
+<span class=c1># Install Specific Idem Version</span>
+pip3 install <span class=nv>idem</span><span class=o>==</span> 15.0.0
 <span class=c1># Verify Version</span>
 idem --version
 </code></pre></div><p><b>Idem installation - Ubuntu</b></p>
@@ -119,7 +127,7 @@ Cloud Providers
 authenticate
 </a> with the Idem Cloud Providers.</p>
 <div class=edit-meta>
-Last updated on 24 Jan 2022
+Last updated on 28 Jan 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Install%20Idem/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/ title="Getting Started"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Getting Started</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Getting-Started/Cloud-Providers/ title="Cloud Providers">Next - Cloud Providers <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
