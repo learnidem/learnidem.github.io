@@ -52,32 +52,32 @@ Present
 <p>The following examples showcase how to use the available <a href=/Getting-Started/Basic-Commands/>
 idem states
 </a> to work with Azure Resources.
-Make sure to export the encryption key and path to the fernet file as an environment variable as described in the <a href=/Getting-Started/Authenticate/>
+Make sure to export the encryption key and path to the <i>fernet file</i> as an environment variable as described in the <a href=/Getting-Started/Authenticate/>
 authentication section
 </a> before trying the commands below</p>
 <div class=gdoc-tabs>
 <input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-0 checked>
 <label for=tabs-usecases-0 class=gdoc-tabs__label>
-Describe 2 State
-</label>
-<div class="gdoc-markdown--nested gdoc-tabs__content">
-XXXX Section Explaining how to use describe to build states : <i>my_resource_group_state.sls:</i>
-</div>
-<input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-1>
-<label for=tabs-usecases-1 class=gdoc-tabs__label>
 Present
 </label>
 <div class="gdoc-markdown--nested gdoc-tabs__content">
-<p>Create an Azure Resource Group : <i>my_resource_group_state.sls:</i></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>my-azure-resource-group</span><span class=p>:</span><span class=w>
+<p>In order to create a new Azure Resource Group, we craft the <b>my_resource_group_state.sls:</b> file with the following contents:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>&lt;Your Azure Resource Group Name&gt;</span><span class=p>:</span><span class=w>
 </span><span class=w>  </span><span class=nt>azure.resource_management.resource_groups.present</span><span class=p>:</span><span class=w>
 </span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Azure Resource Group Name&gt;</span><span class=w>
 </span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
 </span><span class=w>    </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Azure Region&gt;</span><span class=w>
-</span></code></pre></div><p>The <b>State SLS</b> file can be executed with:</p>
+</span></code></pre></div><p>We refer first to the Azure Idem Provider&rsquo;s Resource Group - &ldquo;<a href=/Getting-Started/Cloud-Providers/>
+azure.resource_management.resource_groups
+</a>&rdquo; and we append the state directive <a href=Getting-Started/Basic-Commands/>
+present
+</a>, for instructing idem to <b>create</b> a new resource group in Azure.</p>
+<p>Then <b>State SLS</b> file can be executed with:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state &lt;file_path&gt;/my_resource_group_state.sls
+</code></pre></div><p>In this example:</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state my_resource_group_state.sls
-</code></pre></div><p>Example of creating an Azure virtual network:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>my-virtual-network</span><span class=p>:</span><span class=w>
+</code></pre></div><p>Now, for creating an Azure virtual network, the process would be the same, we only need to change the resource pointer:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>&lt;Your Virtual Network&gt;</span><span class=p>:</span><span class=w>
 </span><span class=w>  </span><span class=nt>azure.virtual_networks.virtual_networks.present</span><span class=p>:</span><span class=w>
 </span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Azure Resource Group Name&gt;</span><span class=w>
 </span><span class=w>  </span>- <span class=nt>virtual_network_name</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Virtual Network&gt;</span><span class=w>
@@ -91,28 +91,90 @@ Present
 </span></code></pre></div><p>The resource parameters in an SLS yaml file follow the exact structure as what’s in the <a href=https://docs.microsoft.com/en-us/rest/api/azure/ target=_blank>
 <i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Azure REST API doc
 </a>.
-<b>URI Parameters</b> should be specified in snake case with “-” in front. All parameters of the API <b>request body</b> should be specified in exactly the same way as what’s in the <a href=https://docs.microsoft.com/en-us/rest/api/azure/ target=_blank>
+<b>URI Parameters</b> should be specified in each case with “-” in front. All parameters of the API <b>request body</b> should be specified in exactly the same way as what’s in the <a href=https://docs.microsoft.com/en-us/rest/api/azure/ target=_blank>
 <i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Azure REST API doc
-</a>.</p>
+</a>. Please note that we can use the <a href=Getting-Started/Basic-Commands/>
+state describe
+</a> for creating SLS files with most parameters.</p>
 <p>You can include multiple resources in a single SLS yaml file.
 Some resources may have dependencies among them, for that you include <a href=/Use-Cases/reconciler-flag/>
 reconciler=basic flag
 </a>, This allows Idem-azure-auto to run Idem state
 with Idem&rsquo;s reconciliation loop.</p>
 </div>
-<input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-2>
-<label for=tabs-usecases-2 class=gdoc-tabs__label>
+<input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-1>
+<label for=tabs-usecases-1 class=gdoc-tabs__label>
 Present (Update)
 </label>
 <div class="gdoc-markdown--nested gdoc-tabs__content">
-Update an existing an Azure Resource Group : <i>my_resource_group_state.sls:</i>
+<p>We can also use the state directive <a href=Getting-Started/Basic-Commands/>
+present
+</a>, for instructing Idem to <b>update</b> an existing resource&rsquo;s properties or behavior, e.g. updating specific resource parameters such as : location, tags, addressprefix, etc.</p>
+<p>Please note that due to the nature of some resources, the only way to update parameters or behaviors is by re-creating them, in those scenarios you can include the <a href=/Use-Cases/Force-Update/>
+force_update: True
+</a> flag for enforcing the new present goal state.</p>
+<p>Let&rsquo;s update the <b>tags</b> information for an existing Azure Resource Group, in order to do that, we craft the <b>update_my_resource_group_state.sls:</b> file with the following contents:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>&lt;Your Azure Resource Group Name&gt;</span><span class=p>:</span><span class=w>
+</span><span class=w> </span><span class=nt>azure.resource_management.resource_groups.present</span><span class=p>:</span><span class=w>
+</span><span class=w> </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Azure Resource Group Name&gt;</span><span class=w>
+</span><span class=w> </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Azure Region&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>tags</span><span class=p>:</span><span class=w> </span>{<span class=nt>&#34;createdWith&#34;: </span><span class=s2>&#34;idem&#34;</span>}<span class=w>
+</span></code></pre></div><p>We added just the code line: <b>tags: {&ldquo;createdWith&rdquo;: &ldquo;idem&rdquo;}</b>
+Then <b>State SLS</b> file can be executed with:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state &lt;file_path&gt;/update_my_resource_group_state.sls
+</code></pre></div><p>In this example:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state update_my_resource_group_state.sls
+</code></pre></div><p>After that you will see Idem appending our tag information to meet our new intentention and state.</p>
 </div>
-<input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-3>
-<label for=tabs-usecases-3 class=gdoc-tabs__label>
+<input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-2>
+<label for=tabs-usecases-2 class=gdoc-tabs__label>
 Absent
 </label>
 <div class="gdoc-markdown--nested gdoc-tabs__content">
-Remove an existing Azure Resource Group : <i>my_resource_group_state.sls:</i>
+<p>Once you don&rsquo;t need a resource, you can completely delete it by using the state directive <a href=Getting-Started/Basic-Commands/>
+absent
+</a>, which instructs Idem to <b>remove</b> an existing resource.</p>
+<p>Let&rsquo;s delete an existing Azure Resource Group, in order to do that, we craft the <b>delete_my_resource_group_state.sls:</b> file with the following contents:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>&lt;Your Azure Resource Group Name&gt;</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.resource_management.resource_groups.absent</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Azure Resource Group Name&gt;</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Azure Region&gt;</span><span class=w>
+</span></code></pre></div><p>Then <b>State SLS</b> file can be executed with:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state &lt;file_path&gt;/delete_my_resource_group_state.sls
+</code></pre></div><p>In this example:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state delete_my_resource_group_state.sls
+</code></pre></div><p>After that you will see Idem removing the resource group to meet our new intentention and state.</p>
+</div>
+<input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-3>
+<label for=tabs-usecases-3 class=gdoc-tabs__label>
+Describe 2 State
+</label>
+<div class="gdoc-markdown--nested gdoc-tabs__content">
+<p>You probably noticed that when you execute a <a href=/Use-Cases/Describe/>
+describe
+</a> operation fron CLI, the output resembles the same kind of data we have defined in SLS states examples, that is because it is exactly the same, meaning, you don&rsquo;t need to start from scratch to create, modify or even delete resources, you can simply issue the <a href=/Use-Cases/Describe/>
+describe
+</a> operation and save the output into an SLS file then &ldquo;tweak&rdquo; accordingly to meet your intention.</p>
+<p>Let&rsquo;s say we want to add a new Azure resource group, for that I could simply describe an existing &ldquo;Azure Resource Group Name&rdquo; and save the output into a SLS file.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell> idem describe azure.resource_management.resource_groups --filter<span class=o>=</span><span class=s2>&#34;[?resource[?vm_name==&#39;&lt;Existing Azure Resource Group Name&gt;&#39;]]&#34;</span> &gt;&gt; my_other resource_group_state.sls
+</code></pre></div><p>Then we can edit the file, removing any property we don&rsquo;t need and updating the relevant ones, such as the name or the region, etc.<br>
+Please note, that when editing, you always need to include the minimum parameters to create any given resource (Azure Provider Documentation and even Azure Cloud API documentation provides details in this regard).</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>&lt;New Azure Resource Group Name&gt;</span><span class=p>:</span><span class=w>
+</span><span class=w> </span><span class=nt>azure.resource_management.resource_groups.present</span><span class=p>:</span><span class=w>
+</span><span class=w> </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>&lt;New Azure Resource Group Name&gt;</span><span class=w>
+</span><span class=w> </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>   </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Azure Region&gt;</span><span class=w>
+</span><span class=w>   </span><span class=nt>tags</span><span class=p>:</span><span class=w> </span>{<span class=nt>&#34;createdWith&#34;: </span><span class=s2>&#34;idem&#34;</span>}<span class=w>
+</span></code></pre></div><p>Please make sure to indicate the state directive <a href=Getting-Started/Basic-Commands/>
+present
+</a>, for instructing idem to <b>create</b> a new resource group in Azure.</p>
+<p>Then <b>State SLS</b> file can be executed with:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state &lt;file_path&gt;/my_other resource_group_state.sls
+</code></pre></div><p>In this example:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state my_other resource_group_state.sls
+</code></pre></div><p>After that you will see Idem creating a new resource to meet our new intentention and state.</p>
 </div>
 <input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-4>
 <label for=tabs-usecases-4 class=gdoc-tabs__label>
@@ -739,7 +801,7 @@ with Idem&rsquo;s reconciliation loop.</p>
 </div>
 </div>
 <div class=edit-meta>
-Last updated on 20 Jan 2022
+Last updated on 31 Jan 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Use%20Cases/SLS%20States/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Use-Cases/Describe/ title="Describe command"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Describe command</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Use-Cases/Filter-flag/ title="Filter Flag">Next - Filter Flag <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
