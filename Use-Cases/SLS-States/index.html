@@ -44,17 +44,27 @@
 </div>
 </header>
 <div class=content-container>
-<main><h1>SLS States</h1><p>States are yaml file definitions with extension <b>SLS</b> <br>
-States can be accessed by their relative location in idem-azure-auto/idem_azure_auto/states.<br>
-For example, in the <b>State SLS</b> yaml file below, Azure resource group state can be created and subsequently updated with the <a href=/Getting-Started/Basic-Commands/>
-Present
-</a> state function.</p>
-<p>The following examples showcase how to use the available <a href=/Getting-Started/Basic-Commands/>
-idem states
-</a> to work with Azure Resources.
-Make sure to export the encryption key and path to the <i>fernet file</i> as an environment variable as described in the <a href=/Getting-Started/Authenticate/>
-authentication section
-</a> before trying the commands below</p>
+<main><h1>SLS States</h1><p>States can be defined as yaml definitions and captured in files with extension <b>SLS</b> <br>
+Example: <b>my_resource_group_state.sls</b></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=c># Resource Group</span><span class=w>
+</span><span class=w></span><span class=nt>moff-idem-rg-01</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.resource_management.resource_groups.present</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-rg-01</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>centralus</span><span class=w>
+</span><span class=w>      </span><span class=nt>tags</span><span class=p>:</span><span class=w> </span>{}<span class=w>
+</span></code></pre></div><p>SLS State file can exist anywhere in the file system, and they can be accessed by their relative location in the file system.<br>
+Example: <b>/home/demouser/states/my_resource_group_state.sls</b></p>
+<p>If we wanted to execute the <b>State SLS</b>:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state &lt;file_path&gt;/&lt;file name&gt;.sls
+</code></pre></div><p>In this example:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state ~/states/my_resource_group_state.sls
+</code></pre></div><p>The following SLS use cases in this section, showcase how to use the available <a href=/Getting-Started/Basic-Commands/>
+idem describe
+</a> states to work with Azure Resources.<br>
+Make sure to export the encryption key and path to the fernet file as an environment variable as described in the authentication section before trying the examples in this section, follow the <a href=/Getting-Started/Authenticate/>
+Authenticate
+</a> section for more details.</p>
 <div class=edit-meta>
 Last updated on 3 Feb 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Use%20Cases/SLS%20States/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Use-Cases/Describe/ title="Describe command"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Describe command</a>
