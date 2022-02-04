@@ -44,37 +44,35 @@
 </div>
 </header>
 <div class=content-container>
-<main><h1>Describe command</h1><p>You can lists all the current Azure resources of the same resource type under the subscription id specified in the credential profile.<br>
-Make sure to export the encryption key and path to the fernet file as an environment variable as described in the <a href=/Getting-Started/Authenticate/>
+<main><h1>Describe command</h1><p><a href=/Getting-Started/Basic-Commands/>
+idem describe
+</a> directive lists all the current cloud provider resources of the same resource type under the subscription id specified in the credential profile.<br>
+Make sure to export the encryption key and path to the fernet file as an OS environment variable as described in the <a href=/Getting-Started/Authenticate/>
 authentication section
-</a> before trying the commands below</p>
-<div class=gdoc-tabs>
-<input type=radio class="gdoc-tabs__control hidden" name=tabs-usecases id=tabs-usecases-0 checked>
-<label for=tabs-usecases-0 class=gdoc-tabs__label>
-Describe Azure Resources
-</label>
-<div class="gdoc-markdown--nested gdoc-tabs__content">
-<p>We will use <a href=/Getting-Started/Basic-Commands/>
+</a> before trying the commands below:</p>
+<p>You can use <a href=/Getting-Started/Basic-Commands/>
 describe
-</a> directive and the specific Azure Resource</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.<span class=o>[</span> supported Azure State<span class=o>]</span>.<span class=o>[</span>Azure Resource<span class=o>]</span> 
-</code></pre></div><p>Example, if we want to list existing VMs</p>
+</a> directive below to discover and obtain details for an specific Resource (in this case Azure)</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe <span class=o>[</span>provider<span class=o>]</span>.<span class=o>[</span>Resource States Group<span class=o>]</span>.<span class=o>[</span>Resource<span class=o>]</span> 
+</code></pre></div><p>The <b>provider</b>, tells <a href=/Getting-Started/Basic-Commands/>
+idem
+</a> which provider to access.<br>
+The <b>Resource States Group</b>, organizes resources of the same type or topic, e.g. the Azure Compute or Azure Virtual_Networks.<br>
+The <b>Resource</b>, indicates the specific resources type you want to work with, e.g. Virtual Machines or Network Interfaces, etc.<br></p>
+<p>Refer to <a href=/Getting-Started/Cloud-Providers/idem-azure-auto/>
+Idem Azure Provider
+</a> for a list of supported <b>Resource States Group</b> & associated <b>Resources</b></p>
+<p>Example, if we want to list existing VMs, I will</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines
-</code></pre></div><p>you can always reference those account profiles with the option <code>--acct-profile</code></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines --acct-profile tmm
 </code></pre></div><script id=asciicast-SiXcq1OmVkca57LNf2m6N4wWK src=https://asciinema.org/a/SiXcq1OmVkca57LNf2m6N4wWK.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
 <p>or, if we want to list existing Virtual Networks</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.virtual_networks.virtual_networks
-</code></pre></div><p>you can always reference those account profiles with the option <code>--acct-profile</code></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.virtual_networks.virtual_networks --acct-profile tmm
 </code></pre></div><script id=asciicast-iolx0POfh5rLl4XBOxktnOlzl src=https://asciinema.org/a/iolx0POfh5rLl4XBOxktnOlzl.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
-</div>
-</div>
 <p>You can describe specific results with the <a href=/Use-Cases/Filter-flag/>
 Filter Flag
 </a></p>
 <div class=edit-meta>
-Last updated on 18 Jan 2022
+Last updated on 3 Feb 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Use%20Cases/Describe/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Use-Cases/ title="Use Cases"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Use Cases</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Use-Cases/SLS-States/ title="SLS States">Next - SLS States <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
