@@ -2,11 +2,11 @@
 <head><meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Cloud Providers - Learn Idem</title>
+<title>Idem Azure Auto Provider - Learn Idem</title>
 <meta name=description content="   Powered by Idem Project">
 <meta name=generator content="Hugo 0.92.1">
 <link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml>
-<link rel=canonical href=https://learnidem.github.io/Getting-Started/Cloud-Providers/>
+<link rel=canonical href=https://learnidem.github.io/Getting-Started/Cloud-Providers/idem-azure-auto/>
 <link rel=stylesheet href=https://learnidem.github.io/css/theme.css>
 <link rel=stylesheet href=/css/lightbox.min.css>
 <link rel=stylesheet href=/css/custom.css>
@@ -20,15 +20,15 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8R0DEW1VZM"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-8R0DEW1VZM')</script>
 <style>:root{--custom-font-color:#0065ab;--custom-background-color:#FFFFFF}</style>
-<meta property="og:title" content="Cloud Providers">
+<meta property="og:title" content="Idem Azure Auto Provider">
 <meta property="og:description" content="   Powered by Idem Project">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://learnidem.github.io/Getting-Started/Cloud-Providers/"><meta property="og:image" content="https://learnidem.github.io/images/service-broker.svg"><meta property="og:site_name" content="Learn Idem">
+<meta property="og:url" content="https://learnidem.github.io/Getting-Started/Cloud-Providers/idem-azure-auto/"><meta property="og:image" content="https://learnidem.github.io/images/service-broker.svg"><meta property="og:site_name" content="Learn Idem">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://learnidem.github.io/images/service-broker.svg">
-<meta name=twitter:title content="Cloud Providers">
+<meta name=twitter:title content="Idem Azure Auto Provider">
 <meta name=twitter:description content="   Powered by Idem Project">
-<meta itemprop=name content="Cloud Providers">
+<meta itemprop=name content="Idem Azure Auto Provider">
 <meta itemprop=description content="   Powered by Idem Project"></head>
 <body><div class=container><header>
 <div class=header-image>
@@ -44,23 +44,76 @@
 </div>
 </header>
 <div class=content-container>
-<main><h1>Cloud Providers</h1><p>Cloud Providers expand <a href=/Getting-Started/Install-Idem/>
-Idem
-</a> capabilities and allow you to interface with a variety of technologies and endpoints.<br><br>
-With <a href=/Getting-Started/Install-Idem/>
-Idem
-</a> , the term “Cloud” does not just mean cloud providers like AWS, Azure, and GCP, it means all things SaaS.<br>
-<a href=/Getting-Started/Install-Idem/>
-Idem
-</a> can describe and enforce sites like GitLab.com. Anything and everything that has an API is fair game for Idem.
-<br><br>
-The Python Package Installer <a href=https://pypi.org/project/pip/ target=_blank>
+<main><h1>Idem Azure Auto Provider</h1><p><b>Supported Resources</b> provides a list of Azure Resources supported by the latest Idem Azure Provider<br>
+<b>Install the Provider</b> section provides instructions for installing the Idem Azure Provider</p>
+<div class=gdoc-tabs>
+<input type=radio class="gdoc-tabs__control hidden" name=tabs-Operations id=tabs-Operations-0 checked>
+<label for=tabs-Operations-0 class=gdoc-tabs__label>
+Supported Resources
+</label>
+<div class="gdoc-markdown--nested gdoc-tabs__content">
+<p><span style=font-size:18pt>Current Supported Resources states in &ldquo;idem-azure-auto&rdquo;</span></p>
+<ul>
+<li><p><b>authorization:</b></p>
+role_assignment</br>
+role_definition</li>
+<li><p><b>compute:</b></p>
+virtual_machines</li>
+<li><p><b>resource_management:</b></p>
+resource_groups</li>
+<li><p><b>storage_resource_provider:</b></p>
+storage_accounts</li>
+<li><p><b>policy:</b></p>
+policy_assignments</li>
+<li><p><b>virtual_networks:</b></p>
+nat_gateways<br>
+network_interfaces<br>
+network_security_groups<br>
+public_ip_addresses<br>
+route_tables<br>
+routes<br>
+security_rules<br>
+subnets<br>
+virtual_networks<br></li>
+</ul>
+</div>
+<input type=radio class="gdoc-tabs__control hidden" name=tabs-Operations id=tabs-Operations-1>
+<label for=tabs-Operations-1 class=gdoc-tabs__label>
+Install the Provider
+</label>
+<div class="gdoc-markdown--nested gdoc-tabs__content">
+<p>For Installing the latest &ldquo;idem-azure-auto&rdquo; Cloud Provider</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>pip install idem-azure-auto
+</code></pre></div><p>or you can install / upgrade to an specific release</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>pip install idem-azure-auto<span class=o>==</span>0.0.3
+</code></pre></div><p>Please note that the provider may have version dependencies, such as &ldquo;idem-aiohttp&rdquo; but <a href=https://pypi.org/project/pip/ target=_blank>
 <i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> pip
-</a> tool is used for installing / updating and uninstalling Cloud Providers.</p>
+</a> install will update them most of the times.
+There are also requirements applying to <a href=Getting-Started/Install-Idem/>
+idem
+</a> and Python, e.g. idem version 16.0+ requires <a href=https://www.python.org/downloads/ target=_blank>
+<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Python 3.7+
+</a> however idem-azure-auto==0.0.3 is only certified up to idem version 15.0.1.</p>
+<p>You can verify installation with <a href=https://pypi.org/project/pip/ target=_blank>
+<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> pip
+</a></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>pip list <span class=p>|</span> grep idem-azure-auto
+</code></pre></div><p>And obtain more details, including version and required dependencies</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>pip show idem-azure-auto
+</code></pre></div><p><b>Idem Azure Provider Install </b></p>
+<script id=asciicast-nVpeQTcSDh36o4UwfFp1tHrnM src=https://asciinema.org/a/nVpeQTcSDh36o4UwfFp1tHrnM.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
+</div>
+</div>
+<p>After Installing the provider you can now set up the credentials needed for the provider to <a href=/Getting-Started/Authenticate/>
+authenticate
+</a><br>
+Then you could follow a few <a href=/Use-Cases/>
+use case examples
+</a></p>
 <div class=edit-meta>
 Last updated on 3 Feb 2022
-<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Cloud%20Providers/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/Install-Idem/ title="Install Idem"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Install Idem</a>
-<a class="nav nav-next" href=https://learnidem.github.io/Getting-Started/Cloud-Providers/idem-azure-auto/ title="Idem Azure Auto Provider">Next - Idem Azure Auto Provider <i class="fas fa-arrow-right" aria-hidden=true></i></a>
+<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Cloud%20Providers/idem-azure-auto/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/Cloud-Providers/ title="Cloud Providers"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Cloud Providers</a>
+<a class="nav nav-next" href=https://learnidem.github.io/Getting-Started/Authenticate/ title=Authenticate>Next - Authenticate <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
 </footer>
 </main>
@@ -72,9 +125,9 @@ Last updated on 3 Feb 2022
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/Getting-Started/Install-Idem/>Install Idem</a>
 </li>
-<li class="parent active has-sub-menu"><a href=https://learnidem.github.io/Getting-Started/Cloud-Providers/>Cloud Providers<span class="mark opened">-</span></a>
+<li class="parent has-sub-menu"><a href=https://learnidem.github.io/Getting-Started/Cloud-Providers/>Cloud Providers<span class="mark opened">-</span></a>
 <ul class=sub-menu>
-<li><a href=https://learnidem.github.io/Getting-Started/Cloud-Providers/idem-azure-auto/>Idem Azure Auto Provider</a>
+<li class="parent active"><a href=https://learnidem.github.io/Getting-Started/Cloud-Providers/idem-azure-auto/>Idem Azure Auto Provider</a>
 </li>
 </ul>
 </li>
