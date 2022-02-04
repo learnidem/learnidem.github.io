@@ -65,12 +65,24 @@ idem-azure-auto
 </div>
 <p>Encrypt the credentials file using the idem encrypt command, this creates a fernet file and outputs an encryption key:</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem encrypt /path/to/credentials.yaml
-</code></pre></div><p>Please note that the output string from that command is your <code>ACCT_KEY</code></p>
-<p>To use the encrypted credentials file, export the encryption key and path to the fernet file as an environment variable:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=nb>export</span> <span class=nv>ACCT_KEY</span><span class=o>=</span>&lt;encryption key&gt;
+</code></pre></div><p>Please note that the output string from the command above is the key Idem uses for accessing the encrypted credentials fernet file</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>&lt;output encryption key&gt;
+</code></pre></div><p>Example:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=nv>DvBsYojgU5gy51CecvhhC7Ywrsq9NL3CSg_XcLMKKn4</span><span class=o>=</span>
+</code></pre></div><p>Before start using Idem, you need to make sure your session includes the <b>ACCT_KEY</b> & <b>ACCT_FILE</b> OS environment varialbles, otherwise export the encryption key and path to the fernet file as an OS environment variable for your session:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=nb>export</span> <span class=nv>ACCT_KEY</span><span class=o>=</span>&lt;output encryption key&gt;
 <span class=nb>export</span> <span class=nv>ACCT_FILE</span><span class=o>=</span>/path/to/credentials.yaml.fernet
-</code></pre></div><p>Idem retrieves the credentials from these variables while executing states. These values can also be passed as <code>--acct-key</code> and <code>--acct-file</code> options while applying the states.</p>
-<p>Credentials can be grouped using Profiles and you can define multiple profiles in same file (e.g. default, dev, staging, etc).</p>
+</code></pre></div><p>Example:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=nb>export</span> <span class=nv>ACCT_KEY</span><span class=o>=</span><span class=nv>DvBsYojgU5gy51CecvhhC7Ywrsq9NL3CSg_XcLMKKn4</span><span class=o>=</span>
+<span class=nb>export</span> <span class=nv>ACCT_FILE</span><span class=o>=</span>/home/demouser/environments/credentials.yaml.fernet
+</code></pre></div><p>Idem securely retrieves the credentials combining those OS environment variables before executing states.<br>
+You can also pass those values as parameters of the <a href=Getting-Started/Basic-Commands/>
+Idem cli
+</a> <code>--acct-key</code> and <code>--acct-file</code> options while applying the states.</p>
+<p>Example:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.virtual_networks.network_interfaces --acct-key <span class=nv>DvBsYojgU5gy51CecvhhC7Ywrsq9NL3CSg_XcLMKKn4</span><span class=o>=</span> --acct-file /home/demouser/environments/credentials.yaml.fernet
+</code></pre></div><h2 id=credentials-and-profiles>Credentials and Profiles</h2>
+<p>Credentials can be grouped by Providers (azurerm, aws, etc ) and Profiles (within each Providers section),<br> you can define multiple Providers and Profiles in a single configuration file (e.g. default, dev, staging, etc).<br> It is recommended to always include/define the &ldquo;default&rdquo; profile.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>azurerm</span><span class=p>:</span><span class=w>
 </span><span class=w>   </span><span class=nt>default</span><span class=p>:</span><span class=w>
 </span><span class=w>      </span><span class=nt>client_id</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&lt;Your Client ID&gt;&#34;</span><span class=w>
@@ -87,10 +99,23 @@ idem-azure-auto
 </span><span class=w>    </span><span class=nt>aws_access_key_id</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Access Key ID&gt;</span><span class=w>
 </span><span class=w>    </span><span class=nt>aws_secret_access_key</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Secret Access Key&gt;</span><span class=w>
 </span><span class=w>    </span><span class=nt>region_name</span><span class=p>:</span><span class=w> </span><span class=l>&lt;AWS Region&gt;</span><span class=w>
-</span></code></pre></div><p>Then you can reference those account profiles with the option <code>--acct-profile</code> , please note that if you don&rsquo;t specific account profile, the default is used.</p>
+</span></code></pre></div><p>When using <a href=Getting-Started/Basic-Commands/>
+Idem cli
+</a> you can reference those account profiles with the option <code>--acct-profile</code> and the profile name,<br>
+e.g. the following command will instruct <a href=/Getting-Started/Install-Idem/>
+Idem
+</a> to use the Azure credentials associated to the &ldquo;tmm&rdquo; profile</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines --acct-profile tmm
-</code></pre></div><script id=asciicast-SiXcq1OmVkca57LNf2m6N4wWK src=https://asciinema.org/a/SiXcq1OmVkca57LNf2m6N4wWK.js async theme=asciinema data-autoplay=true data-size=small loop=true></script><div class=edit-meta>
-Last updated on 21 Jan 2022
+</code></pre></div><p>Please note that if you don&rsquo;t specific the account profile flag <code>--acct-profile</code>, the default profile is going to be used (if profile default is defined at the configuration yaml)<br>
+e.g. the following command will instruct <a href=/Getting-Started/Install-Idem/>
+Idem
+</a> to use the Azure credentials associated to the &ldquo;default&rdquo; profile</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines 
+</code></pre></div><p><a href=/Use-Cases/Describe/>
+Describe
+</a> Azure VM Machines within the &ldquo;tmm&rdquo; profile example:</p>
+<script id=asciicast-SiXcq1OmVkca57LNf2m6N4wWK src=https://asciinema.org/a/SiXcq1OmVkca57LNf2m6N4wWK.js async theme=asciinema data-autoplay=true data-size=small loop=true></script><div class=edit-meta>
+Last updated on 3 Feb 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Authenticate/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/Cloud-Providers/ title="Cloud Providers"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Cloud Providers</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Getting-Started/Basic-Commands/ title="Basic Commands">Next - Basic Commands <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
