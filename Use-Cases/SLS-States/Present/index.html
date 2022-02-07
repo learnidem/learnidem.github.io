@@ -56,6 +56,9 @@ azure.resource_management.resource_groups
 </a>&rdquo; and we append the state directive <a href=Getting-Started/Basic-Commands/>
 present
 </a>, for instructing idem to <b>create</b> a new resource group in Azure.</p>
+<p>Please note that you can map Azure REST API&rsquo;s URI and Body Parameters to the state parameters, e.g. for the <a href=https://docs.microsoft.com/en-us/rest/api/resources/resource-groups/create-or-update target=_blank>
+<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Azure Resource Group
+</a></p>
 <p>Then <b>State SLS</b> file can be executed with:</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state &lt;file_path&gt;/my_resource_group_state.sls
 </code></pre></div><p>In this example:</p>
@@ -104,7 +107,7 @@ reconciler=basic flag
 </a>, This allows Idem-azure-auto to run Idem state
 with Idem&rsquo;s reconciliation loop.</p>
 <div class=edit-meta>
-Last updated on 3 Feb 2022
+Last updated on 7 Feb 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Use%20Cases/SLS%20States/Present/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Use-Cases/SLS-States/ title="SLS States"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - SLS States</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Use-Cases/SLS-States/Present-Update/ title="Present Update">Next - Present Update <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
