@@ -47,7 +47,7 @@
 <main><h1>Present Update</h1><p>We can also use the state directive <a href=Getting-Started/Basic-Commands/>
 present
 </a>, for instructing Idem to <b>update</b> an existing resource&rsquo;s properties or behavior, e.g. updating specific resource parameters such as : location, tags, addressprefix, etc.</p>
-<p>Please note that due to the nature of some resources, the only way to update parameters or behaviors is by re-creating them, in those scenarios you can include the <a href=/Use-Cases/Force-Update/>
+<p>Please note that due to the nature of some resources, the only way to update parameters or behaviors is by re-creating them, in those scenarios you can include the <a href=/Use-Cases/SLS-States/Present-Update/Force-Update/>
 force_update: True
 </a> flag for enforcing the new present goal state.</p>
 <p>Let&rsquo;s update the <b>tags</b> information for an existing Azure Resource Group, in order to do that, we craft the <b>update_my_resource_group_state.sls:</b> file with the following contents:</p>
@@ -88,9 +88,9 @@ filter
 </code></pre></div><p>State Present - Update (tags):</p>
 <script id=asciicast-U0TBeuu6e5w8oWVoIhXe6q1cx src=https://asciinema.org/a/U0TBeuu6e5w8oWVoIhXe6q1cx.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
 <div class=edit-meta>
-Last updated on 3 Feb 2022
+Last updated on 7 Feb 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Use%20Cases/SLS%20States/Present%20Update/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Use-Cases/SLS-States/Present/ title=Present><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Present</a>
-<a class="nav nav-next" href=https://learnidem.github.io/Use-Cases/SLS-States/Absent/ title=Absent>Next - Absent <i class="fas fa-arrow-right" aria-hidden=true></i></a>
+<a class="nav nav-next" href=https://learnidem.github.io/Use-Cases/SLS-States/Present-Update/Force-Update/ title="Force Update">Next - Force Update <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
 </footer>
 </main>
@@ -124,7 +124,11 @@ Last updated on 3 Feb 2022
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/Use-Cases/SLS-States/Present/>Present</a>
 </li>
-<li class="parent active"><a href=https://learnidem.github.io/Use-Cases/SLS-States/Present-Update/>Present Update</a>
+<li class="parent active has-sub-menu"><a href=https://learnidem.github.io/Use-Cases/SLS-States/Present-Update/>Present Update<span class="mark opened">-</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/Use-Cases/SLS-States/Present-Update/Force-Update/>Force Update</a>
+</li>
+</ul>
 </li>
 <li><a href=https://learnidem.github.io/Use-Cases/SLS-States/Absent/>Absent</a>
 </li>
@@ -139,8 +143,6 @@ Last updated on 3 Feb 2022
 <li><a href=https://learnidem.github.io/Use-Cases/Filter-flag/>Filter Flag</a>
 </li>
 <li><a href=https://learnidem.github.io/Use-Cases/reconciler-flag/>Reconcilier Flag</a>
-</li>
-<li><a href=https://learnidem.github.io/Use-Cases/Force-Update/>Force Update</a>
 </li>
 </ul>
 </li>

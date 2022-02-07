@@ -54,7 +54,7 @@ authentication section
 describe
 </a> directive below to discover and obtain details for an specific Resource (in this case Azure)</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe <span class=o>[</span>provider<span class=o>]</span>.<span class=o>[</span>Resource States Group<span class=o>]</span>.<span class=o>[</span>Resource<span class=o>]</span> 
-</code></pre></div><p>The <b>provider</b>, tells <a href=/Getting-Started/Basic-Commands/>
+</code></pre></div><p>The <b>Provider</b>, tells <a href=/Getting-Started/Basic-Commands/>
 idem
 </a> which provider to access.<br>
 The <b>Resource States Group</b>, organizes resources of the same type or topic, e.g. the Azure Compute or Azure Virtual_Networks.<br>
@@ -72,7 +72,7 @@ Idem Azure Provider
 Filter Flag
 </a></p>
 <div class=edit-meta>
-Last updated on 3 Feb 2022
+Last updated on 7 Feb 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Use%20Cases/Describe/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Use-Cases/ title="Use Cases"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Use Cases</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Use-Cases/SLS-States/ title="SLS States">Next - SLS States <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
@@ -108,7 +108,11 @@ Last updated on 3 Feb 2022
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/Use-Cases/SLS-States/Present/>Present</a>
 </li>
-<li><a href=https://learnidem.github.io/Use-Cases/SLS-States/Present-Update/>Present Update</a>
+<li class=has-sub-menu><a href=https://learnidem.github.io/Use-Cases/SLS-States/Present-Update/>Present Update<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/Use-Cases/SLS-States/Present-Update/Force-Update/>Force Update</a>
+</li>
+</ul>
 </li>
 <li><a href=https://learnidem.github.io/Use-Cases/SLS-States/Absent/>Absent</a>
 </li>
@@ -123,8 +127,6 @@ Last updated on 3 Feb 2022
 <li><a href=https://learnidem.github.io/Use-Cases/Filter-flag/>Filter Flag</a>
 </li>
 <li><a href=https://learnidem.github.io/Use-Cases/reconciler-flag/>Reconcilier Flag</a>
-</li>
-<li><a href=https://learnidem.github.io/Use-Cases/Force-Update/>Force Update</a>
 </li>
 </ul>
 </li>
