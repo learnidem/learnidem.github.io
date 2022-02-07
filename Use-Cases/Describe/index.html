@@ -64,11 +64,15 @@ Idem Azure Provider
 </a> for a list of supported <b>Resource States Group</b> & associated <b>Resources</b></p>
 <p>Example, if we want to list existing VMs, I will</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines
+</code></pre></div><p>Please note that you can describe specific resources with the <a href=/Use-Cases/Filter-flag/>
+Filter Flag
+</a></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines --filter<span class=o>=</span><span class=s2>&#34;[?resource[?vm_name==&#39;cmac-test-idem&#39;]]&#34;</span>
 </code></pre></div><script id=asciicast-SiXcq1OmVkca57LNf2m6N4wWK src=https://asciinema.org/a/SiXcq1OmVkca57LNf2m6N4wWK.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
-<p>or, if we want to list existing Virtual Networks</p>
+<p>or, if we want to list existing Virtual Networks (or any other resource supported by the provider)</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.virtual_networks.virtual_networks
 </code></pre></div><script id=asciicast-iolx0POfh5rLl4XBOxktnOlzl src=https://asciinema.org/a/iolx0POfh5rLl4XBOxktnOlzl.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
-<p>You can describe specific results with the <a href=/Use-Cases/Filter-flag/>
+<p>Learn more about using describe with the <a href=/Use-Cases/Filter-flag/>
 Filter Flag
 </a></p>
 <div class=edit-meta>
@@ -130,7 +134,7 @@ Last updated on 7 Feb 2022
 </li>
 </ul>
 </li>
-<li><a href=https://learnidem.github.io/Developer-Resources/>Developer Resources</a>
+<li><a href=https://learnidem.github.io/Documentation-Resources/>Documentation Resources</a>
 </li>
 </ul>
 </nav>
