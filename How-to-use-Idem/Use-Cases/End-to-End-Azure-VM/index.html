@@ -1,0 +1,309 @@
+<!doctype html><html lang=en-gb>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>End to End Azure VM - Learn Idem</title>
+<meta name=description content="   Powered by Idem Project">
+<meta name=generator content="Hugo 0.92.1">
+<link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml>
+<link rel=canonical href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>
+<link rel=stylesheet href=https://learnidem.github.io/css/theme.css>
+<link rel=stylesheet href=/css/lightbox.min.css>
+<link rel=stylesheet href=/css/custom.css>
+<script src=https://use.fontawesome.com/releases/v5.0.6/js/all.js></script>
+<link rel=stylesheet href=https://learnidem.github.io/css/chroma.min.css>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script>
+<script src=https://learnidem.github.io/js/bundle.js></script>
+<script src=/js/lightbox.min.js></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8R0DEW1VZM"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-8R0DEW1VZM')</script>
+<style>:root{--custom-font-color:#0065ab;--custom-background-color:#FFFFFF}</style>
+<meta property="og:title" content="End to End Azure VM">
+<meta property="og:description" content="   Powered by Idem Project">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://learnidem.github.io/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/"><meta property="og:image" content="https://learnidem.github.io/images/service-broker.svg"><meta property="og:site_name" content="Learn Idem">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://learnidem.github.io/images/service-broker.svg">
+<meta name=twitter:title content="End to End Azure VM">
+<meta name=twitter:description content="   Powered by Idem Project">
+<meta itemprop=name content="End to End Azure VM">
+<meta itemprop=description content="   Powered by Idem Project"></head>
+<body><div class=container><header>
+<div class=header-image>
+<img src=/images/idem-logo.jpg alt="   Learn Idem">
+</div>
+<div class=header>
+<div class=header-h1>
+<h1 class=header-h1> Learn Idem</h1>
+</div>
+<div class=header-description>
+<p class=description> Powered by Idem Project</p>
+</div>
+</div>
+</header>
+<div class=content-container>
+<main><h1>End to End Azure VM</h1><p>This example showcases how to create, combine and reference multiple <a href=/Getting-Started/Cloud-Plug-Ins/Idem-Azure-Plug-In/>
+Idem Azure Plug-In Resources
+</a>:<br></p>
+<ul>
+<li><p><b>Resource Group</b></p></li>
+<li><p><b>Virtual Network</b></p></li>
+<li><p><b>Subnet</b></p></li>
+<li><p><b>Public IP</b></p></li>
+<li><p><b>Security Groups</b></p></li>
+<li><p><b>Network Interface</b></p></li>
+<li><p><b>Virtual Machine</b></p></li>
+</ul>
+<br>
+At the end we will have created an Azure Virtual Machine ( which includes attributes such as SSH Key authentication and Cloud-Init ).
+<p>Let&rsquo;s create a new SLS file named &ldquo;goapp.sls&rdquo;<br></p>
+<p>First let&rsquo;s add a <b>Resource Group</b></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=c># Resource Group</span><span class=w>
+</span><span class=w></span><span class=nt>moff-idem-rg-01</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.resource_management.resource_groups.present</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-rg-01</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>centralus</span><span class=w>
+</span><span class=w>      </span><span class=nt>tags</span><span class=p>:</span><span class=w> </span>{}<span class=w>
+</span></code></pre></div><p>Then a <b>Virtual Network</b>, please note that we can reference our <b>Resource Group</b> by providing only its name</p>
+<h1 id=virtual-network>Virtual Network</h1>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>vNet1-Idem</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.virtual_networks.virtual_networks.present</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-rg-01</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>virtual_network_name</span><span class=p>:</span><span class=w> </span><span class=l>vNet1-Idem</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>centralus</span><span class=w>
+</span><span class=w>      </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>vNet1-Idem</span><span class=w>
+</span><span class=w>      </span><span class=nt>properties</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span><span class=nt>addressSpace</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>addressPrefixes</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span>- <span class=m>10.12.13.0</span><span class=l>/25</span><span class=w>
+</span><span class=w>        </span><span class=nt>enableDdosProtection</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></code></pre></div><p>Now we can define a <b>Subnet</b>, just as before we can reference our <b>Resource Group</b> & <b>Virtual Network</b> by providing only their name</p>
+<h1 id=subnet>Subnet</h1>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>moff-idem-subnet-1</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.virtual_networks.subnets.present</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-rg-01</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>virtual_network_name</span><span class=p>:</span><span class=w> </span><span class=l>vNet1-Idem</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>subnet_name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-subnet-1</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>properties</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span><span class=nt>&#34;addressPrefix&#34;: </span><span class=s2>&#34;10.12.13.0/27&#34;</span><span class=w>
+</span><span class=w>      </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>centralus</span><span class=w>
+</span></code></pre></div><p>Something similar happens for a <b>Public IP</b>, we reference our <b>Resource Group</b> by providing only its name</p>
+<h1 id=public-ip>Public IP</h1>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>moff-idem-pub-ip</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.virtual_networks.public_ip_addresses.present</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-rg-01</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>public_ip_address_name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-pub-ip</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>centralus</span><span class=w>
+</span><span class=w>      </span><span class=nt>properties</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span><span class=nt>publicIPAllocationMethod</span><span class=p>:</span><span class=w> </span><span class=l>Dynamic</span><span class=w>
+</span><span class=w>        </span><span class=nt>idleTimeoutInMinutes</span><span class=p>:</span><span class=w> </span><span class=m>10</span><span class=w>
+</span><span class=w>        </span><span class=nt>publicIPAddressVersion</span><span class=p>:</span><span class=w> </span><span class=l>IPv4</span><span class=w>
+</span></code></pre></div><p>Same story for a <b>Security Groups</b>, we reference our <b>Resource Group</b> by providing only its name, however notice that we include a <a href=/Use-Cases/Force-Update/>
+force_update
+</a> option, so we could update <b>Security Groups</b> as needed</p>
+<h1 id=security-groups>Security Groups</h1>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>moff-idem-sg-1</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.virtual_networks.network_security_groups.present</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>force_update</span><span class=p>:</span><span class=w> </span><span class=kc>True</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-rg-01</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>network_security_group_name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-sg-1</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>centralus</span><span class=w>
+</span><span class=w>      </span><span class=nt>properties</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span><span class=nt>securityRules</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-sg-rule-1</span><span class=w>
+</span><span class=w>          </span><span class=nt>properties</span><span class=p>:</span><span class=w>
+</span><span class=w>            </span><span class=nt>protocol</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;*&#34;</span><span class=w>
+</span><span class=w>            </span><span class=nt>sourceAddressPrefix</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;*&#34;</span><span class=w>
+</span><span class=w>            </span><span class=nt>destinationAddressPrefix</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;*&#34;</span><span class=w>
+</span><span class=w>            </span><span class=nt>access</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Allow&#34;</span><span class=w>
+</span><span class=w>            </span><span class=nt>destinationPortRange</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;22&#34;</span><span class=w>
+</span><span class=w>            </span><span class=nt>sourcePortRange</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;*&#34;</span><span class=w>
+</span><span class=w>            </span><span class=nt>priority</span><span class=p>:</span><span class=w> </span><span class=m>130</span><span class=w>
+</span><span class=w>            </span><span class=nt>direction</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Inbound&#34;</span><span class=w>
+</span><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-sg-rule-2</span><span class=w>
+</span><span class=w>          </span><span class=nt>properties</span><span class=p>:</span><span class=w>
+</span><span class=w>            </span><span class=nt>protocol</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;*&#34;</span><span class=w>
+</span><span class=w>            </span><span class=nt>sourceAddressPrefix</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;*&#34;</span><span class=w>
+</span><span class=w>            </span><span class=nt>destinationAddressPrefix</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;*&#34;</span><span class=w>
+</span><span class=w>            </span><span class=nt>access</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Allow&#34;</span><span class=w>
+</span><span class=w>            </span><span class=nt>destinationPortRange</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;80&#34;</span><span class=w>
+</span><span class=w>            </span><span class=nt>sourcePortRange</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;*&#34;</span><span class=w>
+</span><span class=w>            </span><span class=nt>priority</span><span class=p>:</span><span class=w> </span><span class=m>150</span><span class=w>
+</span><span class=w>            </span><span class=nt>direction</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Inbound&#34;</span><span class=w>
+</span></code></pre></div><p>Now, in the case of <b>Network Interfaces</b>, we need to reference our <b>Resource Group</b> but for the <b>Security Groups</b>, <b>Public IP</b> & <b>Subnet</b>, the &ldquo;ID&rdquo; and Azure Resource URL is needed, however you can see the Azure Resource URL follows a very well defined structure:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell> /subscriptions/&lt;your Azure Subscription ID&gt;/&lt;resource group&gt;/&lt;name of the resource group&gt;/providers/&lt;Microsoft Provider Type&gt;/&lt;name of the resource&gt;
+</code></pre></div><p>Example for <b>Public IP</b>:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>/subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-rg-01/providers/Microsoft.Network/publicIPAddresses/moff-idem-pub-ip
+</code></pre></div><p>You can learn more of Azure Resource URL in <a href=https://docs.microsoft.com/en-us/rest/api/azure/ target=_blank>
+<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Azure API Doc
+</a>.</p>
+<h1 id=network-interfaces>Network Interfaces</h1>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>moff-idem-nic-01</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.virtual_networks.network_interfaces.present</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-rg-01</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>network_interface_name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-nic-01</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>centralus</span><span class=w>
+</span><span class=w>      </span><span class=nt>properties</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span><span class=nt>enableAcceleratedNetworking</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span><span class=w>        </span><span class=nt>hostedWorkloads</span><span class=p>:</span><span class=w> </span><span class=p>[]</span><span class=w>
+</span><span class=w>        </span><span class=nt>networkSecurityGroup</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>/subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-rg-01/providers/Microsoft.Network/networkSecurityGroups/moff-idem-sg-1</span><span class=w>
+</span><span class=w>        </span><span class=nt>ipConfigurations</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-nic-01-ipconfig1</span><span class=w>
+</span><span class=w>            </span><span class=nt>properties</span><span class=p>:</span><span class=w>
+</span><span class=w>              </span><span class=nt>primary</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>              </span><span class=nt>publicIPAddress</span><span class=p>:</span><span class=w>
+</span><span class=w>                </span><span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>/subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-rg-01/providers/Microsoft.Network/publicIPAddresses/moff-idem-pub-ip</span><span class=w>
+</span><span class=w>              </span><span class=nt>subnet</span><span class=p>:</span><span class=w>
+</span><span class=w>                </span><span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>/subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-rg-01/providers/Microsoft.Network/virtualNetworks/vNet1-Idem/subnets/moff-idem-subnet-1</span><span class=w>
+</span></code></pre></div><p>At this point we can add our <b>Virtual Machine</b>, in the case only the <b>Network Interfaces</b> ID is needed, following same logic as before</p>
+<h1 id=create-vm>Create VM</h1>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>Development-idem-015</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.compute.virtual_machines.present</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-rg-01</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>vm_name</span><span class=p>:</span><span class=w> </span><span class=l>Development-idem-015</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>centralus</span><span class=w>
+</span><span class=w>      </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Development-idem-015</span><span class=w>
+</span><span class=w>      </span><span class=nt>properties</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span><span class=nt>hardwareProfile</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>vmSize</span><span class=p>:</span><span class=w> </span><span class=l>Standard_A5</span><span class=w>
+</span><span class=w>        </span><span class=nt>networkProfile</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>networkInterfaces</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>/subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-rg-01/providers/Microsoft.Network/networkInterfaces/moff-idem-nic-01</span><span class=w>
+</span><span class=w>            </span><span class=nt>properties</span><span class=p>:</span><span class=w>
+</span><span class=w>              </span><span class=nt>primary</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>        </span><span class=nt>osProfile</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>adminUsername</span><span class=p>:</span><span class=w> </span><span class=l>demouser</span><span class=w>
+</span><span class=w>          </span><span class=nt>allowExtensionOperations</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>          </span><span class=nt>computerName</span><span class=p>:</span><span class=w> </span><span class=l>Development-idem-015</span><span class=w>
+</span><span class=w>          </span><span class=nt>linuxConfiguration</span><span class=p>:</span><span class=w>
+</span><span class=w>            </span><span class=nt>ssh</span><span class=p>:</span><span class=w> 
+</span><span class=w>              </span><span class=nt>publicKeys</span><span class=p>:</span><span class=w>  
+</span><span class=w>                </span>- <span class=nt>keyData</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFLX/56zSvZawvw3A0hfSVFPMPPeP8ZXeQ91+YdqCSyMUxgexQPpSEZIPbwodM0aAXMg227JuGji+JQlnXxCy1UDcpsGYnGsr3j3qrazrfp7tSBY5vTuHdmE4ZAEyoUFcEGPbDCzn82RI4PlF7508I32OPtr7HiZYeU+uP18snkvdXqEB8OCoSMy36lE806w+e3HVT/bMoj+wSAzjqju5Eqeg96IZOoeqpWQyTeLdaMqVdlQcSKcYnnKCIMaHTehZjtOHRte3EtSnbdiwCPnFno9EzHdCIde4KT+dFG9B2Goy2z10MkxFbR6IDxdbFxg4+siHNnHfbd/ILQuqN ubuntu&#34;</span><span class=w>
+</span><span class=w>                  </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>/home/demouser/.ssh/authorized_keys</span><span class=w>
+</span><span class=w>            </span><span class=nt>disablePasswordAuthentication</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w> 
+</span><span class=w>            </span><span class=nt>patchSettings</span><span class=p>:</span><span class=w>
+</span><span class=w>              </span><span class=nt>assessmentMode</span><span class=p>:</span><span class=w> </span><span class=l>ImageDefault</span><span class=w>
+</span><span class=w>              </span><span class=nt>patchMode</span><span class=p>:</span><span class=w> </span><span class=l>ImageDefault</span><span class=w>
+</span><span class=w>            </span><span class=nt>provisionVMAgent</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>          </span><span class=nt>secrets</span><span class=p>:</span><span class=w> </span><span class=p>[]</span><span class=w>
+</span><span class=w>        </span><span class=nt>userData</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;RXhhbXBsZSBVc2VyRGF0YQ==&#34;</span><span class=w> 
+</span><span class=w>        </span><span class=nt>storageProfile</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>dataDisks</span><span class=p>:</span><span class=w> </span><span class=p>[]</span><span class=w>
+</span><span class=w>          </span><span class=nt>imageReference</span><span class=p>:</span><span class=w>
+</span><span class=w>            </span><span class=nt>exactVersion</span><span class=p>:</span><span class=w> </span><span class=m>18.04.201804262</span><span class=w>
+</span><span class=w>            </span><span class=nt>offer</span><span class=p>:</span><span class=w> </span><span class=l>UbuntuServer</span><span class=w>
+</span><span class=w>            </span><span class=nt>publisher</span><span class=p>:</span><span class=w> </span><span class=l>Canonical</span><span class=w>
+</span><span class=w>            </span><span class=nt>sku</span><span class=p>:</span><span class=w> </span><span class=m>18.04</span>-<span class=l>LTS</span><span class=w>
+</span><span class=w>            </span><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=m>18.04.201804262</span><span class=w>
+</span><span class=w>          </span><span class=nt>osDisk</span><span class=p>:</span><span class=w>
+</span><span class=w>            </span><span class=nt>caching</span><span class=p>:</span><span class=w> </span><span class=l>None</span><span class=w>
+</span><span class=w>            </span><span class=nt>createOption</span><span class=p>:</span><span class=w> </span><span class=l>FromImage</span><span class=w>
+</span><span class=w>            </span><span class=nt>deleteOption</span><span class=p>:</span><span class=w> </span><span class=l>Detach</span><span class=w>
+</span><span class=w>            </span><span class=nt>diskSizeGB</span><span class=p>:</span><span class=w> </span><span class=m>30</span><span class=w>
+</span><span class=w>            </span><span class=nt>managedDisk</span><span class=p>:</span><span class=w>
+</span><span class=w>              </span><span class=nt>storageAccountType</span><span class=p>:</span><span class=w> </span><span class=l>Standard_LRS</span><span class=w>
+</span><span class=w>            </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Development-idem-015-boot-disk</span><span class=w>
+</span><span class=w>            </span><span class=nt>osType</span><span class=p>:</span><span class=w> </span><span class=l>Linux</span><span class=w>
+</span><span class=w>      </span><span class=nt>tags</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span><span class=nt>blueprintname</span><span class=p>:</span><span class=w> </span><span class=l>goapp-idem</span><span class=w>
+</span><span class=w>        </span><span class=nt>deployment</span><span class=p>:</span><span class=w> </span><span class=l>Idem-Discover</span><span class=w>
+</span><span class=w>        </span><span class=nt>project</span><span class=p>:</span><span class=w> </span><span class=l>development</span><span class=w>
+</span><span class=w>        </span><span class=nt>requestedby</span><span class=p>:</span><span class=w> </span><span class=l>hernandezf@vmware.com</span><span class=w>
+</span></code></pre></div><p>Save your file and we are ready for deployment, please note that all the resources have the <a href=/Getting-Started/Basic-Commands/>
+Idem Present Directive
+</a> and that we must include the <a href=/How-to-use-Idem/States/reconciler-flag/>
+reconcilier flag
+</a>, so <a href=/>
+Idem
+</a> can loop for all the dependencies resources to be created.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state my_resource_group_state.sls --reconciler<span class=o>=</span>basic
+</code></pre></div><p>You can then use <a href=/How-to-use-Idem/Describe/>
+Idem describe
+</a> to validate all your resources are created (BTW, it would be a good idea to use your own SSH public Key, this one is fake)</p>
+<div class=edit-meta>
+Last updated on 8 Feb 2022
+<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/How%20to%20use%20Idem/Use%20Cases/End%20to%20End%20Azure%20VM/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/ title="Resources and SLS"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Resources and SLS</a>
+<a class="nav nav-next" href=https://learnidem.github.io/Documentation-Resources/ title="Documentation Resources">Next - Documentation Resources <i class="fas fa-arrow-right" aria-hidden=true></i></a>
+</nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
+</footer>
+</main>
+<div class=sidebar>
+<nav class=slide-menu>
+<ul>
+<li><a href=https://learnidem.github.io>Home</a></li>
+<li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/>Getting Started<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/Getting-Started/Install-Idem/>Install Idem</a>
+</li>
+<li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/>Cloud Plug-Ins<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/Idem-Azure-Plug-In/>Idem Azure Plug-In</a>
+</li>
+</ul>
+</li>
+<li><a href=https://learnidem.github.io/Getting-Started/Authenticate/>Authenticate</a>
+</li>
+<li><a href=https://learnidem.github.io/Getting-Started/Basic-Commands/>Basic Commands</a>
+</li>
+<li><a href=https://learnidem.github.io/Getting-Started/Troubleshooting/>Troubleshooting</a>
+</li>
+</ul>
+</li>
+<li class="parent has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/>How to use Idem<span class="mark opened">-</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/Describe/>Describe command</a>
+</li>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/Filter-flag/>Filter Flag</a>
+</li>
+<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/>States<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present/>Present</a>
+</li>
+<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/>Present Update<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/Force-Update/>Force Update</a>
+</li>
+</ul>
+</li>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Absent/>Absent</a>
+</li>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Describe-2-State/>Describe 2 State</a>
+</li>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/reconciler-flag/>Reconcilier Flag</a>
+</li>
+</ul>
+</li>
+<li class="parent has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/>Use Cases<span class="mark opened">-</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/>Resources and SLS</a>
+</li>
+<li class="parent active"><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>End to End Azure VM</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href=https://learnidem.github.io/Documentation-Resources/>Documentation Resources</a>
+</li>
+</ul>
+</nav>
+<div class=sidebar-footer></div>
+</div>
+</div><a href=# id=backtothetop-fixed class=backtothetop data-backtothetop-duration=600 data-backtothetop-easing=easeOutQuart data-backtothetop-fixed-fadein=1000 data-backtothetop-fixed-fadeout=1000 data-backtothetop-fixed-bottom=10 data-backtothetop-fixed-right=20>
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

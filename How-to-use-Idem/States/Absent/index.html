@@ -2,11 +2,11 @@
 <head><meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Categories - Learn Idem</title>
+<title>Absent - Learn Idem</title>
 <meta name=description content="   Powered by Idem Project">
 <meta name=generator content="Hugo 0.92.1">
 <link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml>
-<link rel=canonical href=https://learnidem.github.io/categories/>
+<link rel=canonical href=https://learnidem.github.io/How-to-use-Idem/States/Absent/>
 <link rel=stylesheet href=https://learnidem.github.io/css/theme.css>
 <link rel=stylesheet href=/css/lightbox.min.css>
 <link rel=stylesheet href=/css/custom.css>
@@ -20,15 +20,15 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8R0DEW1VZM"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-8R0DEW1VZM')</script>
 <style>:root{--custom-font-color:#0065ab;--custom-background-color:#FFFFFF}</style>
-<meta property="og:title" content="Categories">
+<meta property="og:title" content="Absent">
 <meta property="og:description" content="   Powered by Idem Project">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://learnidem.github.io/categories/"><meta property="og:image" content="https://learnidem.github.io/images/service-broker.svg"><meta property="og:site_name" content="Learn Idem">
+<meta property="og:url" content="https://learnidem.github.io/How-to-use-Idem/States/Absent/"><meta property="og:image" content="https://learnidem.github.io/images/service-broker.svg"><meta property="og:site_name" content="Learn Idem">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://learnidem.github.io/images/service-broker.svg">
-<meta name=twitter:title content="Categories">
+<meta name=twitter:title content="Absent">
 <meta name=twitter:description content="   Powered by Idem Project">
-<meta itemprop=name content="Categories">
+<meta itemprop=name content="Absent">
 <meta itemprop=description content="   Powered by Idem Project"></head>
 <body><div class=container><header>
 <div class=header-image>
@@ -44,8 +44,55 @@
 </div>
 </header>
 <div class=content-container>
-<main><h1>Categories</h1><div class=edit-meta>
-<br></div><nav class=pagination><a class="nav nav-next" href=https://learnidem.github.io/Getting-Started/ title="Getting Started">Next - Getting Started <i class="fas fa-arrow-right" aria-hidden=true></i></a>
+<main><h1>Absent</h1><p>Once you don&rsquo;t need a resource, you can completely delete it by using the state directive <a href=/Getting-Started/Basic-Commands/>
+absent
+</a>, which instructs Idem to <b>remove</b> an existing resource.</p>
+<p>Let&rsquo;s delete an existing Azure Resource Group, in order to do that, we craft the <b>delete_my_resource_group_state.sls:</b> file with the following contents:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>&lt;Your Azure Resource Group Name&gt;</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.resource_management.resource_groups.absent</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Azure Resource Group Name&gt;</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Azure Region&gt;</span><span class=w>
+</span></code></pre></div><p>Then <b>State SLS</b> file can be executed with:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state &lt;file_path&gt;/delete_my_resource_group_state.sls
+</code></pre></div><p>In this example:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state states/delete_my_resource_group_state.sls
+</code></pre></div><p>After that you will see Idem removing the resource group to meet our new intentention and state.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>--------
+      ID: moff-idem-01
+Function: azure.resource_management.resource_groups.absent
+  Result: True
+ Comment: Accepted
+ Changes: old:
+    ----------
+    id:
+        /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-01
+    name:
+        moff-idem-01
+    type:
+        Microsoft.Resources/resourceGroups
+    location:
+        eastus
+    tags:
+        ----------
+        createdWith:
+            idem
+    properties:
+        ----------
+        provisioningState:
+            Succeeded
+</code></pre></div><p>You can further verify by the <a href=/How-to-use-Idem/Describe/>
+idem describe
+</a> and <a href=/How-to-use-Idem/Filter-flag/>
+filter
+</a> by the resource group name.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.resource_management.resource_groups  --filter<span class=o>=</span><span class=s2>&#34;[?resource[?resource_group_name==&#39;moff-idem-01&#39;]]&#34;</span>
+</code></pre></div><p>State Absent - Delete:</p>
+<script id=asciicast-obpjtrBTOr3A4cDo5kNEdQLXt src=https://asciinema.org/a/obpjtrBTOr3A4cDo5kNEdQLXt.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
+<div class=edit-meta>
+Last updated on 8 Feb 2022
+<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/How%20to%20use%20Idem/States/Absent/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/Force-Update/ title="Force Update"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Force Update</a>
+<a class="nav nav-next" href=https://learnidem.github.io/How-to-use-Idem/States/Describe-2-State/ title="Describe 2 State">Next - Describe 2 State <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
 </footer>
 </main>
@@ -71,13 +118,13 @@
 </li>
 </ul>
 </li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/>How to use Idem<span class="mark closed">+</span></a>
+<li class="parent has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/>How to use Idem<span class="mark opened">-</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/Describe/>Describe command</a>
 </li>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/Filter-flag/>Filter Flag</a>
 </li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/>States<span class="mark closed">+</span></a>
+<li class="parent has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/States/>States<span class="mark opened">-</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present/>Present</a>
 </li>
@@ -87,7 +134,7 @@
 </li>
 </ul>
 </li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Absent/>Absent</a>
+<li class="parent active"><a href=https://learnidem.github.io/How-to-use-Idem/States/Absent/>Absent</a>
 </li>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/States/Describe-2-State/>Describe 2 State</a>
 </li>

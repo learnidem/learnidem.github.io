@@ -1,0 +1,737 @@
+<!doctype html><html lang=en-gb>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Resources and SLS - Learn Idem</title>
+<meta name=description content="   Powered by Idem Project">
+<meta name=generator content="Hugo 0.92.1">
+<link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml>
+<link rel=canonical href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/>
+<link rel=stylesheet href=https://learnidem.github.io/css/theme.css>
+<link rel=stylesheet href=/css/lightbox.min.css>
+<link rel=stylesheet href=/css/custom.css>
+<script src=https://use.fontawesome.com/releases/v5.0.6/js/all.js></script>
+<link rel=stylesheet href=https://learnidem.github.io/css/chroma.min.css>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script>
+<script src=https://learnidem.github.io/js/bundle.js></script>
+<script src=/js/lightbox.min.js></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8R0DEW1VZM"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-8R0DEW1VZM')</script>
+<style>:root{--custom-font-color:#0065ab;--custom-background-color:#FFFFFF}</style>
+<meta property="og:title" content="Resources and SLS">
+<meta property="og:description" content="   Powered by Idem Project">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/"><meta property="og:image" content="https://learnidem.github.io/images/service-broker.svg"><meta property="og:site_name" content="Learn Idem">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://learnidem.github.io/images/service-broker.svg">
+<meta name=twitter:title content="Resources and SLS">
+<meta name=twitter:description content="   Powered by Idem Project">
+<meta itemprop=name content="Resources and SLS">
+<meta itemprop=description content="   Powered by Idem Project"></head>
+<body><div class=container><header>
+<div class=header-image>
+<img src=/images/idem-logo.jpg alt="   Learn Idem">
+</div>
+<div class=header>
+<div class=header-h1>
+<h1 class=header-h1> Learn Idem</h1>
+</div>
+<div class=header-description>
+<p class=description> Powered by Idem Project</p>
+</div>
+</div>
+</header>
+<div class=content-container>
+<main><h1>Resources and SLS</h1><p>In this section, we showcase how to combine multiple resources in one single SLS State file, we will create a basic Azure Virtual Machine, for that, first we will bring up the Resource Group, we will leverage and re-use an existing NIC for assigning both to the Azure Virtual Machine resource in order to create it, and finally we will update its metadata.</p>
+<p>Later on, at the <a href=/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>
+End To End Azure VM Usecase
+</a>, you will be able to reference other and more types of resources.</p>
+<p>Let&rsquo;s first create an Azure Resource Group named &ldquo;moff-idem-01&rdquo;</p>
+<p>We can do it by writing the following state <b>&ldquo;rg_moff_present.sls&rdquo;</b>
+that includes the idem <a href=/Getting-Started/Basic-Commands/>
+present
+</a> directive for <b>azure.resource_management.resource_groups</b></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>moff-idem-01</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=nt>azure.resource_management.resource_groups.present</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>resource_group_name</span><span class=p>:</span><span class=w> </span><span class=l>moff-idem-01</span><span class=w>
+</span><span class=w>  </span>- <span class=nt>parameters</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=l>eastus</span><span class=w>
+</span><span class=w>      </span><span class=nt>tags</span><span class=p>:</span><span class=w> </span>{}<span class=w>
+</span></code></pre></div><p>Then we can simply execute it by calling the command &ldquo;state&rdquo;</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state rg_moff_present.sls
+</code></pre></div><p>This will return the following output (please note the provisioningState):</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>--------
+      ID: moff-idem-01
+Function: azure.resource_management.resource_groups.present
+  Result: True
+ Comment: Created
+ Changes: new:
+    ----------
+    id:
+        /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-01
+    name:
+        moff-idem-01
+    type:
+        Microsoft.Resources/resourceGroups
+    location:
+        eastus
+    tags:
+        ----------
+    properties:
+        ----------
+        provisioningState:
+            Succeeded
+</code></pre></div><p>If we re-run the same &ldquo;state&rdquo; command, it will indicate that indeed the resource is present, and that nothing changed since we didn&rsquo;t introduce any modifications to the state file.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>--------
+      ID: moff-idem-01
+Function: azure.resource_management.resource_groups.present
+  Result: True
+ Comment: <span class=s1>&#39;moff-idem-01&#39;</span> has no property need to be updated.
+ Changes: 
+</code></pre></div><p>Now, in order to create a Azure VM, we will need to indicate the &ldquo;networkInterfaces id&rdquo;</p>
+<p>We can create it also with &ldquo;idem virtual_networks&rdquo; or we could re-use an existing one by discovering with the &ldquo;idem describe&rdquo; command for &ldquo;virtual_networks&rdquo; resources:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.virtual_networks.network_interfaces
+</code></pre></div><p>In this case, the output of the command shows this network interface available</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>--------
+? /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default
+: azure.virtual_networks.network_interfaces.present:
+  - network_interface_name: default
+  - resource_group_name: group8a87dd00ea7183a729588634c88e5123
+  - parameters:
+      etag: W/6f33dd08-64fa-4d11-8c17-2d9fdea97671
+      <span class=s2>&#34;id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default&#34;</span>
+      location: centralus
+      name: default
+      properties:
+        dnsSettings:
+          appliedDnsServers: <span class=o>[]</span>
+          dnsServers: <span class=o>[]</span>
+        enableAcceleratedNetworking: <span class=nb>false</span>
+        enableIPForwarding: <span class=nb>false</span>
+        hostedWorkloads: <span class=o>[]</span>
+        ipConfigurations:
+        - etag: W/6f33dd08-64fa-4d11-8c17-2d9fdea97671
+          id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default/ipConfigurations/nicconfig8a87dd00ea7183a729588634c88e5123
+          name: nicconfig8a87dd00ea7183a729588634c88e5123
+          properties:
+            primary: <span class=nb>true</span>
+            privateIPAddress: 10.0.0.8
+            privateIPAddressVersion: IPv4
+            privateIPAllocationMethod: Dynamic
+            provisioningState: Succeeded
+            publicIPAddress:
+              id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/publicIPAddresses/VNF-Primary-CSCF-1-002668-pip
+            subnet:
+              id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/Moff-RG01-CAS/providers/Microsoft.Network/virtualNetworks/vNet1-MoffCAS01/subnets/default
+          type: Microsoft.Network/networkInterfaces/ipConfigurations
+        macAddress: 00-0D-3A-A5-4A-E9
+        networkSecurityGroup:
+          id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/Moff-RG01-CAS/providers/Microsoft.Network/networkSecurityGroups/Moff-CAS-Default
+        nicType: Standard
+        provisioningState: Succeeded
+        resourceGuid: 33b57d86-1cfd-4c05-9772-92cfcc1e0f6c
+        tapConfigurations: <span class=o>[]</span>
+        vnetEncryptionSupported: <span class=nb>false</span>
+</code></pre></div><p>Now, let&rsquo;s write a new state <b>&ldquo;vm_moff_present.sls&rdquo;</b> defining our Azure VM
+that includes the idem <a href=/Getting-Started/Basic-Commands/>
+present
+</a> directive for <b>azure.compute.virtual_machines</b></p>
+<p>Also note that included properties needed for creating the Azure VM, such as VM Name, Hardware Profile (Flavor), ImageReference, etc.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>  azure.compute.virtual_machines.present:
+  - resource_group_name: moff-idem-01
+  - vm_name: Development-idem-015042
+  - parameters:
+      location: centralus
+      name: Development-idem-015042
+      properties:
+        hardwareProfile:
+          vmSize: Standard_A5
+        networkProfile:
+          networkInterfaces:
+          - id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default
+            properties:
+              primary: <span class=nb>true</span>
+        storageProfile:
+          dataDisks: <span class=o>[]</span>
+          imageReference:
+            exactVersion: 18.04.201804262
+            offer: UbuntuServer
+            publisher: Canonical
+            sku: 18.04-LTS
+            version: 18.04.201804262
+        osProfile:
+          adminUsername: azureuser
+          allowExtensionOperations: <span class=nb>true</span>
+          computerName: Development-idem-015042
+          adminPassword: <span class=s2>&#34;C@n0n1c@lVMware&#34;</span>
+          linuxConfiguration:
+            disablePasswordAuthentication: <span class=nb>false</span>
+            patchSettings:
+              assessmentMode: ImageDefault
+              patchMode: ImageDefault
+            provisionVMAgent: <span class=nb>true</span>
+          secrets: <span class=o>[]</span>
+</code></pre></div><p>and just as before when we created our Azure Resource Group, we can simply execute it by calling the command &ldquo;state&rdquo;</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state vm_moff_present.sls
+</code></pre></div><p>This will return the following output (please note the provisioningState):</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>--------
+      ID: Development-idem-015042
+Function: azure.compute.virtual_machines.present
+  Result: True
+ Comment: Created
+ Changes: new:
+    ----------
+    name:
+        Development-idem-015042
+    id:
+        /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-01/providers/Microsoft.Compute/virtualMachines/Development-idem-015042
+    type:
+        Microsoft.Compute/virtualMachines
+    location:
+        centralus
+    properties:
+        ----------
+        vmId:
+            1ae9935c-3699-4837-a59d-a2938b24644d
+        hardwareProfile:
+            ----------
+            vmSize:
+                Standard_A5
+        storageProfile:
+            ----------
+            imageReference:
+                ----------
+                publisher:
+                    Canonical
+                offer:
+                    UbuntuServer
+                sku:
+                    18.04-LTS
+                version:
+                    18.04.201804262
+                exactVersion:
+                    18.04.201804262
+            osDisk:
+                ----------
+                osType:
+                    Linux
+                createOption:
+                    FromImage
+                caching:
+                    ReadWrite
+                managedDisk:
+                    ----------
+                    storageAccountType:
+                        Standard_LRS
+                deleteOption:
+                    Detach
+                diskSizeGB:
+                    <span class=m>30</span>
+            dataDisks:
+        osProfile:
+            ----------
+            computerName:
+                Development-idem-015042
+            adminUsername:
+                azureuser
+            linuxConfiguration:
+                ----------
+                disablePasswordAuthentication:
+                    False
+                provisionVMAgent:
+                    True
+                patchSettings:
+                    ----------
+                    patchMode:
+                        ImageDefault
+                    assessmentMode:
+                        ImageDefault
+            secrets:
+            allowExtensionOperations:
+                True
+            requireGuestProvisionSignal:
+                True
+        networkProfile:
+            ----------
+            networkInterfaces:
+                <span class=p>|</span>_
+                  ----------
+                  id:
+                      /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default
+                  properties:
+                      ----------
+                      primary:
+                          True
+        <span class=s2>&#34;provisioningState:
+</span><span class=s2>            Creating&#34;</span>
+</code></pre></div><p>If we re-run the same &ldquo;state&rdquo; command, it will indicate that indeed the resource is present, and that nothing changed since we didn&rsquo;t introduce any modifications to the state file.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>--------
+      ID: Development-idem-015042
+Function: azure.compute.virtual_machines.present
+  Result: True
+ Comment: OK
+ Changes: old:
+    ----------
+    properties:
+        ----------
+        provisioningState:
+            Creating
+new:
+    ----------
+    properties:
+        ----------
+        <span class=s2>&#34;provisioningState:
+</span><span class=s2>            Updating&#34;</span>
+</code></pre></div><p>At this point if we re-run <a href=/Getting-Started/Basic-Commands/>
+describe
+</a> command for <b>azure.compute.virtual_machines</b></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines
+</code></pre></div><p>We get a description for the newly added Azure VM</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>? /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/MOFF-IDEM-01/providers/Microsoft.Compute/virtualMachines/Development-idem-015042
+: azure.compute.virtual_machines.present:
+  - resource_group_name: MOFF-IDEM-01
+  - vm_name: Development-idem-015042
+  - parameters:
+      id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/MOFF-IDEM-01/providers/Microsoft.Compute/virtualMachines/Development-idem-015042
+      location: centralus
+      name: Development-idem-015042
+      properties:
+        hardwareProfile:
+          vmSize: Standard_A5
+        networkProfile:
+          networkInterfaces:
+          - id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default
+            properties:
+              primary: <span class=nb>true</span>
+        osProfile:
+          adminUsername: azureuser
+          allowExtensionOperations: <span class=nb>true</span>
+          computerName: Development-idem-015042
+          linuxConfiguration:
+            disablePasswordAuthentication: <span class=nb>false</span>
+            patchSettings:
+              assessmentMode: ImageDefault
+              patchMode: ImageDefault
+            provisionVMAgent: <span class=nb>true</span>
+          requireGuestProvisionSignal: <span class=nb>true</span>
+          secrets: <span class=o>[]</span>
+        provisioningState: Succeeded
+        storageProfile:
+          dataDisks: <span class=o>[]</span>
+          imageReference:
+            exactVersion: 18.04.201804262
+            offer: UbuntuServer
+            publisher: Canonical
+            sku: 18.04-LTS
+            version: 18.04.201804262
+          osDisk:
+            caching: ReadWrite
+            createOption: FromImage
+            deleteOption: Detach
+            diskSizeGB: <span class=m>30</span>
+            managedDisk:
+              id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-01/providers/Microsoft.Compute/disks/Development-idem-015042_OsDisk_1_e6d0942b1250478f86e21be7ed48629b
+              storageAccountType: Standard_LRS
+            name: Development-idem-015042_OsDisk_1_e6d0942b1250478f86e21be7ed48629b
+            osType: Linux
+        vmId: 1ae9935c-3699-4837-a59d-a2938b24644d
+      type: Microsoft.Compute/virtualMachines
+</code></pre></div><p>Now let&rsquo;s update this Azure VM metadata by adding new tags, all we need to do is to update our existing state <b>&ldquo;vm_moff_present.sls&rdquo;</b> by append the property &ldquo;tag&rdquo; at the bottom</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>Development-idem-015042:
+  azure.compute.virtual_machines.present:
+  - resource_group_name: moff-idem-01
+  - vm_name: Development-idem-015042
+  - parameters:
+      location: centralus
+      name: Development-idem-015042
+      properties:
+        hardwareProfile:
+          vmSize: Standard_A5
+        networkProfile:
+          networkInterfaces:
+          - id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default
+            properties:
+              primary: <span class=nb>true</span>
+        storageProfile:
+          dataDisks: <span class=o>[]</span>
+          imageReference:
+            exactVersion: 18.04.201804262
+            offer: UbuntuServer
+            publisher: Canonical
+            sku: 18.04-LTS
+            version: 18.04.201804262
+        osProfile:
+          adminUsername: azureuser
+          allowExtensionOperations: <span class=nb>true</span>
+          computerName: Development-idem-015042
+          adminPassword: <span class=s2>&#34;C@n0n1c@lVMware&#34;</span>
+          linuxConfiguration:
+            disablePasswordAuthentication: <span class=nb>false</span>
+            patchSettings:
+              assessmentMode: ImageDefault
+              patchMode: ImageDefault
+            provisionVMAgent: <span class=nb>true</span>
+          secrets: <span class=o>[]</span>
+      tags:
+        blueprintname: goapp-terraform
+        deployment: IDEM-Test-Azure
+        project: development
+</code></pre></div><p>we can, once again, call the command &ldquo;state&rdquo;</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state vm_moff_present.sls
+</code></pre></div><p>This will return the following output (please note the provisioningState):</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>--------
+      ID: Development-idem-015042
+Function: azure.compute.virtual_machines.present
+  Result: True
+ Comment: OK
+ Changes: old:
+    ----------
+    properties:
+        ----------
+        provisioningState:
+            Succeeded
+new:
+    ----------
+    tags:
+        ----------
+        blueprintname:
+            goapp-terraform
+        deployment:
+            IDEM-Test-Azure
+        project:
+            development
+    properties:
+        ----------
+        <span class=s2>&#34;provisioningState:
+</span><span class=s2>            Updating&#34;</span>
+</code></pre></div><p>And consequently if we re-run <a href=/Getting-Started/Basic-Commands/>
+describe
+</a> command for <b>azure.compute.virtual_machines</b></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines
+</code></pre></div><p>We get a description for the newly added Azure VM but this time at the bottom we can see the &ldquo;tag&rdquo; information.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>? /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/MOFF-IDEM-01/providers/Microsoft.Compute/virtualMachines/Development-idem-015042
+: azure.compute.virtual_machines.present:
+  - resource_group_name: MOFF-IDEM-01
+  - vm_name: Development-idem-015042
+  - parameters:
+      id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/MOFF-IDEM-01/providers/Microsoft.Compute/virtualMachines/Development-idem-015042
+      location: centralus
+      name: Development-idem-015042
+      properties:
+        hardwareProfile:
+          vmSize: Standard_A5
+        networkProfile:
+          networkInterfaces:
+          - id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default
+            properties:
+              primary: <span class=nb>true</span>
+        osProfile:
+          adminUsername: azureuser
+          allowExtensionOperations: <span class=nb>true</span>
+          computerName: Development-idem-015042
+          linuxConfiguration:
+            disablePasswordAuthentication: <span class=nb>false</span>
+            patchSettings:
+              assessmentMode: ImageDefault
+              patchMode: ImageDefault
+            provisionVMAgent: <span class=nb>true</span>
+          requireGuestProvisionSignal: <span class=nb>true</span>
+          secrets: <span class=o>[]</span>
+        provisioningState: Succeeded
+        storageProfile:
+          dataDisks: <span class=o>[]</span>
+          imageReference:
+            exactVersion: 18.04.201804262
+            offer: UbuntuServer
+            publisher: Canonical
+            sku: 18.04-LTS
+            version: 18.04.201804262
+          osDisk:
+            caching: ReadWrite
+            createOption: FromImage
+            deleteOption: Detach
+            diskSizeGB: <span class=m>30</span>
+            managedDisk:
+              id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-01/providers/Microsoft.Compute/disks/Development-idem-015042_OsDisk_1_e6d0942b1250478f86e21be7ed48629b
+              storageAccountType: Standard_LRS
+            name: Development-idem-015042_OsDisk_1_e6d0942b1250478f86e21be7ed48629b
+            osType: Linux
+        vmId: 1ae9935c-3699-4837-a59d-a2938b24644d
+      <span class=s2>&#34;tags:
+</span><span class=s2>        blueprintname: goapp-terraform
+</span><span class=s2>        deployment: IDEM-Test-Azure
+</span><span class=s2>        project: development&#34;</span>
+      type: Microsoft.Compute/virtualMachines
+</code></pre></div><p>And once we don&rsquo;t need this Azure VM and Resource Group</p>
+<p>We can do it by writing the following state <b>&ldquo;vm_rg_moff_absent.sls&rdquo;</b>
+that includes the idem <a href=/Getting-Started/Basic-Commands/>
+absent
+</a> directive for <b>azure.resource_management.resource_groups</b> & <b>azure.compute.virtual_machines</b></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>Development-idem-015042:
+  azure.compute.virtual_machines.absent:
+  - resource_group_name: MOFF-IDEM-01
+  - vm_name: Development-idem-015042
+  - parameters:
+      location: centralus
+      name: Development-idem-015042
+
+moff-idem-01:
+  azure.resource_management.resource_groups.absent:
+  - resource_group_name: moff-idem-01
+  - parameters:
+      location: eastus
+
+</code></pre></div><p>Then running the command</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state vm_rg_moff_absent.sls
+</code></pre></div><p>This will return the following output (please note the provisioningState):</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>--------
+      ID: Development-idem-015042
+Function: azure.compute.virtual_machines.absent
+  Result: True
+ Comment: Accepted
+ Changes: old:
+    ----------
+    name:
+        Development-idem-015042
+    id:
+        /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/MOFF-IDEM-01/providers/Microsoft.Compute/virtualMachines/Development-idem-015042
+    type:
+        Microsoft.Compute/virtualMachines
+    location:
+        centralus
+    tags:
+        ----------
+        blueprintname:
+            goapp-terraform
+        deployment:
+            IDEM-Test-Azure
+        project:
+            development
+    properties:
+        ----------
+        vmId:
+            1ae9935c-3699-4837-a59d-a2938b24644d
+        hardwareProfile:
+            ----------
+            vmSize:
+                Standard_A5
+        storageProfile:
+            ----------
+            imageReference:
+                ----------
+                publisher:
+                    Canonical
+                offer:
+                    UbuntuServer
+                sku:
+                    18.04-LTS
+                version:
+                    18.04.201804262
+                exactVersion:
+                    18.04.201804262
+            osDisk:
+                ----------
+                osType:
+                    Linux
+                name:
+                    Development-idem-015042_OsDisk_1_e6d0942b1250478f86e21be7ed48629b
+                createOption:
+                    FromImage
+                caching:
+                    ReadWrite
+                managedDisk:
+                    ----------
+                    storageAccountType:
+                        Standard_LRS
+                    id:
+                        /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-01/providers/Microsoft.Compute/disks/Development-idem-015042_OsDisk_1_e6d0942b1250478f86e21be7ed48629b
+                deleteOption:
+                    Detach
+                diskSizeGB:
+                    <span class=m>30</span>
+            dataDisks:
+        osProfile:
+            ----------
+            computerName:
+                Development-idem-015042
+            adminUsername:
+                azureuser
+            linuxConfiguration:
+                ----------
+                disablePasswordAuthentication:
+                    False
+                provisionVMAgent:
+                    True
+                patchSettings:
+                    ----------
+                    patchMode:
+                        ImageDefault
+                    assessmentMode:
+                        ImageDefault
+            secrets:
+            allowExtensionOperations:
+                True
+            requireGuestProvisionSignal:
+                True
+        networkProfile:
+            ----------
+            networkInterfaces:
+                <span class=p>|</span>_
+                  ----------
+                  id:
+                      /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default
+                  properties:
+                      ----------
+                      primary:
+                          True
+        <span class=s2>&#34;provisioningState:
+</span><span class=s2>            Succeeded&#34;</span>
+--------
+      ID: moff-idem-01
+Function: azure.resource_management.resource_groups.absent
+  Result: True
+ Comment: Accepted
+ Changes: old:
+    ----------
+    id:
+        /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-01
+    name:
+        moff-idem-01
+    type:
+        Microsoft.Resources/resourceGroups
+    location:
+        eastus
+    tags:
+        ----------
+    properties:
+        ----------
+        <span class=s2>&#34;provisioningState:
+</span><span class=s2>            Succeeded&#34;</span>
+</code></pre></div><p>If we re-run the same &ldquo;state&rdquo; command,</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state vm_rg_moff_absent.sls
+</code></pre></div><p>it will indicate that indeed the resource is already absent or being deleted (some resources take more time to be removed).</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>--------
+      ID: Development-idem-015042
+Function: azure.compute.virtual_machines.absent
+  Result: True
+ Comment: <span class=s1>&#39;Development-idem-015042&#39;</span> already absent
+ Changes: None
+--------
+      ID: moff-idem-01
+Function: azure.resource_management.resource_groups.absent
+  Result: True
+ Comment: Accepted
+ Changes: old:
+    ----------
+    id:
+        /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-01
+    name:
+        moff-idem-01
+    type:
+        Microsoft.Resources/resourceGroups
+    location:
+        eastus
+    tags:
+        ----------
+    properties:
+        ----------
+        <span class=s2>&#34;provisioningState:
+</span><span class=s2>            Deleting&#34;</span>
+</code></pre></div><p>One more time</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state vm_rg_moff_absent.sls
+</code></pre></div><p>And both Azure resources are removed or absent</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>--------
+      ID: Development-idem-015042
+Function: azure.compute.virtual_machines.absent
+  Result: True
+ Comment: <span class=s1>&#39;Development-idem-015042&#39;</span> already absent
+ Changes: None
+--------
+      ID: moff-idem-01
+Function: azure.resource_management.resource_groups.absent
+  Result: True
+ Comment: <span class=s1>&#39;moff-idem-01&#39;</span> already absent
+ Changes: None
+</code></pre></div><p>Some resources may have dependencies among them, for that you include <a href=/Use-Cases/reconciler-flag/>
+reconciler=basic flag
+</a>, This allows Idem-azure-auto to run Idem state
+with Idem&rsquo;s reconciliation loop.</p>
+<div class=edit-meta>
+Last updated on 8 Feb 2022
+<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/How%20to%20use%20Idem/Use%20Cases/Resources%20and%20SLS/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/ title="Use Cases"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Use Cases</a>
+<a class="nav nav-next" href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/ title="End to End Azure VM">Next - End to End Azure VM <i class="fas fa-arrow-right" aria-hidden=true></i></a>
+</nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
+</footer>
+</main>
+<div class=sidebar>
+<nav class=slide-menu>
+<ul>
+<li><a href=https://learnidem.github.io>Home</a></li>
+<li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/>Getting Started<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/Getting-Started/Install-Idem/>Install Idem</a>
+</li>
+<li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/>Cloud Plug-Ins<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/Idem-Azure-Plug-In/>Idem Azure Plug-In</a>
+</li>
+</ul>
+</li>
+<li><a href=https://learnidem.github.io/Getting-Started/Authenticate/>Authenticate</a>
+</li>
+<li><a href=https://learnidem.github.io/Getting-Started/Basic-Commands/>Basic Commands</a>
+</li>
+<li><a href=https://learnidem.github.io/Getting-Started/Troubleshooting/>Troubleshooting</a>
+</li>
+</ul>
+</li>
+<li class="parent has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/>How to use Idem<span class="mark opened">-</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/Describe/>Describe command</a>
+</li>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/Filter-flag/>Filter Flag</a>
+</li>
+<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/>States<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present/>Present</a>
+</li>
+<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/>Present Update<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/Force-Update/>Force Update</a>
+</li>
+</ul>
+</li>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Absent/>Absent</a>
+</li>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Describe-2-State/>Describe 2 State</a>
+</li>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/reconciler-flag/>Reconcilier Flag</a>
+</li>
+</ul>
+</li>
+<li class="parent has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/>Use Cases<span class="mark opened">-</span></a>
+<ul class=sub-menu>
+<li class="parent active"><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/>Resources and SLS</a>
+</li>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>End to End Azure VM</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href=https://learnidem.github.io/Documentation-Resources/>Documentation Resources</a>
+</li>
+</ul>
+</nav>
+<div class=sidebar-footer></div>
+</div>
+</div><a href=# id=backtothetop-fixed class=backtothetop data-backtothetop-duration=600 data-backtothetop-easing=easeOutQuart data-backtothetop-fixed-fadein=1000 data-backtothetop-fixed-fadeout=1000 data-backtothetop-fixed-bottom=10 data-backtothetop-fixed-right=20>
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

@@ -54,7 +54,7 @@ idem-azure-auto
 </label>
 <div class="gdoc-markdown--nested gdoc-tabs__content">
 <p>Create a <code>credentials.yaml</code> file - the <code>default</code> profile will be used unless specified in the command or state file:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>azurerm</span><span class=p>:</span><span class=w>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>azure</span><span class=p>:</span><span class=w>
 </span><span class=w>   </span><span class=nt>default</span><span class=p>:</span><span class=w>
 </span><span class=w>      </span><span class=nt>client_id</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&lt;Your Client ID&gt;&#34;</span><span class=w>
 </span><span class=w>      </span><span class=nt>secret</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&lt;Your Secret key&gt;&#34;</span><span class=w>
@@ -82,8 +82,9 @@ Idem cli
 <p>Example:</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.virtual_networks.network_interfaces --acct-key <span class=nv>DvBsYojgU5gy51CecvhhC7Ywrsq9NL3CSg_XcLMKKn4</span><span class=o>=</span> --acct-file /home/demouser/environments/credentials.yaml.fernet
 </code></pre></div><h2 id=credentials-and-profiles>Credentials and Profiles</h2>
-<p>Credentials can be grouped by Providers (azurerm, aws, etc ) and Profiles (within each Providers section),<br> you can define multiple Providers and Profiles in a single configuration file (e.g. default, dev, staging, etc).<br> It is recommended to always include/define the &ldquo;default&rdquo; profile.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>azurerm</span><span class=p>:</span><span class=w>
+<p>Credentials can be grouped by Plug-Ins (azure, aws, etc ) and Profiles (within each Plug-Ins section),<br> you can define multiple Plug-Ins and Profiles in a single configuration file (e.g. default, dev, staging, etc).<br> It is recommended to always include/define the &ldquo;default&rdquo; profile.<br></p>
+<p>E.g. credentials.yaml file with multiple account profiles.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>azure</span><span class=p>:</span><span class=w>
 </span><span class=w>   </span><span class=nt>default</span><span class=p>:</span><span class=w>
 </span><span class=w>      </span><span class=nt>client_id</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&lt;Your Client ID&gt;&#34;</span><span class=w>
 </span><span class=w>      </span><span class=nt>secret</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;&lt;Your Secret key&gt;&#34;</span><span class=w>
@@ -99,24 +100,21 @@ Idem cli
 </span><span class=w>    </span><span class=nt>aws_access_key_id</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Access Key ID&gt;</span><span class=w>
 </span><span class=w>    </span><span class=nt>aws_secret_access_key</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Your Secret Access Key&gt;</span><span class=w>
 </span><span class=w>    </span><span class=nt>region_name</span><span class=p>:</span><span class=w> </span><span class=l>&lt;AWS Region&gt;</span><span class=w>
-</span></code></pre></div><p>When using <a href=Getting-Started/Basic-Commands/>
-Idem cli
-</a> you can reference those account profiles with the option <code>--acct-profile</code> and the profile name,<br>
-e.g. the following command will instruct <a href=/Getting-Started/Install-Idem/>
-Idem
-</a> to use the Azure credentials associated to the &ldquo;tmm&rdquo; profile</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines --acct-profile tmm
-</code></pre></div><p>Please note that if you don&rsquo;t specific the account profile flag <code>--acct-profile</code>, the default profile is going to be used (if profile default is defined at the configuration yaml)<br>
-e.g. the following command will instruct <a href=/Getting-Started/Install-Idem/>
+</span></code></pre></div><p>With Idem, You use the account profile flag <code>--acct-profile</code> to indicate which specific profile and associated set of credentials to be used. Please note that if you don&rsquo;t specific the account profile flag <code>--acct-profile</code>, the default profile is going to be always used (if profile default is defined at the configuration yaml)<br></p>
+<p>The following command will instruct <a href=/Getting-Started/Install-Idem/>
 Idem
 </a> to use the Azure credentials associated to the &ldquo;default&rdquo; profile</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines 
+</code></pre></div><p>The following command will instruct <a href=/Getting-Started/Install-Idem/>
+Idem
+</a> to use the Azure credentials associated to the &ldquo;tmm&rdquo; profile ( per credentials.yaml file from lines above)</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines --acct-profile tmm
 </code></pre></div><p><a href=/Use-Cases/Describe/>
 Describe
 </a> Azure VM Machines within the &ldquo;tmm&rdquo; profile example:</p>
 <script id=asciicast-SiXcq1OmVkca57LNf2m6N4wWK src=https://asciinema.org/a/SiXcq1OmVkca57LNf2m6N4wWK.js async theme=asciinema data-autoplay=true data-size=small loop=true></script><div class=edit-meta>
-Last updated on 3 Feb 2022
-<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Authenticate/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/Cloud-Providers/idem-azure-auto/ title="Idem Azure Auto Provider"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Idem Azure Auto Provider</a>
+Last updated on 8 Feb 2022
+<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Authenticate/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/Idem-Azure-Plug-In/ title="Idem Azure Plug-In"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Idem Azure Plug-In</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Getting-Started/Basic-Commands/ title="Basic Commands">Next - Basic Commands <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
 </footer>
@@ -129,9 +127,9 @@ Last updated on 3 Feb 2022
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/Getting-Started/Install-Idem/>Install Idem</a>
 </li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/Cloud-Providers/>Cloud Providers<span class="mark closed">+</span></a>
+<li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/>Cloud Plug-Ins<span class="mark closed">+</span></a>
 <ul class=sub-menu>
-<li><a href=https://learnidem.github.io/Getting-Started/Cloud-Providers/idem-azure-auto/>Idem Azure Auto Provider</a>
+<li><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/Idem-Azure-Plug-In/>Idem Azure Plug-In</a>
 </li>
 </ul>
 </li>
@@ -143,33 +141,37 @@ Last updated on 3 Feb 2022
 </li>
 </ul>
 </li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/Use-Cases/>Use Cases<span class="mark closed">+</span></a>
+<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/>How to use Idem<span class="mark closed">+</span></a>
 <ul class=sub-menu>
-<li><a href=https://learnidem.github.io/Use-Cases/Describe/>Describe command</a>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/Describe/>Describe command</a>
 </li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/Use-Cases/SLS-States/>SLS States<span class="mark closed">+</span></a>
-<ul class=sub-menu>
-<li><a href=https://learnidem.github.io/Use-Cases/SLS-States/Present/>Present</a>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/Filter-flag/>Filter Flag</a>
 </li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/Use-Cases/SLS-States/Present-Update/>Present Update<span class="mark closed">+</span></a>
+<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/>States<span class="mark closed">+</span></a>
 <ul class=sub-menu>
-<li><a href=https://learnidem.github.io/Use-Cases/SLS-States/Present-Update/Force-Update/>Force Update</a>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present/>Present</a>
+</li>
+<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/>Present Update<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/Force-Update/>Force Update</a>
 </li>
 </ul>
 </li>
-<li><a href=https://learnidem.github.io/Use-Cases/SLS-States/Absent/>Absent</a>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Absent/>Absent</a>
 </li>
-<li><a href=https://learnidem.github.io/Use-Cases/SLS-States/Describe-2-SLS/>Describe 2 SLS</a>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Describe-2-State/>Describe 2 State</a>
 </li>
-<li><a href=https://learnidem.github.io/Use-Cases/SLS-States/Resources-and-SLS/>Resources and SLS</a>
-</li>
-<li><a href=https://learnidem.github.io/Use-Cases/SLS-States/End-to-End-Azure-VM/>End to End Azure VM</a>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/States/reconciler-flag/>Reconcilier Flag</a>
 </li>
 </ul>
 </li>
-<li><a href=https://learnidem.github.io/Use-Cases/Filter-flag/>Filter Flag</a>
+<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/>Use Cases<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/>Resources and SLS</a>
 </li>
-<li><a href=https://learnidem.github.io/Use-Cases/reconciler-flag/>Reconcilier Flag</a>
+<li><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>End to End Azure VM</a>
+</li>
+</ul>
 </li>
 </ul>
 </li>
