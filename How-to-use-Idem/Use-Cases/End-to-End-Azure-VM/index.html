@@ -58,6 +58,28 @@ Idem Azure Plug-In Resources
 </ul>
 <br>
 At the end we will have created an Azure Virtual Machine ( which includes attributes such as SSH Key authentication and Cloud-Init ).
+<p><b style=color:blue>Important</b> You can follow this example with two different approaches:<br></p>
+<ol>
+<li>
+<p>Add all the resources and wait until the end to execute the state - Default</p>
+<ul>
+<li>You will have to provide manually the resources' ID to cross-references dependencies, which it is simple and explained below.</li>
+<li>When you execute the state, you must include the <a href=/How-to-use-Idem/States/reconciler-flag/>
+reconciler=basic
+</a> flag (as indicated at the step).
+<br></li>
+</ul>
+</li>
+<li>
+<p>Execute the state each time, right after you add each resource, until you add &lsquo;em all - &ldquo;Idemon&rdquo;.</p>
+<ul>
+<li>Every time you add a new resource and apply the state, the output will include the associated ID when created, which you can cut and paste for any other resource that may have a dependency.</li>
+<li>In this mode, the <a href=/How-to-use-Idem/States/reconciler-flag/>
+reconciler=basic
+</a> flag is not mandatory.</li>
+</ul>
+</li>
+</ol>
 <p>Let&rsquo;s create a new SLS file named &ldquo;goapp.sls&rdquo;<br></p>
 <p>First let&rsquo;s add a <b>Resource Group</b></p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=c># Resource Group</span><span class=w>
@@ -231,7 +253,7 @@ Idem
 Idem describe
 </a> to validate all your resources are created (BTW, it would be a good idea to use your own SSH public Key, this one is fake)</p>
 <div class=edit-meta>
-Last updated on 8 Feb 2022
+Last updated on 9 Feb 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/How%20to%20use%20Idem/Use%20Cases/End%20to%20End%20Azure%20VM/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/ title="Resources and SLS"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Resources and SLS</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Documentation-Resources/ title="Documentation Resources">Next - Documentation Resources <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
