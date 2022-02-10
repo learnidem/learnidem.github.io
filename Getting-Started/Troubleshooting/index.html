@@ -45,14 +45,20 @@
 </header>
 <div class=content-container>
 <main><h1>Troubleshooting</h1><p>These are common issues and fixes as well as useful hints.</p>
-<p>If you get Crypto requirements issues, make sure to upgrade <b>pip</b> to the latest, regardless of the OS you are using.</p>
+<ul>
+<li>If you get Crypto requirements issues, make sure to upgrade <b>pip</b> to the latest, regardless of the OS you are using.</li>
+</ul>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># Upgrade to the latest PIP to meet the Crypto requirements (Windows Example)</span>
 python3 -m pip install --upgrade pip
-</code></pre></div><p>If you get a <b>KeyError: &lsquo;subscription_id&rsquo;</b> , it&rsquo;s likely the ACCT_KEY is not exported</p>
+</code></pre></div><ul>
+<li>If you get a <b>KeyError: &lsquo;subscription_id&rsquo;</b> , it&rsquo;s likely the ACCT_KEY is not exported</li>
+</ul>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>~/SCRIPTS/idem ❯ idem describe azure.compute.virtual_machines                                                                                           idem 15:51:32
 <span class=o>[</span>ERROR   <span class=o>]</span> Error during describe: KeyError: <span class=s1>&#39;subscription_id&#39;</span>
 <span class=o>{}</span>
-</code></pre></div><p>You can view the full error messages by using the <b>&ndash;hard-fail</b> flag</p>
+</code></pre></div><ul>
+<li>You can view the full error messages by using the <b>&ndash;hard-fail</b> flag</li>
+</ul>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>~/SCRIPTS/idem ❯ idem describe azure.compute.virtual_machines --hard-fail
 <span class=o>[</span>ERROR <span class=o>]</span> Error during describe: KeyError: <span class=s1>&#39;subscription_id&#39;</span>
 Traceback <span class=o>(</span>most recent call last<span class=o>)</span>:
@@ -61,7 +67,9 @@ File <span class=s2>&#34;/Users/sammcgeown/SCRIPTS/idem/.venv/bin/idem&#34;</spa
 File <span class=s2>&#34;/Users/sammcgeown/SCRIPTS/idem/.venv/lib/python3.9/site-packages/dict_tools/data.py&#34;</span>, line 183, in __getattr__
 <span class=k>return</span> self<span class=o>[</span>k<span class=o>]</span>
 KeyError: <span class=s1>&#39;subscription_id&#39;</span>
-</code></pre></div><p>List the idem versions/plugins</p>
+</code></pre></div><ul>
+<li>List the idem versions/plugins</li>
+</ul>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>
 ~/SCRIPTS/idem ❯ pip list <span class=p>|</span> grep idem                                                                                                                   idem 15:58:27
 idem               14.0.2
@@ -69,8 +77,10 @@ idem-aiohttp       3.0.0
 idem-aws           0.12.1  /Users/sammcgeown/SCRIPTS/idem/idem-aws
 idem-azure-auto    0.0.2   /Users/sammcgeown/SCRIPTS/idem/idem-azure-auto
 idem-gitlab        1.0.0   /Users/sammcgeown/SCRIPTS/idem/idem-gitlab
-</code></pre></div><p>By default <b>idem.log</b> will be written at your environment home,
-you can change the location and log level with idem command line</p>
+</code></pre></div><ul>
+<li>By default <b>idem.log</b> will be written at your environment home,
+you can change the location and log level with idem command line</li>
+</ul>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>Logging Options:
   --log-datefmt LOG_DATEFMT
                         The date format to display in the logs
@@ -88,8 +98,16 @@ you can change the location and log level with idem command line</p>
   --log-plugin LOG_PLUGIN
                         The logging plugin to use
 
-</code></pre></div><div class=edit-meta>
-Last updated on 11 Jan 2022
+</code></pre></div><ul>
+<li>On macOS, you get the error: <b>"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed"</b><br>
+Python 3.6+ now includes its own private copy of OpenSSL 1.0.2. and is configured with its own private openssl directory for root certificates<br>
+As noted in the ReadMe, there is a simple double-clickable or command-line-runnable script ("/Applications/Python 3.6/Install Certificates.command") - replace Python 3.6 with your specific Python version, e.g. 3.9 <br>
+Detailed information <a href=https://bugs.python.org/issue28150 target=_blank>
+<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> issue28150
+</a></li>
+</ul>
+<div class=edit-meta>
+Last updated on 10 Feb 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Troubleshooting/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/Basic-Commands/ title="Basic Commands"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Basic Commands</a>
 <a class="nav nav-next" href=https://learnidem.github.io/How-to-use-Idem/ title="How to use Idem">Next - How to use Idem <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
