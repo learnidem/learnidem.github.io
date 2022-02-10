@@ -2,11 +2,11 @@
 <head><meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Use Cases - Learn Idem</title>
+<title>Test Flag - Learn Idem</title>
 <meta name=description content="   Powered by Idem Project">
 <meta name=generator content="Hugo 0.92.1">
 <link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml>
-<link rel=canonical href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/>
+<link rel=canonical href=https://learnidem.github.io/How-to-use-Idem/States/Test-Flag/>
 <link rel=stylesheet href=https://learnidem.github.io/css/theme.css>
 <link rel=stylesheet href=/css/lightbox.min.css>
 <link rel=stylesheet href=/css/custom.css>
@@ -20,15 +20,15 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8R0DEW1VZM"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-8R0DEW1VZM')</script>
 <style>:root{--custom-font-color:#0065ab;--custom-background-color:#FFFFFF}</style>
-<meta property="og:title" content="Use Cases">
+<meta property="og:title" content="Test Flag">
 <meta property="og:description" content="   Powered by Idem Project">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://learnidem.github.io/How-to-use-Idem/Use-Cases/"><meta property="og:image" content="https://learnidem.github.io/images/service-broker.svg"><meta property="og:site_name" content="Learn Idem">
+<meta property="og:url" content="https://learnidem.github.io/How-to-use-Idem/States/Test-Flag/"><meta property="og:image" content="https://learnidem.github.io/images/service-broker.svg"><meta property="og:site_name" content="Learn Idem">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://learnidem.github.io/images/service-broker.svg">
-<meta name=twitter:title content="Use Cases">
+<meta name=twitter:title content="Test Flag">
 <meta name=twitter:description content="   Powered by Idem Project">
-<meta itemprop=name content="Use Cases">
+<meta itemprop=name content="Test Flag">
 <meta itemprop=description content="   Powered by Idem Project"></head>
 <body><div class=container><header>
 <div class=header-image>
@@ -44,14 +44,34 @@
 </div>
 </header>
 <div class=content-container>
-<main><h1>Use Cases</h1><p>Explore further how to interact with multiple Idem Resources and States.<br>
-Learn with the <a href=/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>
-End to End Azure VM
-</a> use case how to create from scratch, and link all the resources needed to deploy an Azure Virtual Machine.</p>
-<div class=edit-meta>
-Last updated on 8 Feb 2022
-<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/How%20to%20use%20Idem/Use%20Cases/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/How-to-use-Idem/States/reconciler-flag/ title="Reconcilier Flag"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Reconcilier Flag</a>
-<a class="nav nav-next" href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/ title="Resources and SLS">Next - Resources and SLS <i class="fas fa-arrow-right" aria-hidden=true></i></a>
+<main><h1>Test Flag</h1><p>Sometimes, specially with a <a href=/How-to-use-Idem/States/Present/>
+present
+</a> , a <a href=/How-to-use-Idem/States/Present-Update/>
+present update
+</a> or <a href=/How-to-use-Idem/States/Absent/>
+absent
+</a> states, you would like to verify the changes that may happen before actually applying them</p>
+<p>For that you can use the state flag <b>&ldquo;test&rdquo;</b></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>  --test, -t            Set the idem run to execute in <span class=nb>test</span> mode. No changes
+                        will be made, idem will only detect <span class=k>if</span> changes will be
+                        made in a real run.
+</code></pre></div><p>As an example,</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state states/my_resource_group_state.sls -t
+</code></pre></div><p>After that Idem will provide similar output, indicating that the resource &ldquo;would&rdquo; and the actual operation<br>
+in this case, our state <b>would update</b> our Azure Resource Group named &ldquo;moff-idem-01&rdquo; with new meta-data if we decide to <a href=/>
+enforce it
+</a> :</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>--------
+      ID: moff-idem-01
+Function: azure.resource_management.resource_groups.present
+  Result: True
+ Comment: Would update azure.resource_management.resource_groups with parameters: <span class=o>{</span><span class=s1>&#39;tags&#39;</span>: <span class=o>{</span><span class=s1>&#39;createdWith&#39;</span>: <span class=s1>&#39;idem&#39;</span><span class=o>}}</span>
+ Changes: None
+
+</code></pre></div><div class=edit-meta>
+Last updated on 10 Feb 2022
+<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/How%20to%20use%20Idem/States/Test%20Flag/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/How-to-use-Idem/States/Absent/ title=Absent><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Absent</a>
+<a class="nav nav-next" href=https://learnidem.github.io/How-to-use-Idem/States/Describe-2-State/ title="Describe 2 State">Next - Describe 2 State <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
 </footer>
 </main>
@@ -83,7 +103,7 @@ Last updated on 8 Feb 2022
 </li>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/Filter-flag/>Filter Flag</a>
 </li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/>States<span class="mark closed">+</span></a>
+<li class="parent has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/States/>States<span class="mark opened">-</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present/>Present</a>
 </li>
@@ -95,7 +115,7 @@ Last updated on 8 Feb 2022
 </li>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/States/Absent/>Absent</a>
 </li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Test-Flag/>Test Flag</a>
+<li class="parent active"><a href=https://learnidem.github.io/How-to-use-Idem/States/Test-Flag/>Test Flag</a>
 </li>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/States/Describe-2-State/>Describe 2 State</a>
 </li>
@@ -103,7 +123,7 @@ Last updated on 8 Feb 2022
 </li>
 </ul>
 </li>
-<li class="parent active has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/>Use Cases<span class="mark opened">-</span></a>
+<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/>Use Cases<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/>Resources and SLS</a>
 </li>
