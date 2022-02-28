@@ -109,12 +109,37 @@ Ubuntu 18.04 & <a href=https://www.python.org/downloads/release/python-369/ targ
 </span></span><span class=line><span class=cl><span class=c1># Verify Version</span>
 </span></span><span class=line><span class=cl>idem --version
 </span></span></code></pre></div><p><b>Idem installation - Ubuntu</b></p><script id=asciicast-ZlpSV4Dd1vMneJ8j8GRwo1a4R src=https://asciinema.org/a/ZlpSV4Dd1vMneJ8j8GRwo1a4R.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
-</div></div><p>At this point you can install <a href=/Getting-Started/Cloud-Providers/>
+</div><input type=radio class="gdoc-tabs__control hidden" name=tabs-install id=tabs-install-3>
+<label for=tabs-install-3 class=gdoc-tabs__label>
+CentOS
+</label>
+<div class="gdoc-markdown--nested gdoc-tabs__content">
+<p>Idem and providers at the moment are version related for idem-azure-auto v0.0.3 is recommended idem v15.0.1<br>
+CentOS 7.9 & <a href=https://www.python.org/downloads/release/python-368/ target=_blank>
+<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Python 3.6.8
+</a>:
+CentOS 8 can be also used, replace &ldquo;yum&rdquo; per &ldquo;dnf&rdquo;</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># Install Base Packages</span>
+</span></span><span class=line><span class=cl>sudo yum update -y
+</span></span><span class=line><span class=cl>sudo yum -y groupinstall development
+</span></span><span class=line><span class=cl><span class=c1># Optional, you can create a Virtual Enviroment  </span>
+</span></span><span class=line><span class=cl>mkdir environments
+</span></span><span class=line><span class=cl><span class=nb>cd</span> environments
+</span></span><span class=line><span class=cl>python3 -m venv my_idem_env
+</span></span><span class=line><span class=cl><span class=nb>source</span> my_idem_env/bin/activate
+</span></span><span class=line><span class=cl><span class=c1># Upgrade to the latest PIP to meet the Crypto requirements</span>
+</span></span><span class=line><span class=cl>python3 -m pip install --upgrade pip
+</span></span><span class=line><span class=cl><span class=c1># Install Idem </span>
+</span></span><span class=line><span class=cl>pip3 install idem 
+</span></span><span class=line><span class=cl><span class=c1># Install Specific Idem Version</span>
+</span></span><span class=line><span class=cl>pip3 install <span class=nv>idem</span><span class=o>==</span>15.0.0
+</span></span><span class=line><span class=cl><span class=c1># Verify Version</span>
+</span></span><span class=line><span class=cl>idem --version
+</span></span></code></pre></div></div></div><p>At this point you can install <a href=/Getting-Started/Cloud-Providers/>
 Cloud Providers
 </a> then set up the credentials to <a href=/Getting-Started/Authenticate/>
 authenticate
 </a> with the Idem Cloud Providers.</p><div class=edit-meta>
-Last updated on 16 Feb 2022
+Last updated on 28 Feb 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Install%20Idem/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/ title="Getting Started"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Getting Started</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/ title="Cloud Plug-Ins">Next - Cloud Plug-Ins <i class="fas fa-arrow-right" aria-hidden=true></i></a>
 </nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p></footer></main><div class=sidebar>
