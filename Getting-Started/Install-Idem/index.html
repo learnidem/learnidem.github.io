@@ -2,9 +2,8 @@
 <head><meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Install Idem - Learn Idem</title>
-<meta name=description content="   Powered by Idem Project">
-<meta name=generator content="Hugo 0.92.2">
+<title>Install Idem - Learn Idem</title><meta name=description content="   Powered by Idem Project">
+<meta name=generator content="Hugo 0.93.0">
 <link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml>
 <link rel=canonical href=https://learnidem.github.io/Getting-Started/Install-Idem/>
 <link rel=stylesheet href=https://learnidem.github.io/css/theme.css>
@@ -18,9 +17,8 @@
 <script src=https://learnidem.github.io/js/bundle.js></script>
 <script src=/js/lightbox.min.js></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8R0DEW1VZM"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-8R0DEW1VZM')</script>
-<style>:root{--custom-font-color:#0065ab;--custom-background-color:#FFFFFF}</style>
-<meta property="og:title" content="Install Idem">
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-8R0DEW1VZM")</script>
+<style>:root{--custom-font-color:#0065ab;--custom-background-color:#FFFFFF}</style><meta property="og:title" content="Install Idem">
 <meta property="og:description" content="   Powered by Idem Project">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://learnidem.github.io/Getting-Started/Install-Idem/"><meta property="og:image" content="https://learnidem.github.io/images/service-broker.svg"><meta property="og:site_name" content="Learn Idem">
@@ -29,21 +27,13 @@
 <meta name=twitter:title content="Install Idem">
 <meta name=twitter:description content="   Powered by Idem Project">
 <meta itemprop=name content="Install Idem">
-<meta itemprop=description content="   Powered by Idem Project"></head>
-<body><div class=container><header>
+<meta itemprop=description content="   Powered by Idem Project"></head><body><div class=container><header>
 <div class=header-image>
 <img src=/images/1254756-oss-id-idem-project_stacked.jpg alt="   Learn Idem">
-</div>
-<div class=header>
+</div><div class=header>
 <div class=header-h1>
-<h1 class=header-h1> Learn Idem</h1>
-</div>
-<div class=header-description>
-<p class=description> Powered by Idem Project</p>
-</div>
-</div>
-</header>
-<div class=content-container>
+<h1 class=header-h1> Learn Idem</h1></div><div class=header-description>
+<p class=description> Powered by Idem Project</p></div></div></header><div class=content-container>
 <main><h1>Install Idem</h1><p>Idem can be installed in different ways in multiple Operating System and in Containers, also as a <a href=https://repo.idemproject.io/ target=_blank>
 <i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> single binary
 </a><br>
@@ -56,11 +46,9 @@ Idem is written in <a href=https://www.python.org/ target=_blank>
 <i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Python 3.6+
 </a> is required as prerequisite for version 15.0.X, however newer idem versions may require also newer <a href=https://www.python.org/downloads/ target=_blank>
 <i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Python 3.7+
-</a> releases.<br></p>
-<p>You can also pull the container image bundle that includes the idem + the selected plug-in, this is an excellent alternative to avoid system dependencies errors. More information under each <a href=/Getting-Started/Cloud-Plug-Ins/>
+</a> releases.<br></p><p>You can also pull the container image bundle that includes the idem + the selected plug-in, this is an excellent alternative to avoid system dependencies errors. More information under each <a href=/Getting-Started/Cloud-Plug-Ins/>
 Cloud Plug-Ins
-</a> install instructions.</p>
-<div class=gdoc-tabs>
+</a> install instructions.</p><div class=gdoc-tabs>
 <input type=radio class="gdoc-tabs__control hidden" name=tabs-install id=tabs-install-0 checked>
 <label for=tabs-install-0 class=gdoc-tabs__label>
 macOS
@@ -69,40 +57,34 @@ macOS
 <p>Idem and providers at the moment are version related for idem-azure-auto v0.0.3 is recommended idem v15.0.0 <br>
 macOS 12.1 & <a href=https://www.python.org/downloads/release/python-373/ target=_blank>
 <i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Python 3.7.3
-</a>:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># Optional but recommended, you can create a Virtual Enviroment  </span>
-mkdir environments
-<span class=nb>cd</span> environments
-python3 -m venv my_idem_env
-<span class=nb>source</span> my_idem_env/bin/activate
-<span class=c1># Upgrade to the latest PIP to meet the Crypto requirements</span>
-python3 -m pip install --upgrade pip
-<span class=c1># Install Idem </span>
-pip3 install idem
-<span class=c1># Install Specific Idem Version</span>
-pip3 install <span class=nv>idem</span><span class=o>==</span>15.0.0
-<span class=c1># Verify Version</span>
-idem --version
-</code></pre></div><p><b>Idem installation - macOS</b></p>
-<script id=asciicast-8BqTYhsLKbJNhLEK2z1GnpAVP src=https://asciinema.org/a/8BqTYhsLKbJNhLEK2z1GnpAVP.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
-</div>
-<input type=radio class="gdoc-tabs__control hidden" name=tabs-install id=tabs-install-1>
+</a>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># Optional but recommended, you can create a Virtual Enviroment  </span>
+</span></span><span class=line><span class=cl>mkdir environments
+</span></span><span class=line><span class=cl><span class=nb>cd</span> environments
+</span></span><span class=line><span class=cl>python3 -m venv my_idem_env
+</span></span><span class=line><span class=cl><span class=nb>source</span> my_idem_env/bin/activate
+</span></span><span class=line><span class=cl><span class=c1># Upgrade to the latest PIP to meet the Crypto requirements</span>
+</span></span><span class=line><span class=cl>python3 -m pip install --upgrade pip
+</span></span><span class=line><span class=cl><span class=c1># Install Idem </span>
+</span></span><span class=line><span class=cl>pip3 install idem
+</span></span><span class=line><span class=cl><span class=c1># Install Specific Idem Version</span>
+</span></span><span class=line><span class=cl>pip3 install <span class=nv>idem</span><span class=o>==</span>15.0.0
+</span></span><span class=line><span class=cl><span class=c1># Verify Version</span>
+</span></span><span class=line><span class=cl>idem --version
+</span></span></code></pre></div><p><b>Idem installation - macOS</b></p><script id=asciicast-8BqTYhsLKbJNhLEK2z1GnpAVP src=https://asciinema.org/a/8BqTYhsLKbJNhLEK2z1GnpAVP.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
+</div><input type=radio class="gdoc-tabs__control hidden" name=tabs-install id=tabs-install-1>
 <label for=tabs-install-1 class=gdoc-tabs__label>
 Windows
 </label>
 <div class="gdoc-markdown--nested gdoc-tabs__content">
 <p>Download and install <a href=https://www.python.org/downloads/windows/ target=_blank>
 <i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Windows for Python
-</a>, making sure the python and pip executables are included in the PATH.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># Upgrade to the latest PIP to meet the Crypto requirements</span>
-python3 -m pip install --upgrade pip
-<span class=c1># Install Idem </span>
-pip3 install idem 
-<span class=c1># Verify Version</span>
-idem --version
-</code></pre></div>
-</div>
-<input type=radio class="gdoc-tabs__control hidden" name=tabs-install id=tabs-install-2>
+</a>, making sure the python and pip executables are included in the PATH.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># Upgrade to the latest PIP to meet the Crypto requirements</span>
+</span></span><span class=line><span class=cl>python3 -m pip install --upgrade pip
+</span></span><span class=line><span class=cl><span class=c1># Install Idem </span>
+</span></span><span class=line><span class=cl>pip3 install idem 
+</span></span><span class=line><span class=cl><span class=c1># Verify Version</span>
+</span></span><span class=line><span class=cl>idem --version
+</span></span></code></pre></div></div><input type=radio class="gdoc-tabs__control hidden" name=tabs-install id=tabs-install-2>
 <label for=tabs-install-2 class=gdoc-tabs__label>
 Ubuntu
 </label>
@@ -110,112 +92,67 @@ Ubuntu
 <p>Idem and providers at the moment are version related for idem-azure-auto v0.0.3 is recommended idem v15.0.1<br>
 Ubuntu 18.04 & <a href=https://www.python.org/downloads/release/python-369/ target=_blank>
 <i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Python 3.6.9
-</a>:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=c1># Install Base Packages</span>
-sudo apt update <span class=o>&amp;&amp;</span> sudo apt -y upgrade
-sudo apt install -y python3-pip build-essential libssl-dev libffi-dev python-dev python3-venv
-<span class=c1># Optional, you can create a Virtual Enviroment  </span>
-mkdir environments
-<span class=nb>cd</span> environments
-python3 -m venv my_idem_env
-<span class=nb>source</span> my_idem_env/bin/activate
-<span class=c1># Upgrade to the latest PIP to meet the Crypto requirements</span>
-python3 -m pip install --upgrade pip
-<span class=c1># Install Idem </span>
-pip3 install idem 
-<span class=c1># Install Specific Idem Version</span>
-pip3 install <span class=nv>idem</span><span class=o>==</span>15.0.0
-<span class=c1># Verify Version</span>
-idem --version
-</code></pre></div><p><b>Idem installation - Ubuntu</b></p>
-<script id=asciicast-ZlpSV4Dd1vMneJ8j8GRwo1a4R src=https://asciinema.org/a/ZlpSV4Dd1vMneJ8j8GRwo1a4R.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
-</div>
-</div>
-<p>At this point you can install <a href=/Getting-Started/Cloud-Providers/>
+</a>:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># Install Base Packages</span>
+</span></span><span class=line><span class=cl>sudo apt update <span class=o>&amp;&amp;</span> sudo apt -y upgrade
+</span></span><span class=line><span class=cl>sudo apt install -y python3-pip build-essential libssl-dev libffi-dev python-dev python3-venv
+</span></span><span class=line><span class=cl><span class=c1># Optional, you can create a Virtual Enviroment  </span>
+</span></span><span class=line><span class=cl>mkdir environments
+</span></span><span class=line><span class=cl><span class=nb>cd</span> environments
+</span></span><span class=line><span class=cl>python3 -m venv my_idem_env
+</span></span><span class=line><span class=cl><span class=nb>source</span> my_idem_env/bin/activate
+</span></span><span class=line><span class=cl><span class=c1># Upgrade to the latest PIP to meet the Crypto requirements</span>
+</span></span><span class=line><span class=cl>python3 -m pip install --upgrade pip
+</span></span><span class=line><span class=cl><span class=c1># Install Idem </span>
+</span></span><span class=line><span class=cl>pip3 install idem 
+</span></span><span class=line><span class=cl><span class=c1># Install Specific Idem Version</span>
+</span></span><span class=line><span class=cl>pip3 install <span class=nv>idem</span><span class=o>==</span>15.0.0
+</span></span><span class=line><span class=cl><span class=c1># Verify Version</span>
+</span></span><span class=line><span class=cl>idem --version
+</span></span></code></pre></div><p><b>Idem installation - Ubuntu</b></p><script id=asciicast-ZlpSV4Dd1vMneJ8j8GRwo1a4R src=https://asciinema.org/a/ZlpSV4Dd1vMneJ8j8GRwo1a4R.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
+</div></div><p>At this point you can install <a href=/Getting-Started/Cloud-Providers/>
 Cloud Providers
 </a> then set up the credentials to <a href=/Getting-Started/Authenticate/>
 authenticate
-</a> with the Idem Cloud Providers.</p>
-<div class=edit-meta>
+</a> with the Idem Cloud Providers.</p><div class=edit-meta>
 Last updated on 16 Feb 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Install%20Idem/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/Getting-Started/ title="Getting Started"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Getting Started</a>
 <a class="nav nav-next" href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/ title="Cloud Plug-Ins">Next - Cloud Plug-Ins <i class="fas fa-arrow-right" aria-hidden=true></i></a>
-</nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
-</footer>
-</main>
-<div class=sidebar>
+</nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p></footer></main><div class=sidebar>
 <nav class=slide-menu>
 <ul>
-<li><a href=https://learnidem.github.io>Home</a></li>
-<li class="parent has-sub-menu"><a href=https://learnidem.github.io/Getting-Started/>Getting Started<span class="mark opened">-</span></a>
+<li><a href=https://learnidem.github.io>Home</a></li><li class="parent has-sub-menu"><a href=https://learnidem.github.io/Getting-Started/>Getting Started<span class="mark opened">-</span></a>
 <ul class=sub-menu>
 <li class="parent active"><a href=https://learnidem.github.io/Getting-Started/Install-Idem/>Install Idem</a>
-</li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/>Cloud Plug-Ins<span class="mark closed">+</span></a>
+</li><li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/>Cloud Plug-Ins<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/Idem-Azure-Plug-In/>Idem Azure Plug-In</a>
-</li>
-<li><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/Idem-AWS-Plug-In/>Idem AWS Plug-In</a>
-</li>
-</ul>
-</li>
-<li><a href=https://learnidem.github.io/Getting-Started/Authenticate/>Authenticate</a>
-</li>
-<li><a href=https://learnidem.github.io/Getting-Started/Basic-Commands/>Basic Commands</a>
-</li>
-<li><a href=https://learnidem.github.io/Getting-Started/Troubleshooting/>Troubleshooting</a>
-</li>
-</ul>
-</li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/>How to use Idem<span class="mark closed">+</span></a>
+</li><li><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/Idem-AWS-Plug-In/>Idem AWS Plug-In</a>
+</li></ul></li><li><a href=https://learnidem.github.io/Getting-Started/Authenticate/>Authenticate</a>
+</li><li><a href=https://learnidem.github.io/Getting-Started/Basic-Commands/>Basic Commands</a>
+</li><li><a href=https://learnidem.github.io/Getting-Started/Troubleshooting/>Troubleshooting</a>
+</li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/>How to use Idem<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/Describe/>Describe command</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/Filter-flag/>Filter Flag</a>
-</li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/>States<span class="mark closed">+</span></a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/Filter-flag/>Filter Flag</a>
+</li><li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/>States<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present/>Present</a>
-</li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/>Present Update<span class="mark closed">+</span></a>
+</li><li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/>Present Update<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/Force-Update/>Force Update</a>
-</li>
-</ul>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Absent/>Absent</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Test-Flag/>Test Flag</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Describe-2-State/>Describe 2 State</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/reconciler-flag/>Reconcilier Flag</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Jinja-Templates/>Jinja Templates</a>
-</li>
-</ul>
-</li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/>Use Cases<span class="mark closed">+</span></a>
+</li></ul></li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/Absent/>Absent</a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/Test-Flag/>Test Flag</a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/Describe-2-State/>Describe 2 State</a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/reconciler-flag/>Reconcilier Flag</a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/Jinja-Templates/>Jinja Templates</a>
+</li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/>Use Cases<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/>Resources and SLS</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>End to End Azure VM</a>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href=https://learnidem.github.io/Documentation-Resources/>Documentation Resources</a>
-</li>
-</ul>
-</nav>
-<div class=sidebar-footer></div>
-</div>
-</div><a href=# id=backtothetop-fixed class=backtothetop data-backtothetop-duration=600 data-backtothetop-easing=easeOutQuart data-backtothetop-fixed-fadein=1000 data-backtothetop-fixed-fadeout=1000 data-backtothetop-fixed-bottom=10 data-backtothetop-fixed-right=20>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>End to End Azure VM</a>
+</li></ul></li></ul></li><li><a href=https://learnidem.github.io/Documentation-Resources/>Documentation Resources</a>
+</li></ul></nav><div class=sidebar-footer></div></div></div><a href=# id=backtothetop-fixed class=backtothetop data-backtothetop-duration=600 data-backtothetop-easing=easeOutQuart data-backtothetop-fixed-fadein=1000 data-backtothetop-fixed-fadeout=1000 data-backtothetop-fixed-bottom=10 data-backtothetop-fixed-right=20>
 <span class="fa-layers fa-fw">
 <i class="fas fa-circle"></i>
 <i class="fas fa-arrow-circle-up"></i>
 </span></a>
-</div>
-</body>
-</html>
+</div></body></html>

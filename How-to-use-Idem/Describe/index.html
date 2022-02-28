@@ -2,9 +2,8 @@
 <head><meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Describe command - Learn Idem</title>
-<meta name=description content="   Powered by Idem Project">
-<meta name=generator content="Hugo 0.92.2">
+<title>Describe command - Learn Idem</title><meta name=description content="   Powered by Idem Project">
+<meta name=generator content="Hugo 0.93.0">
 <link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml>
 <link rel=canonical href=https://learnidem.github.io/How-to-use-Idem/Describe/>
 <link rel=stylesheet href=https://learnidem.github.io/css/theme.css>
@@ -18,9 +17,8 @@
 <script src=https://learnidem.github.io/js/bundle.js></script>
 <script src=/js/lightbox.min.js></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8R0DEW1VZM"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-8R0DEW1VZM')</script>
-<style>:root{--custom-font-color:#0065ab;--custom-background-color:#FFFFFF}</style>
-<meta property="og:title" content="Describe command">
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-8R0DEW1VZM")</script>
+<style>:root{--custom-font-color:#0065ab;--custom-background-color:#FFFFFF}</style><meta property="og:title" content="Describe command">
 <meta property="og:description" content="   Powered by Idem Project">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://learnidem.github.io/How-to-use-Idem/Describe/"><meta property="og:image" content="https://learnidem.github.io/images/service-broker.svg"><meta property="og:site_name" content="Learn Idem">
@@ -29,132 +27,76 @@
 <meta name=twitter:title content="Describe command">
 <meta name=twitter:description content="   Powered by Idem Project">
 <meta itemprop=name content="Describe command">
-<meta itemprop=description content="   Powered by Idem Project"></head>
-<body><div class=container><header>
+<meta itemprop=description content="   Powered by Idem Project"></head><body><div class=container><header>
 <div class=header-image>
 <img src=/images/1254756-oss-id-idem-project_stacked.jpg alt="   Learn Idem">
-</div>
-<div class=header>
+</div><div class=header>
 <div class=header-h1>
-<h1 class=header-h1> Learn Idem</h1>
-</div>
-<div class=header-description>
-<p class=description> Powered by Idem Project</p>
-</div>
-</div>
-</header>
-<div class=content-container>
+<h1 class=header-h1> Learn Idem</h1></div><div class=header-description>
+<p class=description> Powered by Idem Project</p></div></div></header><div class=content-container>
 <main><h1>Describe command</h1><p><a href=/Getting-Started/Basic-Commands/>
 idem describe
 </a> directive lists all the current cloud Plug-In resources of the same resource type under the subscription id specified in the credential profile.<br>
 Make sure to export the encryption key and path to the fernet file as an OS environment variable as described in the <a href=/Getting-Started/Authenticate/>
 authentication section
-</a> before trying the commands below:</p>
-<p>You can use <a href=/Getting-Started/Basic-Commands/>
+</a> before trying the commands below:</p><p>You can use <a href=/Getting-Started/Basic-Commands/>
 describe
-</a> directive below to discover and obtain details for an specific Resource (in this case Azure)</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe <span class=o>[</span>Plug-In<span class=o>]</span>.<span class=o>[</span>Resource States Group<span class=o>]</span>.<span class=o>[</span>Resource<span class=o>]</span> 
-</code></pre></div><p>The <b>Plug-In</b>, tells <a href=/Getting-Started/Basic-Commands/>
+</a> directive below to discover and obtain details for an specific Resource (in this case Azure)</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem describe <span class=o>[</span>Plug-In<span class=o>]</span>.<span class=o>[</span>Resource States Group<span class=o>]</span>.<span class=o>[</span>Resource<span class=o>]</span> 
+</span></span></code></pre></div><p>The <b>Plug-In</b>, tells <a href=/Getting-Started/Basic-Commands/>
 idem
 </a> which Plug-In to access.<br>
 The <b>Resource States Group</b>, organizes resources of the same type or topic, e.g. the Azure Compute or Azure Virtual_Networks.<br>
-The <b>Resource</b>, indicates the specific resources type you want to work with, e.g. Virtual Machines or Network Interfaces, etc.<br></p>
-<p>Refer to <a href=/Getting-Started/Cloud-Plug-Ins/Idem-Azure-Plug-In/>
+The <b>Resource</b>, indicates the specific resources type you want to work with, e.g. Virtual Machines or Network Interfaces, etc.<br></p><p>Refer to <a href=/Getting-Started/Cloud-Plug-Ins/Idem-Azure-Plug-In/>
 Idem Azure Plug-In
-</a> for a list of supported <b>Resource States Group</b> & associated <b>Resources</b></p>
-<p>Example, if we want to list existing VMs, I will</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines
-</code></pre></div><p>Please note that you can describe specific resources with the <a href=/How-to-use-Idem/Filter-flag/>
+</a> for a list of supported <b>Resource States Group</b> & associated <b>Resources</b></p><p>Example, if we want to list existing VMs, I will</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem describe azure.compute.virtual_machines
+</span></span></code></pre></div><p>Please note that you can describe specific resources with the <a href=/How-to-use-Idem/Filter-flag/>
 Filter Flag
-</a></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines --filter<span class=o>=</span><span class=s2>&#34;[?resource[?vm_name==&#39;cmac-test-idem&#39;]]&#34;</span>
-</code></pre></div><script id=asciicast-SiXcq1OmVkca57LNf2m6N4wWK src=https://asciinema.org/a/SiXcq1OmVkca57LNf2m6N4wWK.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
-<p>or, if we want to list existing Virtual Networks (or any other resource supported by the Plug-In)</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.virtual_networks.virtual_networks
-</code></pre></div><script id=asciicast-iolx0POfh5rLl4XBOxktnOlzl src=https://asciinema.org/a/iolx0POfh5rLl4XBOxktnOlzl.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
+</a></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem describe azure.compute.virtual_machines --filter<span class=o>=</span><span class=s2>&#34;[?resource[?vm_name==&#39;cmac-test-idem&#39;]]&#34;</span>
+</span></span></code></pre></div><script id=asciicast-SiXcq1OmVkca57LNf2m6N4wWK src=https://asciinema.org/a/SiXcq1OmVkca57LNf2m6N4wWK.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
+<p>or, if we want to list existing Virtual Networks (or any other resource supported by the Plug-In)</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem describe azure.virtual_networks.virtual_networks
+</span></span></code></pre></div><script id=asciicast-iolx0POfh5rLl4XBOxktnOlzl src=https://asciinema.org/a/iolx0POfh5rLl4XBOxktnOlzl.js async theme=asciinema data-autoplay=true data-size=small loop=true></script>
 <p>Learn more about using describe with the <a href=/How-to-use-Idem/Filter-flag/>
 Filter Flag
-</a></p>
-<div class=edit-meta>
+</a></p><div class=edit-meta>
 Last updated on 8 Feb 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/How%20to%20use%20Idem/Describe/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/How-to-use-Idem/ title="How to use Idem"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - How to use Idem</a>
 <a class="nav nav-next" href=https://learnidem.github.io/How-to-use-Idem/Filter-flag/ title="Filter Flag">Next - Filter Flag <i class="fas fa-arrow-right" aria-hidden=true></i></a>
-</nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
-</footer>
-</main>
-<div class=sidebar>
+</nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p></footer></main><div class=sidebar>
 <nav class=slide-menu>
 <ul>
-<li><a href=https://learnidem.github.io>Home</a></li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/>Getting Started<span class="mark closed">+</span></a>
+<li><a href=https://learnidem.github.io>Home</a></li><li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/>Getting Started<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/Getting-Started/Install-Idem/>Install Idem</a>
-</li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/>Cloud Plug-Ins<span class="mark closed">+</span></a>
+</li><li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/>Cloud Plug-Ins<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/Idem-Azure-Plug-In/>Idem Azure Plug-In</a>
-</li>
-<li><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/Idem-AWS-Plug-In/>Idem AWS Plug-In</a>
-</li>
-</ul>
-</li>
-<li><a href=https://learnidem.github.io/Getting-Started/Authenticate/>Authenticate</a>
-</li>
-<li><a href=https://learnidem.github.io/Getting-Started/Basic-Commands/>Basic Commands</a>
-</li>
-<li><a href=https://learnidem.github.io/Getting-Started/Troubleshooting/>Troubleshooting</a>
-</li>
-</ul>
-</li>
-<li class="parent has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/>How to use Idem<span class="mark opened">-</span></a>
+</li><li><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/Idem-AWS-Plug-In/>Idem AWS Plug-In</a>
+</li></ul></li><li><a href=https://learnidem.github.io/Getting-Started/Authenticate/>Authenticate</a>
+</li><li><a href=https://learnidem.github.io/Getting-Started/Basic-Commands/>Basic Commands</a>
+</li><li><a href=https://learnidem.github.io/Getting-Started/Troubleshooting/>Troubleshooting</a>
+</li></ul></li><li class="parent has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/>How to use Idem<span class="mark opened">-</span></a>
 <ul class=sub-menu>
 <li class="parent active"><a href=https://learnidem.github.io/How-to-use-Idem/Describe/>Describe command</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/Filter-flag/>Filter Flag</a>
-</li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/>States<span class="mark closed">+</span></a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/Filter-flag/>Filter Flag</a>
+</li><li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/>States<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present/>Present</a>
-</li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/>Present Update<span class="mark closed">+</span></a>
+</li><li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/>Present Update<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/Force-Update/>Force Update</a>
-</li>
-</ul>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Absent/>Absent</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Test-Flag/>Test Flag</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Describe-2-State/>Describe 2 State</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/reconciler-flag/>Reconcilier Flag</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Jinja-Templates/>Jinja Templates</a>
-</li>
-</ul>
-</li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/>Use Cases<span class="mark closed">+</span></a>
+</li></ul></li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/Absent/>Absent</a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/Test-Flag/>Test Flag</a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/Describe-2-State/>Describe 2 State</a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/reconciler-flag/>Reconcilier Flag</a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/Jinja-Templates/>Jinja Templates</a>
+</li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/>Use Cases<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/>Resources and SLS</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>End to End Azure VM</a>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href=https://learnidem.github.io/Documentation-Resources/>Documentation Resources</a>
-</li>
-</ul>
-</nav>
-<div class=sidebar-footer></div>
-</div>
-</div><a href=# id=backtothetop-fixed class=backtothetop data-backtothetop-duration=600 data-backtothetop-easing=easeOutQuart data-backtothetop-fixed-fadein=1000 data-backtothetop-fixed-fadeout=1000 data-backtothetop-fixed-bottom=10 data-backtothetop-fixed-right=20>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>End to End Azure VM</a>
+</li></ul></li></ul></li><li><a href=https://learnidem.github.io/Documentation-Resources/>Documentation Resources</a>
+</li></ul></nav><div class=sidebar-footer></div></div></div><a href=# id=backtothetop-fixed class=backtothetop data-backtothetop-duration=600 data-backtothetop-easing=easeOutQuart data-backtothetop-fixed-fadein=1000 data-backtothetop-fixed-fadeout=1000 data-backtothetop-fixed-bottom=10 data-backtothetop-fixed-right=20>
 <span class="fa-layers fa-fw">
 <i class="fas fa-circle"></i>
 <i class="fas fa-arrow-circle-up"></i>
 </span></a>
-</div>
-</body>
-</html>
+</div></body></html>

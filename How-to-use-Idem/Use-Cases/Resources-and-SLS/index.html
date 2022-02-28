@@ -2,9 +2,8 @@
 <head><meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Resources and SLS - Learn Idem</title>
-<meta name=description content="   Powered by Idem Project">
-<meta name=generator content="Hugo 0.92.2">
+<title>Resources and SLS - Learn Idem</title><meta name=description content="   Powered by Idem Project">
+<meta name=generator content="Hugo 0.93.0">
 <link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml>
 <link rel=canonical href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/>
 <link rel=stylesheet href=https://learnidem.github.io/css/theme.css>
@@ -18,9 +17,8 @@
 <script src=https://learnidem.github.io/js/bundle.js></script>
 <script src=/js/lightbox.min.js></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8R0DEW1VZM"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-8R0DEW1VZM')</script>
-<style>:root{--custom-font-color:#0065ab;--custom-background-color:#FFFFFF}</style>
-<meta property="og:title" content="Resources and SLS">
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-8R0DEW1VZM")</script>
+<style>:root{--custom-font-color:#0065ab;--custom-background-color:#FFFFFF}</style><meta property="og:title" content="Resources and SLS">
 <meta property="og:description" content="   Powered by Idem Project">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/"><meta property="og:image" content="https://learnidem.github.io/images/service-broker.svg"><meta property="og:site_name" content="Learn Idem">
@@ -29,207 +27,147 @@
 <meta name=twitter:title content="Resources and SLS">
 <meta name=twitter:description content="   Powered by Idem Project">
 <meta itemprop=name content="Resources and SLS">
-<meta itemprop=description content="   Powered by Idem Project"></head>
-<body><div class=container><header>
+<meta itemprop=description content="   Powered by Idem Project"></head><body><div class=container><header>
 <div class=header-image>
 <img src=/images/1254756-oss-id-idem-project_stacked.jpg alt="   Learn Idem">
-</div>
-<div class=header>
+</div><div class=header>
 <div class=header-h1>
-<h1 class=header-h1> Learn Idem</h1>
-</div>
-<div class=header-description>
-<p class=description> Powered by Idem Project</p>
-</div>
-</div>
-</header>
-<div class=content-container>
+<h1 class=header-h1> Learn Idem</h1></div><div class=header-description>
+<p class=description> Powered by Idem Project</p></div></div></header><div class=content-container>
 <main><h1>Resources and SLS</h1><p>In this section, we showcase how to link existing resources in your cloud environment to new ones that we will create via a <a href=/How-to-use-Idem/States/Present/>
 present state
 </a><br>
 We will create a basic Azure Virtual Machine, for that, we will discover or <a href=/How-to-use-Idem/Describe/>
 describe
-</a> an existing NIC then assigning it to a new Azure Virtual Machine resource in order to create it.</p>
-<p>Later on, at the <a href=/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>
+</a> an existing NIC then assigning it to a new Azure Virtual Machine resource in order to create it.</p><p>Later on, at the <a href=/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>
 End To End Azure VM Usecase
-</a>, you will be able to reference other and more types of resources.</p>
-<p>In order to create a Azure VM, we will need to indicate the &ldquo;networkInterfaces id&rdquo;</p>
-<p>Of course, we could create the NIC also with <a href=/Getting-Started/Cloud-Plug-Ins/Idem-Azure-Plug-In/>
+</a>, you will be able to reference other and more types of resources.</p><p>In order to create a Azure VM, we will need to indicate the &ldquo;networkInterfaces id&rdquo;</p><p>Of course, we could create the NIC also with <a href=/Getting-Started/Cloud-Plug-Ins/Idem-Azure-Plug-In/>
 Idem Azure Plug-In Resource :
-</a> <b>&ldquo;virtual_networks&rdquo;</b>, but for the sake of this example, we already have an existing & un-assigned NIC interface that we could use in our cloud environment.</p>
-<p>You can easily discover as follows,</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.virtual_networks.network_interfaces
-</code></pre></div><p>Please note that you may have more than one NIC available, you can use the <a href=/How-to-use-Idem/Filter-flag/>
+</a> <b>&ldquo;virtual_networks&rdquo;</b>, but for the sake of this example, we already have an existing & un-assigned NIC interface that we could use in our cloud environment.</p><p>You can easily discover as follows,</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem describe azure.virtual_networks.network_interfaces
+</span></span></code></pre></div><p>Please note that you may have more than one NIC available, you can use the <a href=/How-to-use-Idem/Filter-flag/>
 Filter Flag
 </a>
-In this case, the output of the command shows our network interface available</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>--------
-? /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default
-: azure.virtual_networks.network_interfaces.present:
-  - network_interface_name: default
-  - resource_group_name: group8a87dd00ea7183a729588634c88e5123
-  - parameters:
-      etag: W/6f33dd08-64fa-4d11-8c17-2d9fdea97671
-      <span class=s2>&#34;id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default&#34;</span>
-      location: centralus
-      name: default
-....
-</code></pre></div><p>Now, let&rsquo;s write a new state <b>&ldquo;vm_moff_present.sls&rdquo;</b> defining our Azure VM
+In this case, the output of the command shows our network interface available</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>--------
+</span></span><span class=line><span class=cl>? /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default
+</span></span><span class=line><span class=cl>: azure.virtual_networks.network_interfaces.present:
+</span></span><span class=line><span class=cl>  - network_interface_name: default
+</span></span><span class=line><span class=cl>  - resource_group_name: group8a87dd00ea7183a729588634c88e5123
+</span></span><span class=line><span class=cl>  - parameters:
+</span></span><span class=line><span class=cl>      etag: W/6f33dd08-64fa-4d11-8c17-2d9fdea97671
+</span></span><span class=line><span class=cl>      <span class=s2>&#34;id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default&#34;</span>
+</span></span><span class=line><span class=cl>      location: centralus
+</span></span><span class=line><span class=cl>      name: default
+</span></span><span class=line><span class=cl>....
+</span></span></code></pre></div><p>Now, let&rsquo;s write a new state <b>&ldquo;vm_moff_present.sls&rdquo;</b> defining our Azure VM
 that includes the idem <a href=/Getting-Started/Basic-Commands/>
 present
 </a> directive for <b>azure.compute.virtual_machines</b>,<br>
 but also the specific NIC &ldquo;id&rdquo; described above, (more about Azure Plug-In Resources ID at the <a href=/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>
 End to End Azure VM
-</a>)</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>        networkProfile:
-          networkInterfaces:
-          - id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default
-</code></pre></div><p>Of course, please note that included properties needed for creating the Azure VM, such as VM Name, Resource Group, Hardware Profile (Flavor), ImageReference, etc.</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>  azure.compute.virtual_machines.present:
-  - resource_group_name: moff-idem-01
-  - vm_name: Development-idem-015042
-  - parameters:
-      location: centralus
-      name: Development-idem-015042
-      properties:
-        hardwareProfile:
-          vmSize: Standard_A5
-        networkProfile:
-          networkInterfaces:
-          - id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default
-            properties:
-              primary: <span class=nb>true</span>
-        storageProfile:
-          dataDisks: <span class=o>[]</span>
-          imageReference:
-            exactVersion: 18.04.201804262
-            offer: UbuntuServer
-            publisher: Canonical
-            sku: 18.04-LTS
-            version: 18.04.201804262
-        osProfile:
-          adminUsername: azureuser
-          allowExtensionOperations: <span class=nb>true</span>
-          computerName: Development-idem-015042
-          adminPassword: <span class=s2>&#34;C@n0n1c@lVMware&#34;</span>
-          linuxConfiguration:
-            disablePasswordAuthentication: <span class=nb>false</span>
-            patchSettings:
-              assessmentMode: ImageDefault
-              patchMode: ImageDefault
-            provisionVMAgent: <span class=nb>true</span>
-          secrets: <span class=o>[]</span>
-</code></pre></div><p>We now can simply execute it by calling the command &ldquo;state&rdquo;</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem state vm_moff_present.sls
-</code></pre></div><p>This will return the following output (please note the provisioningState):</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>--------
-      ID: Development-idem-015042
-Function: azure.compute.virtual_machines.present
-  Result: True
- Comment: Created
- Changes: new:
-    ----------
-    name:
-        Development-idem-015042
-    id:
-        /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-01/providers/Microsoft.Compute/virtualMachines/Development-idem-015042
-    type:
-        Microsoft.Compute/virtualMachines
-.....
-</code></pre></div><p>Then you can search for the newly created Azure VM with <a href=/How-to-use-Idem/Describe/>
+</a>)</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>        networkProfile:
+</span></span><span class=line><span class=cl>          networkInterfaces:
+</span></span><span class=line><span class=cl>          - id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default
+</span></span></code></pre></div><p>Of course, please note that included properties needed for creating the Azure VM, such as VM Name, Resource Group, Hardware Profile (Flavor), ImageReference, etc.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>  azure.compute.virtual_machines.present:
+</span></span><span class=line><span class=cl>  - resource_group_name: moff-idem-01
+</span></span><span class=line><span class=cl>  - vm_name: Development-idem-015042
+</span></span><span class=line><span class=cl>  - parameters:
+</span></span><span class=line><span class=cl>      location: centralus
+</span></span><span class=line><span class=cl>      name: Development-idem-015042
+</span></span><span class=line><span class=cl>      properties:
+</span></span><span class=line><span class=cl>        hardwareProfile:
+</span></span><span class=line><span class=cl>          vmSize: Standard_A5
+</span></span><span class=line><span class=cl>        networkProfile:
+</span></span><span class=line><span class=cl>          networkInterfaces:
+</span></span><span class=line><span class=cl>          - id: /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/group8a87dd00ea7183a729588634c88e5123/providers/Microsoft.Network/networkInterfaces/default
+</span></span><span class=line><span class=cl>            properties:
+</span></span><span class=line><span class=cl>              primary: <span class=nb>true</span>
+</span></span><span class=line><span class=cl>        storageProfile:
+</span></span><span class=line><span class=cl>          dataDisks: <span class=o>[]</span>
+</span></span><span class=line><span class=cl>          imageReference:
+</span></span><span class=line><span class=cl>            exactVersion: 18.04.201804262
+</span></span><span class=line><span class=cl>            offer: UbuntuServer
+</span></span><span class=line><span class=cl>            publisher: Canonical
+</span></span><span class=line><span class=cl>            sku: 18.04-LTS
+</span></span><span class=line><span class=cl>            version: 18.04.201804262
+</span></span><span class=line><span class=cl>        osProfile:
+</span></span><span class=line><span class=cl>          adminUsername: azureuser
+</span></span><span class=line><span class=cl>          allowExtensionOperations: <span class=nb>true</span>
+</span></span><span class=line><span class=cl>          computerName: Development-idem-015042
+</span></span><span class=line><span class=cl>          adminPassword: <span class=s2>&#34;C@n0n1c@lVMware&#34;</span>
+</span></span><span class=line><span class=cl>          linuxConfiguration:
+</span></span><span class=line><span class=cl>            disablePasswordAuthentication: <span class=nb>false</span>
+</span></span><span class=line><span class=cl>            patchSettings:
+</span></span><span class=line><span class=cl>              assessmentMode: ImageDefault
+</span></span><span class=line><span class=cl>              patchMode: ImageDefault
+</span></span><span class=line><span class=cl>            provisionVMAgent: <span class=nb>true</span>
+</span></span><span class=line><span class=cl>          secrets: <span class=o>[]</span>
+</span></span></code></pre></div><p>We now can simply execute it by calling the command &ldquo;state&rdquo;</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem state vm_moff_present.sls
+</span></span></code></pre></div><p>This will return the following output (please note the provisioningState):</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>--------
+</span></span><span class=line><span class=cl>      ID: Development-idem-015042
+</span></span><span class=line><span class=cl>Function: azure.compute.virtual_machines.present
+</span></span><span class=line><span class=cl>  Result: True
+</span></span><span class=line><span class=cl> Comment: Created
+</span></span><span class=line><span class=cl> Changes: new:
+</span></span><span class=line><span class=cl>    ----------
+</span></span><span class=line><span class=cl>    name:
+</span></span><span class=line><span class=cl>        Development-idem-015042
+</span></span><span class=line><span class=cl>    id:
+</span></span><span class=line><span class=cl>        /subscriptions/23a8cee7-a1e4-4bb3-aff9-6898b4ee6fde/resourceGroups/moff-idem-01/providers/Microsoft.Compute/virtualMachines/Development-idem-015042
+</span></span><span class=line><span class=cl>    type:
+</span></span><span class=line><span class=cl>        Microsoft.Compute/virtualMachines
+</span></span><span class=line><span class=cl>.....
+</span></span></code></pre></div><p>Then you can search for the newly created Azure VM with <a href=/How-to-use-Idem/Describe/>
 describe
 </a>
 Please note that you may have more than one VM available, you can use the <a href=/How-to-use-Idem/Filter-flag/>
 Filter Flag
 </a>
-In this case, the output of the command shows our single Azure VM</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>idem describe azure.compute.virtual_machines
-</code></pre></div><p>It is worth to mention that some resources may have dependencies among them and be created at the same time, for that you include <a href=/How-to-use-Idem/States/reconciler-flag/>
+In this case, the output of the command shows our single Azure VM</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem describe azure.compute.virtual_machines
+</span></span></code></pre></div><p>It is worth to mention that some resources may have dependencies among them and be created at the same time, for that you include <a href=/How-to-use-Idem/States/reconciler-flag/>
 reconciler=basic flag
 </a>, This allows Idem-azure-auto to run <a href=/How-to-use-Idem/States/Present/>
 Idem state
 </a>
-with Idem&rsquo;s reconciliation loop.</p>
-<div class=edit-meta>
+with Idem&rsquo;s reconciliation loop.</p><div class=edit-meta>
 Last updated on 9 Feb 2022
 <br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/How%20to%20use%20Idem/Use%20Cases/Resources%20and%20SLS/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/ title="Use Cases"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Use Cases</a>
 <a class="nav nav-next" href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/ title="End to End Azure VM">Next - End to End Azure VM <i class="fas fa-arrow-right" aria-hidden=true></i></a>
-</nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p>
-</footer>
-</main>
-<div class=sidebar>
+</nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p></footer></main><div class=sidebar>
 <nav class=slide-menu>
 <ul>
-<li><a href=https://learnidem.github.io>Home</a></li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/>Getting Started<span class="mark closed">+</span></a>
+<li><a href=https://learnidem.github.io>Home</a></li><li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/>Getting Started<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/Getting-Started/Install-Idem/>Install Idem</a>
-</li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/>Cloud Plug-Ins<span class="mark closed">+</span></a>
+</li><li class=has-sub-menu><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/>Cloud Plug-Ins<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/Idem-Azure-Plug-In/>Idem Azure Plug-In</a>
-</li>
-<li><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/Idem-AWS-Plug-In/>Idem AWS Plug-In</a>
-</li>
-</ul>
-</li>
-<li><a href=https://learnidem.github.io/Getting-Started/Authenticate/>Authenticate</a>
-</li>
-<li><a href=https://learnidem.github.io/Getting-Started/Basic-Commands/>Basic Commands</a>
-</li>
-<li><a href=https://learnidem.github.io/Getting-Started/Troubleshooting/>Troubleshooting</a>
-</li>
-</ul>
-</li>
-<li class="parent has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/>How to use Idem<span class="mark opened">-</span></a>
+</li><li><a href=https://learnidem.github.io/Getting-Started/Cloud-Plug-Ins/Idem-AWS-Plug-In/>Idem AWS Plug-In</a>
+</li></ul></li><li><a href=https://learnidem.github.io/Getting-Started/Authenticate/>Authenticate</a>
+</li><li><a href=https://learnidem.github.io/Getting-Started/Basic-Commands/>Basic Commands</a>
+</li><li><a href=https://learnidem.github.io/Getting-Started/Troubleshooting/>Troubleshooting</a>
+</li></ul></li><li class="parent has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/>How to use Idem<span class="mark opened">-</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/Describe/>Describe command</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/Filter-flag/>Filter Flag</a>
-</li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/>States<span class="mark closed">+</span></a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/Filter-flag/>Filter Flag</a>
+</li><li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/>States<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present/>Present</a>
-</li>
-<li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/>Present Update<span class="mark closed">+</span></a>
+</li><li class=has-sub-menu><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/>Present Update<span class="mark closed">+</span></a>
 <ul class=sub-menu>
 <li><a href=https://learnidem.github.io/How-to-use-Idem/States/Present-Update/Force-Update/>Force Update</a>
-</li>
-</ul>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Absent/>Absent</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Test-Flag/>Test Flag</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Describe-2-State/>Describe 2 State</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/reconciler-flag/>Reconcilier Flag</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/States/Jinja-Templates/>Jinja Templates</a>
-</li>
-</ul>
-</li>
-<li class="parent has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/>Use Cases<span class="mark opened">-</span></a>
+</li></ul></li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/Absent/>Absent</a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/Test-Flag/>Test Flag</a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/Describe-2-State/>Describe 2 State</a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/reconciler-flag/>Reconcilier Flag</a>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/States/Jinja-Templates/>Jinja Templates</a>
+</li></ul></li><li class="parent has-sub-menu"><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/>Use Cases<span class="mark opened">-</span></a>
 <ul class=sub-menu>
 <li class="parent active"><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/Resources-and-SLS/>Resources and SLS</a>
-</li>
-<li><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>End to End Azure VM</a>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href=https://learnidem.github.io/Documentation-Resources/>Documentation Resources</a>
-</li>
-</ul>
-</nav>
-<div class=sidebar-footer></div>
-</div>
-</div><a href=# id=backtothetop-fixed class=backtothetop data-backtothetop-duration=600 data-backtothetop-easing=easeOutQuart data-backtothetop-fixed-fadein=1000 data-backtothetop-fixed-fadeout=1000 data-backtothetop-fixed-bottom=10 data-backtothetop-fixed-right=20>
+</li><li><a href=https://learnidem.github.io/How-to-use-Idem/Use-Cases/End-to-End-Azure-VM/>End to End Azure VM</a>
+</li></ul></li></ul></li><li><a href=https://learnidem.github.io/Documentation-Resources/>Documentation Resources</a>
+</li></ul></nav><div class=sidebar-footer></div></div></div><a href=# id=backtothetop-fixed class=backtothetop data-backtothetop-duration=600 data-backtothetop-easing=easeOutQuart data-backtothetop-fixed-fadein=1000 data-backtothetop-fixed-fadeout=1000 data-backtothetop-fixed-bottom=10 data-backtothetop-fixed-right=20>
 <span class="fa-layers fa-fw">
 <i class="fas fa-circle"></i>
 <i class="fas fa-arrow-circle-up"></i>
 </span></a>
-</div>
-</body>
-</html>
+</div></body></html>
