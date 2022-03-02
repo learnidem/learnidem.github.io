@@ -1,0 +1,111 @@
+<!doctype html><html lang=en-gb>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Jinja Templates - Learn Idem</title><meta name=description content="Powered by Idem Project">
+<meta name=generator content="Hugo 0.93.0">
+<link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml>
+<link rel=canonical href=https://learnidem.github.io/how-to-use-idem/states/jinja-templates/>
+<link rel=stylesheet href=https://learnidem.github.io/css/theme.css>
+<link rel=stylesheet href=/css/lightbox.min.css>
+<link rel=stylesheet href=/css/custom.css>
+<script src=https://use.fontawesome.com/releases/v5.0.6/js/all.js></script>
+<link rel=stylesheet href=https://learnidem.github.io/css/chroma.min.css>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script>
+<script src=https://learnidem.github.io/js/bundle.js></script>
+<script src=/js/lightbox.min.js></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8R0DEW1VZM"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-8R0DEW1VZM")</script>
+<style>:root{--custom-font-color:#238FCF;--custom-background-color:#FFFFFF}</style><meta property="og:title" content="Jinja Templates">
+<meta property="og:description" content="Powered by Idem Project">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://learnidem.github.io/how-to-use-idem/states/jinja-templates/"><meta property="og:image" content="https://learnidem.github.io/images/1254756-oss-id-idem-project.png"><meta property="og:site_name" content="Learn Idem">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://learnidem.github.io/images/1254756-oss-id-idem-project.png">
+<meta name=twitter:title content="Jinja Templates">
+<meta name=twitter:description content="Powered by Idem Project">
+<meta itemprop=name content="Jinja Templates">
+<meta itemprop=description content="Powered by Idem Project"></head><body><div class=container><header>
+<div class=header-image>
+<img src=/images/1254756-oss-id-idem-project.png alt="   Learn Idem">
+</div><div class=header>
+<div class=header-h1>
+<h1 class=header-h1> Learn Idem</h1></div><div class=header-description>
+<p class=description>Powered by Idem Project</p></div></div></header><div class=content-container>
+<main><h1>Jinja Templates</h1><p>Idem allows you to use <a href=https://jinja.palletsprojects.com/en/3.0.x/ target=_blank>
+<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Jinja Templating
+</a> in your <a href=/How-to-use-Idem/States/>
+state SLS files
+</a></p><p>Create an Azure Virtual Networks : <i>my_virtual_networkstate.sls</i></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>{</span>% <span class=nb>set</span> <span class=nv>address_Prefixes</span> <span class=o>=</span> <span class=s2>&#34;10.0.0.0/24&#34;</span> %<span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>{</span>% <span class=nb>set</span> <span class=nv>vn_name</span> <span class=o>=</span> <span class=s2>&#34;TMM-VirtualNetwork-vRA&#34;</span> %<span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>{</span>% <span class=nb>set</span> <span class=nv>rg_name</span> <span class=o>=</span> <span class=s2>&#34;Moff-RG01-CAS&#34;</span> %<span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>{</span>% <span class=nb>set</span> <span class=nv>local_tags</span> <span class=o>=</span> <span class=o>{</span><span class=s2>&#34;createdWith&#34;</span>:<span class=s2>&#34;idem&#34;</span>, <span class=s2>&#34;owner&#34;</span>:<span class=s2>&#34;tmm&#34;</span> <span class=o>}</span> %<span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>{{</span> vn_name <span class=o>}}</span>:
+</span></span><span class=line><span class=cl>  azure.virtual_networks.virtual_networks.absent:
+</span></span><span class=line><span class=cl>  - force_update: True
+</span></span><span class=line><span class=cl>  - resource_group_name: <span class=o>{{</span> rg_name <span class=o>}}</span>
+</span></span><span class=line><span class=cl>  - virtual_network_name: <span class=o>{{</span> vn_name <span class=o>}}</span>
+</span></span><span class=line><span class=cl>  - parameters:
+</span></span><span class=line><span class=cl>      location: centralus
+</span></span><span class=line><span class=cl>      name: <span class=o>{{</span> vn_name <span class=o>}}</span>
+</span></span><span class=line><span class=cl>      properties:
+</span></span><span class=line><span class=cl>        addressSpace:
+</span></span><span class=line><span class=cl>          addressPrefixes:
+</span></span><span class=line><span class=cl>          - <span class=o>{{</span> address_Prefixes <span class=o>}}</span>
+</span></span><span class=line><span class=cl>        enableDdosProtection: <span class=nb>false</span>
+</span></span><span class=line><span class=cl>      tags: <span class=o>{{</span> local_tags <span class=o>}}</span>
+</span></span></code></pre></div><p>The <b>State SLS</b> file can be executed with:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem state my_virtual_networkstate.sls
+</span></span></code></pre></div><p>idem state with <a href=https://jinja.palletsprojects.com/en/3.0.x/ target=_blank>
+<i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> Jinja Templating
+</a> can significantly boost the scalability and performance of the run.</p><p>Let’s use this new state which verifies that 100 vpcs are absent : <i>vpc_verify_absent.sls</i></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>{</span>% <span class=k>for</span> i in range<span class=o>(</span>100<span class=o>)</span> %<span class=o>}</span>
+</span></span><span class=line><span class=cl>idem_aws_test_vpc_<span class=o>{{</span>i<span class=o>}}</span>:
+</span></span><span class=line><span class=cl>  aws.ec2.vpc.absent:
+</span></span><span class=line><span class=cl>    - name: <span class=s2>&#34;idem_aws_test_vpc_{{i}}&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>{</span>% endfor -%<span class=o>}</span>
+</span></span></code></pre></div><p>The <b>State SLS</b> file can be executed with <b>–runtime parallel</b> to make full use of idem’s async execution calls:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem state --runtime parallel vpc_verify_absent.sls
+</span></span></code></pre></div><div class=edit-meta>
+Last updated on 24 Feb 2022
+<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/How%20to%20use%20Idem/States/Jinja%20Templates/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/how-to-use-idem/states/reconciler-flag/ title="Reconcilier Flag"><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Reconcilier Flag</a>
+<a class="nav nav-next" href=https://learnidem.github.io/how-to-use-idem/use-cases/ title="Use Cases">Next - Use Cases <i class="fas fa-arrow-right" aria-hidden=true></i></a>
+</nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p></footer></main><div class=sidebar>
+<nav class=slide-menu>
+<ul>
+<li><a href=https://learnidem.github.io>Home</a></li><li class=has-sub-menu><a href=https://learnidem.github.io/getting-started/>Getting Started<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/getting-started/install-idem/>Install Idem</a>
+</li><li class=has-sub-menu><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/>Cloud Plug-Ins<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/>Idem Azure Plug-In</a>
+</li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/>Idem AWS Plug-In</a>
+</li></ul></li><li><a href=https://learnidem.github.io/getting-started/authenticate/>Authenticate</a>
+</li><li><a href=https://learnidem.github.io/getting-started/basic-commands/>Basic Commands</a>
+</li><li><a href=https://learnidem.github.io/getting-started/troubleshooting/>Troubleshooting</a>
+</li></ul></li><li class="parent has-sub-menu"><a href=https://learnidem.github.io/how-to-use-idem/>How to use Idem<span class="mark opened">-</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/how-to-use-idem/describe/>Describe command</a>
+</li><li><a href=https://learnidem.github.io/how-to-use-idem/filter-flag/>Filter Flag</a>
+</li><li class="parent has-sub-menu"><a href=https://learnidem.github.io/how-to-use-idem/states/>States<span class="mark opened">-</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/how-to-use-idem/states/present/>Present</a>
+</li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/states/present-update/>Present Update<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/how-to-use-idem/states/present-update/force-update/>Force Update</a>
+</li></ul></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/absent/>Absent</a>
+</li><li><a href=https://learnidem.github.io/how-to-use-idem/states/test-flag/>Test Flag</a>
+</li><li><a href=https://learnidem.github.io/how-to-use-idem/states/describe-2-state/>Describe 2 State</a>
+</li><li><a href=https://learnidem.github.io/how-to-use-idem/states/reconciler-flag/>Reconcilier Flag</a>
+</li><li class="parent active"><a href=https://learnidem.github.io/how-to-use-idem/states/jinja-templates/>Jinja Templates</a>
+</li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/use-cases/>Use Cases<span class="mark closed">+</span></a>
+<ul class=sub-menu>
+<li><a href=https://learnidem.github.io/how-to-use-idem/use-cases/resources-and-sls/>Resources and SLS</a>
+</li><li><a href=https://learnidem.github.io/how-to-use-idem/use-cases/end-to-end-azure-vm/>End to End Azure VM</a>
+</li></ul></li></ul></li><li><a href=https://learnidem.github.io/documentation-resources/>Documentation Resources</a>
+</li></ul></nav><div class=sidebar-footer></div></div></div><a href=# id=backtothetop-fixed class=backtothetop data-backtothetop-duration=600 data-backtothetop-easing=easeOutQuart data-backtothetop-fixed-fadein=1000 data-backtothetop-fixed-fadeout=1000 data-backtothetop-fixed-bottom=10 data-backtothetop-fixed-right=20>
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div></body></html>
