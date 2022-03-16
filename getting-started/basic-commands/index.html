@@ -1,122 +1,22 @@
-<!doctype html><html lang=en-gb>
-<head><meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Basic Commands - Learn Idem</title><meta name=description content="Powered by Idem Project">
-<meta name=generator content="Hugo 0.93.3">
-<link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml>
-<link rel=canonical href=https://learnidem.github.io/getting-started/basic-commands/>
-<link rel=stylesheet href=https://learnidem.github.io/css/theme.css>
-<link rel=stylesheet href=/css/lightbox.min.css>
-<link rel=stylesheet href=/css/custom.css>
-<script src=https://use.fontawesome.com/releases/v5.0.6/js/all.js></script>
-<link rel=stylesheet href=https://learnidem.github.io/css/chroma.min.css>
-<script src=https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js></script>
+<!doctype html><html lang=en-gb><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>Basic Commands - Learn Idem</title><meta name=description content="Powered by Idem Project"><meta name=generator content="Hugo 0.94.2"><link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml><link rel=canonical href=https://learnidem.github.io/getting-started/basic-commands/><link rel=stylesheet href=https://learnidem.github.io/css/theme.css><link rel=stylesheet href=/css/lightbox.min.css><link rel=stylesheet href=/css/custom.css><script src=https://use.fontawesome.com/releases/v5.0.6/js/all.js></script>
+<link rel=stylesheet href=https://learnidem.github.io/css/chroma.min.css><script src=https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js></script>
 <script src=https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js></script>
 <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script>
 <script src=https://learnidem.github.io/js/bundle.js></script>
 <script src=/js/lightbox.min.js></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-8R0DEW1VZM"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-8R0DEW1VZM")</script>
-<style>:root{--custom-font-color:#238FCF;--custom-background-color:#FFFFFF}</style><meta property="og:title" content="Basic Commands">
-<meta property="og:description" content="Powered by Idem Project">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://learnidem.github.io/getting-started/basic-commands/"><meta property="og:image" content="https://learnidem.github.io/images/1254756-oss-id-idem-project.png"><meta property="og:site_name" content="Learn Idem">
-<meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://learnidem.github.io/images/1254756-oss-id-idem-project.png">
-<meta name=twitter:title content="Basic Commands">
-<meta name=twitter:description content="Powered by Idem Project">
-<meta itemprop=name content="Basic Commands">
-<meta itemprop=description content="Powered by Idem Project"></head><body><div class=container><header>
-<div class=header-image>
-<img src=/images/1254756-oss-id-idem-project.png alt="   Learn Idem">
-</div><div class=header>
-<div class=header-h1>
-<h1 class=header-h1> Learn Idem</h1></div><div class=header-description>
-<p class=description>Powered by Idem Project</p></div></div></header><div class=content-container>
-<main><h1>Basic Commands</h1><p>Idem provides the <a href=/Getting-Started/Install-Idem/>
-idem cli
-</a> which allows to describe resources but also invoke states.<br>
-<a href=/How-to-use-Idem/States/>
-Idem states
-</a> are used to make sure resources are in a desired state. The desired state of a resource can be specified in SLS file.</p><div class=gdoc-tabs>
-<input type=radio class="gdoc-tabs__control hidden" name=tabs-commands id=tabs-commands-0 checked>
-<label for=tabs-commands-0 class=gdoc-tabs__label>
-CLI Commands
-</label>
-<div class="gdoc-markdown--nested gdoc-tabs__content">
-<p><b>encrypt</b><br>
-Use the acct subsystem to encrypt data, e.g. <a href=/Getting-Started/Authenticate/>
-Encrypt the credentials file
-</a></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem encrypt /path/to/credentials.yaml
-</span></span></code></pre></div><p><b>decrypt</b><br>
-Use the acct subsystem to decrypt data, e.g. an existing encrypted credentials file (*.fernet)</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem decrypt /path/to/credentials_test.yaml.fernet
-</span></span></code></pre></div><p><b>describe</b><br>
-Commands to run description routines, e.g. <a href=/How-to-use-Idem/Describe/>
-Listing and obtaining existing VMs details
-</a></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem describe azure.compute.virtual_machines
-</span></span></code></pre></div><p><b>state</b><br>
-Commands to run idempotent states, e.g. <a href=/How-to-use-Idem/States/>
-create, update, and in general manage your resources
-</a></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem state vm_moff_present.sls
-</span></span></code></pre></div><p>You will use mostly a combination of <b>describe</b> (Discover status and helper for crafting a state file to update resource) and <b>state</b> commands (for managing the resources states), <br> let&rsquo;s take a closer look to <b>state</b> operations.</p><p><b>exec</b><br>
-Commands to run execution routines, normally used internally in idem code</p></div><input type=radio class="gdoc-tabs__control hidden" name=tabs-commands id=tabs-commands-1>
-<label for=tabs-commands-1 class=gdoc-tabs__label>
-States
-</label>
-<div class="gdoc-markdown--nested gdoc-tabs__content">
-<p><b>Present State</b>
-makes sure a <b>resource exists in a desired state</b>. If a resource does not exist, running present will create the resource on the provider. If a resource exists, running present will <b>update</b> the resource on the provider. (Only the values that the Cloud Provider REST API supports can be updated). <br>
-You can indicate this state by adding &ldquo;&#171;Your Provider&#187;.&#171;Your Provider Resource&#187;<b>.present</b>&rdquo;
-<br></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>my-virtual-network:
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-8R0DEW1VZM")</script><style>:root{--custom-font-color:#238FCF;--custom-background-color:#FFFFFF}</style><meta property="og:title" content="Basic Commands"><meta property="og:description" content="Powered by Idem Project"><meta property="og:type" content="website"><meta property="og:url" content="https://learnidem.github.io/getting-started/basic-commands/"><meta property="og:image" content="https://learnidem.github.io/images/1254756-oss-id-idem-project.png"><meta property="og:site_name" content="Learn Idem"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://learnidem.github.io/images/1254756-oss-id-idem-project.png"><meta name=twitter:title content="Basic Commands"><meta name=twitter:description content="Powered by Idem Project"><meta itemprop=name content="Basic Commands"><meta itemprop=description content="Powered by Idem Project"></head><body><div class=container><header><div class=header-image><img src=/images/1254756-oss-id-idem-project.png alt="   Learn Idem"></div><div class=header><div class=header-h1><h1 class=header-h1>Learn Idem</h1></div><div class=header-description><p class=description>Powered by Idem Project</p></div></div></header><div class=content-container><main><h1>Basic Commands</h1><p>Idem provides the <a href=/Getting-Started/Install-Idem/>idem cli</a> which allows to describe resources but also invoke states.<br><a href=/How-to-use-Idem/States/>Idem states</a> are used to make sure resources are in a desired state. The desired state of a resource can be specified in SLS file.</p><div class=gdoc-tabs><input type=radio class="gdoc-tabs__control hidden" name=tabs-commands id=tabs-commands-0 checked>
+<label for=tabs-commands-0 class=gdoc-tabs__label>CLI Commands</label><div class="gdoc-markdown--nested gdoc-tabs__content"><p><b>encrypt</b><br>Use the acct subsystem to encrypt data, e.g. <a href=/Getting-Started/Authenticate/>Encrypt the credentials file</a></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem encrypt /path/to/credentials.yaml
+</span></span></code></pre></div><p><b>decrypt</b><br>Use the acct subsystem to decrypt data, e.g. an existing encrypted credentials file (*.fernet)</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem decrypt /path/to/credentials_test.yaml.fernet
+</span></span></code></pre></div><p><b>describe</b><br>Commands to run description routines, e.g. <a href=/How-to-use-Idem/Describe/>Listing and obtaining existing VMs details</a></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem describe azure.compute.virtual_machines
+</span></span></code></pre></div><p><b>state</b><br>Commands to run idempotent states, e.g. <a href=/How-to-use-Idem/States/>create, update, and in general manage your resources</a></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>idem state vm_moff_present.sls
+</span></span></code></pre></div><p>You will use mostly a combination of <b>describe</b> (Discover status and helper for crafting a state file to update resource) and <b>state</b> commands (for managing the resources states),<br>let&rsquo;s take a closer look to <b>state</b> operations.</p><p><b>exec</b><br>Commands to run execution routines, normally used internally in idem code</p></div><input type=radio class="gdoc-tabs__control hidden" name=tabs-commands id=tabs-commands-1>
+<label for=tabs-commands-1 class=gdoc-tabs__label>States</label><div class="gdoc-markdown--nested gdoc-tabs__content"><p><b>Present State</b>
+makes sure a <b>resource exists in a desired state</b>. If a resource does not exist, running present will create the resource on the provider. If a resource exists, running present will <b>update</b> the resource on the provider. (Only the values that the Cloud Provider REST API supports can be updated).<br>You can indicate this state by adding &ldquo;&#171;Your Provider&#187;.&#171;Your Provider Resource&#187;<b>.present</b>&rdquo;<br></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>my-virtual-network:
 </span></span><span class=line><span class=cl>azure.virtual_networks.virtual_networks.present:
 </span></span></code></pre></div><p><b>Absent State</b>
-makes sure a <b>resource does not exist</b>. If a resource exits, running absent will <b>delete</b> the resource. If a resource does not exist, running absent is a no-operation<br>
-You can indicate this state by adding &ldquo;&#171;Your Provider&#187;.&#171;Your Provider Resource&#187;<b>.absent</b>&rdquo;
-<br></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>my-virtual-network:
+makes sure a <b>resource does not exist</b>. If a resource exits, running absent will <b>delete</b> the resource. If a resource does not exist, running absent is a no-operation<br>You can indicate this state by adding &ldquo;&#171;Your Provider&#187;.&#171;Your Provider Resource&#187;<b>.absent</b>&rdquo;<br></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>my-virtual-network:
 </span></span><span class=line><span class=cl>azure.virtual_networks.virtual_networks.absent:
-</span></span></code></pre></div><p>You can learn and learn more about each state at the <b><a href=/How-to-use-Idem/Use-Cases/>
-use cases
-</a></b></p></div></div><div class=edit-meta>
-Last updated on 28 Feb 2022
-<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Basic%20Commands/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/getting-started/authenticate/ title=Authenticate><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Authenticate</a>
-<a class="nav nav-next" href=https://learnidem.github.io/getting-started/troubleshooting/ title=Troubleshooting>Next - Troubleshooting <i class="fas fa-arrow-right" aria-hidden=true></i></a>
-</nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p></footer></main><div class=sidebar>
-<nav class=slide-menu>
-<ul>
-<li><a href=https://learnidem.github.io>Home</a></li><li class="parent has-sub-menu"><a href=https://learnidem.github.io/getting-started/>Getting Started<span class="mark opened">-</span></a>
-<ul class=sub-menu>
-<li><a href=https://learnidem.github.io/getting-started/install-idem/>Install Idem</a>
-</li><li class=has-sub-menu><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/>Cloud Plug-Ins<span class="mark closed">+</span></a>
-<ul class=sub-menu>
-<li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/>Idem Azure Plug-In</a>
-</li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/>Idem AWS Plug-In</a>
-</li></ul></li><li><a href=https://learnidem.github.io/getting-started/authenticate/>Authenticate</a>
-</li><li class="parent active"><a href=https://learnidem.github.io/getting-started/basic-commands/>Basic Commands</a>
-</li><li><a href=https://learnidem.github.io/getting-started/troubleshooting/>Troubleshooting</a>
-</li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/>How to use Idem<span class="mark closed">+</span></a>
-<ul class=sub-menu>
-<li><a href=https://learnidem.github.io/how-to-use-idem/describe/>Describe command</a>
-</li><li><a href=https://learnidem.github.io/how-to-use-idem/filter-flag/>Filter Flag</a>
-</li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/states/>States<span class="mark closed">+</span></a>
-<ul class=sub-menu>
-<li><a href=https://learnidem.github.io/how-to-use-idem/states/present/>Present</a>
-</li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/states/present-update/>Present Update<span class="mark closed">+</span></a>
-<ul class=sub-menu>
-<li><a href=https://learnidem.github.io/how-to-use-idem/states/present-update/force-update/>Force Update</a>
-</li></ul></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/absent/>Absent</a>
-</li><li><a href=https://learnidem.github.io/how-to-use-idem/states/test-flag/>Test Flag</a>
-</li><li><a href=https://learnidem.github.io/how-to-use-idem/states/describe-2-state/>Describe 2 State</a>
-</li><li><a href=https://learnidem.github.io/how-to-use-idem/states/reconciler-flag/>Reconcilier Flag</a>
-</li><li><a href=https://learnidem.github.io/how-to-use-idem/states/jinja-templates/>Jinja Templates</a>
-</li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/use-cases/>Use Cases<span class="mark closed">+</span></a>
-<ul class=sub-menu>
-<li><a href=https://learnidem.github.io/how-to-use-idem/use-cases/resources-and-sls/>Resources and SLS</a>
-</li><li><a href=https://learnidem.github.io/how-to-use-idem/use-cases/end-to-end-azure-vm/>End to End Azure VM</a>
-</li></ul></li></ul></li><li><a href=https://learnidem.github.io/documentation-resources/>Documentation Resources</a>
-</li></ul></nav><div class=sidebar-footer></div></div></div><a href=# id=backtothetop-fixed class=backtothetop data-backtothetop-duration=600 data-backtothetop-easing=easeOutQuart data-backtothetop-fixed-fadein=1000 data-backtothetop-fixed-fadeout=1000 data-backtothetop-fixed-bottom=10 data-backtothetop-fixed-right=20>
-<span class="fa-layers fa-fw">
-<i class="fas fa-circle"></i>
-<i class="fas fa-arrow-circle-up"></i>
-</span></a>
-</div></body></html>
+</span></span></code></pre></div><p>You can learn and learn more about each state at the <b><a href=/How-to-use-Idem/Use-Cases/>use cases</a></b></p></div></div><div class=edit-meta>Last updated on 28 Feb 2022<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Basic%20Commands/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/getting-started/authenticate/ title=Authenticate><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - Authenticate</a>
+<a class="nav nav-next" href=https://learnidem.github.io/getting-started/troubleshooting/ title=Troubleshooting>Next - Troubleshooting <i class="fas fa-arrow-right" aria-hidden=true></i></a></nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p></footer></main><div class=sidebar><nav class=slide-menu><ul><li><a href=https://learnidem.github.io>Home</a></li><li class="parent has-sub-menu"><a href=https://learnidem.github.io/getting-started/>Getting Started<span class="mark opened">-</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/getting-started/install-idem/>Install Idem</a></li><li class=has-sub-menu><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/>Cloud Plug-Ins<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/>Idem Azure Plug-In</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/>Idem AWS Plug-In</a></li></ul></li><li><a href=https://learnidem.github.io/getting-started/authenticate/>Authenticate</a></li><li class="parent active"><a href=https://learnidem.github.io/getting-started/basic-commands/>Basic Commands</a></li><li><a href=https://learnidem.github.io/getting-started/troubleshooting/>Troubleshooting</a></li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/>How to use Idem<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/how-to-use-idem/describe/>Describe command</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/filter-flag/>Filter Flag</a></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/states/>States<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/how-to-use-idem/states/present/>Present</a></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/states/present-update/>Present Update<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/how-to-use-idem/states/present-update/force-update/>Force Update</a></li></ul></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/absent/>Absent</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/test-flag/>Test Flag</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/describe-2-state/>Describe 2 State</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/reconciler-flag/>Reconcilier Flag</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/jinja-templates/>Jinja Templates</a></li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/use-cases/>Use Cases<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/how-to-use-idem/use-cases/resources-and-sls/>Resources and SLS</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/use-cases/end-to-end-azure-vm/>End to End Azure VM</a></li></ul></li></ul></li><li><a href=https://learnidem.github.io/documentation-resources/>Documentation Resources</a></li></ul></nav><div class=sidebar-footer></div></div></div><a href=# id=backtothetop-fixed class=backtothetop data-backtothetop-duration=600 data-backtothetop-easing=easeOutQuart data-backtothetop-fixed-fadein=1000 data-backtothetop-fixed-fadeout=1000 data-backtothetop-fixed-bottom=10 data-backtothetop-fixed-right=20><span class="fa-layers fa-fw"><i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i></span></a></div></body></html>
