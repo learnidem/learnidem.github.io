@@ -1,0 +1,349 @@
+<!doctype html><html lang=en-gb><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>aws.ec2.ami - Learn Idem</title><meta name=description content="Powered by Idem Project"><meta name=generator content="Hugo 0.103.1"><link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml><link rel=canonical href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.ami/><link rel=stylesheet href=https://learnidem.github.io/css/theme.css><link rel=stylesheet href=/css/lightbox.min.css><link rel=stylesheet href=/css/custom.css><script src=https://use.fontawesome.com/releases/v5.0.6/js/all.js></script>
+<link rel=stylesheet href=https://learnidem.github.io/css/chroma.min.css><script src=https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script>
+<script src=https://learnidem.github.io/js/bundle.js></script>
+<script src=/js/lightbox.min.js></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8R0DEW1VZM"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-8R0DEW1VZM")</script><style>:root{--custom-font-color:#238FCF;--custom-background-color:#FFFFFF}</style><meta property="og:title" content="aws.ec2.ami"><meta property="og:description" content="Powered by Idem Project"><meta property="og:type" content="website"><meta property="og:url" content="https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.ami/"><meta property="og:image" content="https://learnidem.github.io/images/1254756-oss-id-idem-project.png"><meta property="og:site_name" content="Learn Idem"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://learnidem.github.io/images/1254756-oss-id-idem-project.png"><meta name=twitter:title content="aws.ec2.ami"><meta name=twitter:description content="Powered by Idem Project"><meta itemprop=name content="aws.ec2.ami"><meta itemprop=description content="Powered by Idem Project"></head><body><div class=container><header><div class=header-image><img src=/images/1254756-oss-id-idem-project.png alt="   Learn Idem"></div><div class=header><div class=header-h1><h1 class=header-h1>Learn Idem</h1></div><div class=header-description><p class=description>Powered by Idem Project</p></div></div></header><div class=content-container><main><h1>aws.ec2.ami</h1><div class=gdoc-tabs><input type=radio class="gdoc-tabs__control hidden" name=tabs-functions id=tabs-functions-0 checked>
+<label for=tabs-functions-0 class=gdoc-tabs__label>absent</label><div class="gdoc-markdown--nested gdoc-tabs__content"><pre tabindex=0><code>Deregisters the specified AMI.
+
+    After you deregister an AMI, it can&#39;t be used to launch new instances.
+
+    If you deregister an AMI that matches a Recycle Bin retention rule,
+    the AMI is retained in the Recycle Bin for the specified retention period.
+    For more information, see Recycle Bin in the Amazon Elastic Compute Cloud User Guide.
+
+    When you deregister an AMI, it doesn&#39;t affect any instances that you&#39;ve already launched from the AMI.
+    You&#39;ll continue to incur usage costs for those instances until you terminate them.
+
+    When you deregister an Amazon EBS-backed AMI,
+    it doesn&#39;t affect the snapshot that was created for the root volume of the instance during the AMI creation process.
+    When you deregister an instance store-backed AMI,
+    it doesn&#39;t affect the files that you uploaded to Amazon S3 when you created the AMI.
+
+    Args:
+        name(str): The Idem name of the AMI.
+        resource_id(str, optional): The AWS image_id.
+
+    Request Syntax:
+        .. code-block:: sls
+
+            [ami-resource-id]:
+              aws.ec2.ami.absent:
+                - name: &#34;string&#34;
+                - resource_id: &#34;string&#34;
+
+    Returns:
+        Dict[str, Any]
+
+    Examples:
+        .. code-block:: sls
+
+            idem-test-ami:
+              aws.ec2.ami.absent:
+                - name: idem-test-ami
+                - resource_id: ami-000c540e28953ace2
+</code></pre></div><input type=radio class="gdoc-tabs__control hidden" name=tabs-functions id=tabs-functions-1>
+<label for=tabs-functions-1 class=gdoc-tabs__label>describe</label><div class="gdoc-markdown--nested gdoc-tabs__content"><pre tabindex=0><code>Describe the resource in a way that can be recreated/managed with the corresponding &#34;present&#34; function.
+
+Gets information about the AWS AMI
+
+Returns:
+    Dict[str, Dict[str, Any]]
+
+Examples:
+    .. code-block:: bash
+
+        $ idem describe aws.ec2.ami
+</code></pre></div><input type=radio class="gdoc-tabs__control hidden" name=tabs-functions id=tabs-functions-2>
+<label for=tabs-functions-2 class=gdoc-tabs__label>present</label><div class="gdoc-markdown--nested gdoc-tabs__content"><pre tabindex=0><code>Register an AWS AMI.
+
+    Args:
+        name(str):
+            A region-unique name for the AMI.
+            Constraints: 3-128 alphanumeric characters, parentheses (``()``), square brackets (``[]``), spaces, periods (``.``),
+            slashes (``/``), dashes (``-``), single quotes (``&#39;``), at-signs (``@``), or underscores(``_``)
+
+        resource_id(str, optional):
+            AWS AMI image_id
+
+        image_location(str, optional):
+            The full path to your AMI manifest in Amazon S3 storage.
+            The specified bucket must have the aws-exec-read canned access control list (ACL) to ensure that it can be accessed by Amazon EC2.
+            For more information, see Canned ACLs in the Amazon S3 Service Developer Guide .
+
+        architecture(str, optional):
+            The architecture of the AMI. Default: For Amazon EBS-backed AMIs, i386.
+            For instance store-backed AMIs, the architecture specified in the manifest file.
+
+        block_device_mappings(list, optional):
+            The block device mapping entries.
+            If you specify an Amazon EBS volume using the ID of an Amazon EBS snapshot, you can&#39;t specify the encryption state of the volume.
+            If you create an AMI on an Outpost, then all backing snapshots must be on the same Outpost or in the Region of that Outpost.
+            AMIs on an Outpost that include local snapshots can be used to launch instances on the same Outpost only.
+            For more information, Amazon EBS local snapshots on Outposts in the Amazon Elastic Compute Cloud User Guide.
+
+            Below are the attributes available for block device mapping entries:
+
+            Type: object dict(Describes a block device mapping, which defines the EBS volumes and instance store volumes to attach to an instance at launch.)
+
+            * DeviceName (str):
+                The device name (for example, ``/dev/sdh`` or ``xvdh``).
+
+            * VirtualName (str, Optional):
+                The virtual device name (ephemeral N). Instance store volumes are numbered starting from 0.
+                An instance type with 2 available instance store volumes can specify mappings for ephemeral0 and ephemeral1 .
+                The number of available instance store volumes depends on the instance type. After you connect to the instance, you must mount the volume.
+                NVMe instance store volumes are automatically enumerated and assigned a device name. Including them in your block device mapping has no effect.
+                Constraints: For M3 instances, you must specify instance store volumes in the block device mapping for the instance.
+                When you launch an M3 instance, we ignore any instance store volumes specified in the block device mapping for the AMI.
+
+            * Ebs (dict):
+                Parameters used to automatically set up EBS volumes when the instance is launched.
+
+            * DeleteOnTermination (bool, optional):
+                Indicates whether the EBS volume is deleted on instance termination. For more information,
+                see Preserving Amazon EBS volumes on instance termination in the Amazon EC2 User Guide .
+
+            * Iops (int, optional):
+                The number of I/O operations per second (IOPS). For gp3 , io1 , and io2 volumes,
+                this represents the number of IOPS that are provisioned for the volume. For gp2 volumes,
+                this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for bursting.
+
+                The following are the supported values for each volume type:
+
+                gp3 : 3,000-16,000 IOPS
+                io1 : 100-64,000 IOPS
+                io2 : 100-64,000 IOPS
+                For io1 and io2 volumes, we guarantee 64,000 IOPS only for Instances built on the Nitro System.
+                Other instance families guarantee performance up to 32,000 IOPS.
+
+                This parameter is required for io1 and io2 volumes. The default for gp3 volumes is 3,000 IOPS.
+                This parameter is not supported for gp2 , st1 , sc1 , or standard volumes.
+
+            * SnapshotId (str):
+                The ID of the snapshot.
+
+            * VolumeSize (int):
+                The size of the volume, in GiBs. You must specify either a snapshot ID or a volume size.
+                If you specify a snapshot, the default is the snapshot size.
+                You can specify a volume size that is equal to or larger than the snapshot size.
+
+                The following are the supported volumes sizes for each volume type:
+
+                gp2 and gp3 :1-16,384
+                io1 and io2 : 4-16,384
+                st1 and sc1 : 125-16,384
+                standard : 1-1,024
+
+            * VolumeType (str):
+                The volume type. For more information, see Amazon EBS volume types in the Amazon EC2 User Guide .
+                If the volume type is io1 or io2 , you must specify the IOPS that the volume supports.
+
+            * KmsKeyId (str, optional):
+                Identifier (key ID, key alias, ID ARN, or alias ARN) for a customer managed CMK under which the EBS volume is encrypted.
+                This parameter is only supported on BlockDeviceMapping objects called by RunInstances, RequestSpotFleet, and RequestSpotInstances .
+
+            * Throughput (int, optional):
+                The throughput that the volume supports, in MiB/s.
+                This parameter is valid only for gp3 volumes.
+                Valid Range: Minimum value of 125. Maximum value of 1000.
+
+            * OutpostArn (str, optional):
+                The ARN of the Outpost on which the snapshot is stored.
+
+            * Encrypted (bool, optional):
+                Indicates whether the encryption state of an EBS volume is changed while being restored from a backing snapshot.
+                The effect of setting the encryption state to true depends on the volume origin (new or from a snapshot),
+                starting encryption state, ownership, and whether encryption by default is enabled. For more information,
+                see Amazon EBS encryption in the Amazon EC2 User Guide .
+                In no case can you remove encryption from an encrypted volume.
+                Encrypted volumes can only be attached to instances that support Amazon EBS encryption.
+                For more information, see Supported instance types .
+                This parameter is not returned by DescribeImageAttribute .
+
+            * NoDevice (str, optional):
+                To omit the device from the block device mapping, specify an empty string.
+                When this property is specified, the device is removed from the block device mapping regardless of the assigned value.
+
+        description(str, optional):
+            A description for your AMI.
+
+        ena_support(bool, optional):
+            Set to true to enable enhanced networking with ENA for the AMI and any instances that you launch from the AMI.
+            This option is supported only for HVM AMIs.
+            Specifying this option with a PV AMI can make instances launched from the AMI unreachable.
+
+        kernel_id (str, optional):
+            The ID of the kernel.
+
+        billing_products (list, optional):
+            The billing product codes. Your account must be authorized to specify billing product codes.
+            Otherwise, you can use the Amazon Web Services Marketplace to bill for the use of an AMI.
+
+        ramdisk_id(str, optional):
+            The ID of the RAM disk.
+
+        root_device_name(str, optional):
+            The device name of the root device volume (for example, /dev/sda1 ).
+
+        sriov_net_support(str, optional):
+            Set to simple to enable enhanced networking with the Intel 82599 Virtual Function interface for the AMI and any instances that you launch from the AMI.
+            There is no way to disable sriovNetSupport at this time.
+            This option is supported only for HVM AMIs. Specifying this option with a PV AMI can make instances launched from the AMI unreachable.
+
+        virtualization_type(str, optional):
+            The type of virtualization (hvm | paravirtual).
+            Default: paravirtual
+
+        boot_mode(str, optional):
+            The boot mode of the AMI. For more information, see Boot modes in the Amazon Elastic Compute Cloud User Guide.
+
+        tags(dict or list, optional):
+            Dict in the format of ``{tag-key: tag-value}`` or List of tags in the format of
+            ``[{&#34;Key&#34;: tag-key, &#34;Value&#34;: tag-value}]`` to associate with the AMI.
+
+            * Key (str):
+                The key name that can be used to look up or retrieve the associated value. For example,
+                Department or Cost Center are common choices.
+
+            * Value (str):
+                The value associated with this tag. For example, tags with a key name of Department could have
+                values such as Human Resources, Accounting, and Support. Tags with a key name of Cost Center
+                might have values that consist of the number associated with the different cost centers in your
+                company. Typically, many resources have tags with the same key name but with different values.
+                Amazon Web Services always interprets the tag Value as a single string. If you need to store an
+                array, you can store comma-separated values in the string. However, you must interpret the value
+                in your code.
+
+    Request Syntax:
+       .. code-block:: sls
+
+          [ami-resource-id]:
+            aws.ec2.ami.present:
+              - name: &#34;string&#34;
+              - image_location: &#34;string&#34;
+              - architecture: i386|x86_64|arm64|x86_64_mac
+              - block_device_mappings:
+                  - DeviceName: &#34;string&#34;
+                    VirtualName: &#34;string&#34;
+                    Ebs:
+                      DeleteOnTermination: True|False
+                      Iops: 123
+                      SnapshotId: &#34;string&#34;
+                      VolumeSize: integer
+                      VolumeType: standard|io1|io2|gp2|sc1|st1|gp3
+                      KmsKeyId: &#34;string&#34;
+                      Throughput: integer
+                      OutpostArn: &#34;string&#34;
+                      Encrypted: True|False
+                      NoDevice: &#34;string&#34;
+              - description: &#34;string&#34;
+              - ena_support: True|False
+              - kernel_id: &#34;string&#34;
+              - billing_products:
+                  - string
+                  - string
+              - ramdisk_id: &#34;string&#34;
+              - root_device_name: &#34;string&#34;
+              - sriov_net_support: &#34;string&#34;
+              - virtualization_type: &#34;string&#34;
+              - boot_mode: legacy-bios|uefi
+              - tags:
+                  - Key: &#34;string&#34;
+                    Value: &#34;string&#34;
+              - resource_id: &#34;string&#34;
+
+    Returns:
+        Dict[str, Any]
+
+    Examples:
+        .. code-block:: sls
+
+            idem-test-ami:
+              aws.ec2.ami.present:
+                - name: amzn-ami-vpc-nat-2018.03.0.20210721.0-x86_64-ebs
+                - resource_id: ami-00a36856283d67c39
+                - image_location: amazon/amzn-ami-vpc-nat-2018.03.0.20210721.0-x86_64-ebs
+                - architecture: x86_64
+                - kernel_id: None
+                - block_device_mappings:
+                    - DeviceName: /dev/xvda
+                      Ebs:
+                        DeleteOnTermination: false
+                        SnapshotId: snap-1833745e
+                        VolumeSize: 15
+                        VolumeType: standard
+                - description: Amazon Linux AMI 2018.03.0.20210721.0 x86_64 VPC HVM ebs
+                - ramdisk_id: ari-1a2b3c4d
+                - root_device_name: /dev/xvda
+                - virtualization_type: hvm
+                - tags:
+                    - Key: Name
+                      Value: ami-name
+                    - Key: ami-tag-key-2
+                      Value: ami-tag-value-2
+</code></pre></div><input type=radio class="gdoc-tabs__control hidden" name=tabs-functions id=tabs-functions-3>
+<label for=tabs-functions-3 class=gdoc-tabs__label>search</label><div class="gdoc-markdown--nested gdoc-tabs__content"><pre tabindex=0><code>Use an un-managed AMI as a data-source. Supply one of the inputs as the filter.
+
+Args:
+    name(str):
+        The name of the Idem state.
+
+    resource_id(str, optional):
+        AWS image id to identify the resource.
+
+    executable_users(list, optional):
+        Scopes the images by users with explicit launch permissions.
+        Specify an Amazon Web Services account ID, self (the sender of the request), or all (public AMIs).
+
+    owners(list, optional):
+        Scopes the results to images with the specified owners.
+        You can specify a combination of Amazon Web Services account IDs, self , amazon , and aws-marketplace.
+        If you omit this parameter, the results include all images for which you have launch permissions, regardless of ownership.
+
+    include_deprecated(bool, optional):
+        If true , all deprecated AMIs are included in the response.
+        If false , no deprecated AMIs are included in the response. If no value is specified, the default value is false .
+
+    most_recent(bool, optional):
+        If more than one result is returned, use the most recent AMI.
+
+    filters(list, optional):
+        One or more filters: for example, tag :&lt;key&gt;, tag-key. A complete list of filters can be found at
+        `boto3: EC2.Client.describe_images &lt;https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#EC2.Client.describe_images&gt;`__
+
+
+Request Syntax:
+    .. code-block:: sls
+
+        [Idem-state-name]:
+          aws.ec2.ami.search:
+            - resource_id: &#34;string&#34;
+            - executable_users
+              - user1
+            - owners
+              - amazon
+            - include_deprecated: True|False
+            - most_recent: True|False
+            - filters:
+                - name: &#34;string&#34;
+                  values: &#34;list&#34;
+                - name: &#34;string&#34;
+                  values: &#34;list&#34;
+
+Examples:
+    .. code-block:: sls
+
+        my-unmanaged-ami:
+          aws.ec2.ami.search:
+            - resource_id: value
+            - most_recent: False
+            - filters:
+                - name: &#34;name&#34;
+                  values: [&#34;amzn-ami-minimal-hvm-2018.03.0.20181129-x86_64-ebs_2&#34;]
+</code></pre></div></div><p>Full plugin documentation is available on the Idem documentation site - <a href=https://docs.idemproject.io/idem-aws/en/latest/ref/states/ec2/ami.html target=_blank><i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> aws.ec2.ami
+</a>.</p><div class=edit-meta>Last updated on 20 Sep 2022<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Cloud%20Plug-Ins/Idem%20AWS%20Plug-In/States/aws.ec2.ami/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.dynamodb.table/ title=aws.dynamodb.table><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - aws.dynamodb.table</a>
+<a class="nav nav-next" href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.dhcp_option/ title=aws.ec2.dhcp_option>Next - aws.ec2.dhcp_option <i class="fas fa-arrow-right" aria-hidden=true></i></a></nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p></footer></main><div class=sidebar><nav class=slide-menu><ul><li><a href=https://learnidem.github.io>Home</a></li><li class="parent has-sub-menu"><a href=https://learnidem.github.io/getting-started/>Getting Started<span class="mark opened">-</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/getting-started/install-idem/>Install Idem</a></li><li class="parent has-sub-menu"><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/>Cloud Plug-Ins<span class="mark opened">-</span></a><ul class=sub-menu><li class="parent has-sub-menu"><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/>Idem AWS Plug-In<span class="mark opened">-</span></a><ul class=sub-menu><li class="parent has-sub-menu"><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/>Idem AWS Plug-In States<span class="mark opened">-</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.acm.certificate_manager/>aws.acm.certificate_manager</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.acm.certificate_validation/>aws.acm.certificate_validation</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigateway.integration/>aws.apigateway.integration</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigateway.method/>aws.apigateway.method</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigateway.method_response/>aws.apigateway.method_response</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigateway.resource/>aws.apigateway.resource</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigateway.rest_api/>aws.apigateway.rest_api</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigatewayv2.api/>aws.apigatewayv2.api</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigatewayv2.authorizer/>aws.apigatewayv2.authorizer</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigatewayv2.domain_name/>aws.apigatewayv2.domain_name</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigatewayv2.integration/>aws.apigatewayv2.integration</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigatewayv2.route/>aws.apigatewayv2.route</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigatewayv2.stage/>aws.apigatewayv2.stage</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.application_autoscaling.scalable_target/>aws.application_autoscaling.scalable_target</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.application_autoscaling.scaling_policy/>aws.application_autoscaling.scaling_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.autoscaling.auto_scaling_group/>aws.autoscaling.auto_scaling_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.autoscaling.launch_configuration/>aws.autoscaling.launch_configuration</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.autoscaling.scaling_policy/>aws.autoscaling.scaling_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.budgets.budget/>aws.budgets.budget</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.budgets.budget_action/>aws.budgets.budget_action</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.caller_identity/>aws.caller_identity</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.cloudfront.distribution/>aws.cloudfront.distribution</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.cloudtrail.trail/>aws.cloudtrail.trail</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.cloudwatch.log_group/>aws.cloudwatch.log_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.cloudwatch.metric_alarm/>aws.cloudwatch.metric_alarm</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.cloudwatchlogs.resource_policy/>aws.cloudwatchlogs.resource_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.config.config_recorder/>aws.config.config_recorder</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.config.delivery_channel/>aws.config.delivery_channel</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.config.rule/>aws.config.rule</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.costexplorer.anomaly_monitor/>aws.costexplorer.anomaly_monitor</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.costexplorer.anomaly_subscription/>aws.costexplorer.anomaly_subscription</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.costexplorer.cost_category/>aws.costexplorer.cost_category</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.data/>aws.data</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.docdb.db_subnet_group/>aws.docdb.db_subnet_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.dynamodb.table/>aws.dynamodb.table</a></li><li class=active><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.ami/>aws.ec2.ami</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.dhcp_option/>aws.ec2.dhcp_option</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.dhcp_option_association/>aws.ec2.dhcp_option_association</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.elastic_ip/>aws.ec2.elastic_ip</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.flow_log/>aws.ec2.flow_log</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.instance/>aws.ec2.instance</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.internet_gateway/>aws.ec2.internet_gateway</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.key_pair/>aws.ec2.key_pair</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.nat_gateway/>aws.ec2.nat_gateway</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.placement_group/>aws.ec2.placement_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.route_table/>aws.ec2.route_table</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.route_table_association/>aws.ec2.route_table_association</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.security_group/>aws.ec2.security_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.security_group_rule/>aws.ec2.security_group_rule</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.snapshot/>aws.ec2.snapshot</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.spot_instance_request/>aws.ec2.spot_instance_request</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.subnet/>aws.ec2.subnet</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.transit_gateway/>aws.ec2.transit_gateway</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.transit_gateway_vpc_attachment/>aws.ec2.transit_gateway_vpc_attachment</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.volume/>aws.ec2.volume</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.vpc/>aws.ec2.vpc</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.vpc_endpoint/>aws.ec2.vpc_endpoint</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.vpc_peering_connection/>aws.ec2.vpc_peering_connection</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ecr.repository/>aws.ecr.repository</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ecr.repository_policy/>aws.ecr.repository_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.efs.file_system/>aws.efs.file_system</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.efs.mount_target/>aws.efs.mount_target</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.eks.addon/>aws.eks.addon</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.eks.cluster/>aws.eks.cluster</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.eks.fargate_profile/>aws.eks.fargate_profile</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.eks.nodegroup/>aws.eks.nodegroup</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.elasticache.cache_parameter_group/>aws.elasticache.cache_parameter_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.elasticache.cache_subnet_group/>aws.elasticache.cache_subnet_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.elasticache.replication_group/>aws.elasticache.replication_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.elb.load_balancer/>aws.elb.load_balancer</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.elbv2.load_balancer/>aws.elbv2.load_balancer</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.elbv2.target_group/>aws.elbv2.target_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.events.rule/>aws.events.rule</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.guardduty.detector/>aws.guardduty.detector</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.access_key/>aws.iam.access_key</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.instance_profile/>aws.iam.instance_profile</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.open_id_connect_provider/>aws.iam.open_id_connect_provider</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.password_policy/>aws.iam.password_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.policy/>aws.iam.policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.role/>aws.iam.role</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.role_policy/>aws.iam.role_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.role_policy_attachment/>aws.iam.role_policy_attachment</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.service_linked_role/>aws.iam.service_linked_role</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.user/>aws.iam.user</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.user_policy/>aws.iam.user_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.user_policy_attachment/>aws.iam.user_policy_attachment</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.user_ssh_key/>aws.iam.user_ssh_key</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.kms.alias/>aws.kms.alias</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.kms.key/>aws.kms.key</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.lambda_aws.function/>aws.lambda_aws.function</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.lambda_aws.function_event_invoke_config/>aws.lambda_aws.function_event_invoke_config</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.lambda_aws.function_permission/>aws.lambda_aws.function_permission</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.logs.subscription_filter/>aws.logs.subscription_filter</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.neptune.db_cluster/>aws.neptune.db_cluster</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.neptune.db_cluster_parameter_group/>aws.neptune.db_cluster_parameter_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.neptune.db_instance/>aws.neptune.db_instance</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.neptune.db_parameter_group/>aws.neptune.db_parameter_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.neptune.db_subnet_group/>aws.neptune.db_subnet_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.organizations.account/>aws.organizations.account</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.organizations.organization/>aws.organizations.organization</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.organizations.organization_unit/>aws.organizations.organization_unit</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.organizations.policy/>aws.organizations.policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.organizations.policy_attachment/>aws.organizations.policy_attachment</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.rds.db_cluster/>aws.rds.db_cluster</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.rds.db_cluster_parameter_group/>aws.rds.db_cluster_parameter_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.rds.db_instance/>aws.rds.db_instance</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.rds.db_parameter_group/>aws.rds.db_parameter_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.rds.db_subnet_group/>aws.rds.db_subnet_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.route53.hosted_zone/>aws.route53.hosted_zone</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.route53.hosted_zone_association/>aws.route53.hosted_zone_association</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.route53.resource_record/>aws.route53.resource_record</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket/>aws.s3.bucket</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket_encryption/>aws.s3.bucket_encryption</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket_lifecycle/>aws.s3.bucket_lifecycle</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket_logging/>aws.s3.bucket_logging</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket_notification/>aws.s3.bucket_notification</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket_policy/>aws.s3.bucket_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket_versioning/>aws.s3.bucket_versioning</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.public_access_block/>aws.s3.public_access_block</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.sns.subscription/>aws.sns.subscription</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.sns.topic/>aws.sns.topic</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.sns.topic_policy/>aws.sns.topic_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.sqs.queue/>aws.sqs.queue</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.wafv2.associate_web_acl/>aws.wafv2.associate_web_acl</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.wafv2.web_acl/>aws.wafv2.web_acl</a></li></ul></li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/>Idem Azure Plug-In<span class="mark closed">+</span></a><ul class=sub-menu><li class=has-sub-menu><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/>Idem Azure Plug-In States<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.authorization.role_assignments/>azure.authorization.role_assignments</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.authorization.role_definitions/>azure.authorization.role_definitions</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.compute.virtual_machines/>azure.compute.virtual_machines</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.management_groups.management_groups/>azure.management_groups.management_groups</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.policy.policy_assignments/>azure.policy.policy_assignments</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.policy.policy_definitions/>azure.policy.policy_definitions</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.resource_management.resource_groups/>azure.resource_management.resource_groups</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.subscription.attach_subscriptions/>azure.subscription.attach_subscriptions</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.subscription.subscriptions/>azure.subscription.subscriptions</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.virtual_networks.network_interfaces/>azure.virtual_networks.network_interfaces</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.virtual_networks.subnets/>azure.virtual_networks.subnets</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.virtual_networks.virtual_networks/>azure.virtual_networks.virtual_networks</a></li></ul></li></ul></li></ul></li><li><a href=https://learnidem.github.io/getting-started/authenticate/>Authenticate</a></li><li><a href=https://learnidem.github.io/getting-started/basic-commands/>Basic Commands</a></li><li><a href=https://learnidem.github.io/getting-started/troubleshooting/>Troubleshooting</a></li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/>How to use Idem<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/how-to-use-idem/describe/>Describe command</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/filter-flag/>Filter Flag</a></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/states/>States<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/how-to-use-idem/states/present/>Present</a></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/states/present-update/>Present Update<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/how-to-use-idem/states/present-update/force-update/>Force Update</a></li></ul></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/absent/>Absent</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/test-flag/>Test Flag</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/describe-2-state/>Describe 2 State</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/reconciler-flag/>Reconcilier Flag</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/jinja-templates/>Jinja Templates</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/sleep-and-data_write/>Sleep and Data.Write</a></li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/use-cases/>Use Cases<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/how-to-use-idem/use-cases/resources-and-sls/>Resources and SLS</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/use-cases/end-to-end-azure-vm/>End to End Azure VM</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/use-cases/aws-instance-vpc-and-subnet/>AWS Instance VPC and Subnet Resources</a></li></ul></li></ul></li><li><a href=https://learnidem.github.io/documentation-resources/>Documentation Resources</a></li></ul></nav><div class=sidebar-footer></div></div></div><a href=# id=backtothetop-fixed class=backtothetop data-backtothetop-duration=600 data-backtothetop-easing=easeOutQuart data-backtothetop-fixed-fadein=1000 data-backtothetop-fixed-fadeout=1000 data-backtothetop-fixed-bottom=10 data-backtothetop-fixed-right=20><span class="fa-layers fa-fw"><i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i></span></a></div></body></html>

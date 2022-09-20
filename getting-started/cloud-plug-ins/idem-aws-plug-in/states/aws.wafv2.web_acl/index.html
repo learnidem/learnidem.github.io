@@ -1,0 +1,672 @@
+<!doctype html><html lang=en-gb><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>aws.wafv2.web_acl - Learn Idem</title><meta name=description content="Powered by Idem Project"><meta name=generator content="Hugo 0.103.1"><link href=https://learnidem.github.io/index.xml rel=alternate type=application/rss+xml><link rel=canonical href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.wafv2.web_acl/><link rel=stylesheet href=https://learnidem.github.io/css/theme.css><link rel=stylesheet href=/css/lightbox.min.css><link rel=stylesheet href=/css/custom.css><script src=https://use.fontawesome.com/releases/v5.0.6/js/all.js></script>
+<link rel=stylesheet href=https://learnidem.github.io/css/chroma.min.css><script src=https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script>
+<script src=https://learnidem.github.io/js/bundle.js></script>
+<script src=/js/lightbox.min.js></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8R0DEW1VZM"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-8R0DEW1VZM")</script><style>:root{--custom-font-color:#238FCF;--custom-background-color:#FFFFFF}</style><meta property="og:title" content="aws.wafv2.web_acl"><meta property="og:description" content="Powered by Idem Project"><meta property="og:type" content="website"><meta property="og:url" content="https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.wafv2.web_acl/"><meta property="og:image" content="https://learnidem.github.io/images/1254756-oss-id-idem-project.png"><meta property="og:site_name" content="Learn Idem"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://learnidem.github.io/images/1254756-oss-id-idem-project.png"><meta name=twitter:title content="aws.wafv2.web_acl"><meta name=twitter:description content="Powered by Idem Project"><meta itemprop=name content="aws.wafv2.web_acl"><meta itemprop=description content="Powered by Idem Project"></head><body><div class=container><header><div class=header-image><img src=/images/1254756-oss-id-idem-project.png alt="   Learn Idem"></div><div class=header><div class=header-h1><h1 class=header-h1>Learn Idem</h1></div><div class=header-description><p class=description>Powered by Idem Project</p></div></div></header><div class=content-container><main><h1>aws.wafv2.web_acl</h1><div class=gdoc-tabs><input type=radio class="gdoc-tabs__control hidden" name=tabs-functions id=tabs-functions-0 checked>
+<label for=tabs-functions-0 class=gdoc-tabs__label>absent</label><div class="gdoc-markdown--nested gdoc-tabs__content"><pre tabindex=0><code>Deletes the specified WebACL.
+You can only use this if ManagedByFirewallManager is false in the specified WebACL.
+
+Args:
+    name(text): The name of the web ACL. You cannot change the name of a web ACL after you create it.
+    resource_id(text): AWS WAF ID. Idem automatically considers this resource being absent if this field is not specified.
+    scope(text): Specifies whether this is for an Amazon CloudFront distribution or for a regional application.
+        A regional application can be an Application Load Balancer (ALB), an Amazon API Gateway REST API, or an
+        AppSync GraphQL API.
+        To work with CloudFront, you must also specify the Region US East (N. Virginia) as follows:
+        * CLI -- Specify the Region when you use the CloudFront scope: --scope=CLOUDFRONT --region=us-east-1 .
+        * API and SDKs -- For all calls, use the Region endpoint us-east-1.
+
+Request Syntax:
+    [web-acl-name]::
+        aws.wafv2.web_acl.absent:
+        - name: &#39;string&#39;
+        - scope: &#39;string&#39;
+
+Examples:
+
+    .. code-block:: sls
+
+        demo_waf::
+           aws.wafv2.web_acl.absent:
+            - name: demo_waf
+            - scope: REGIONAL
+
+Returns:
+    Dict[str, Any]
+</code></pre></div><input type=radio class="gdoc-tabs__control hidden" name=tabs-functions id=tabs-functions-1>
+<label for=tabs-functions-1 class=gdoc-tabs__label>describe</label><div class="gdoc-markdown--nested gdoc-tabs__content"><pre tabindex=0><code>Retrieves an WebACLSummary objects for the web ACLs that you manage.
+
+Examples:
+
+    .. code-block:: bash
+
+        $ idem describe aws.wafv2.web_acl
+
+Returns:
+    Dict[str, Any]
+</code></pre></div><input type=radio class="gdoc-tabs__control hidden" name=tabs-functions id=tabs-functions-2>
+<label for=tabs-functions-2 class=gdoc-tabs__label>present</label><div class="gdoc-markdown--nested gdoc-tabs__content"><pre tabindex=0><code>A web ACL defines a collection of rules to use to inspect and control web requests. Each rule has an action defined
+(allow, block, or count) for requests that match the statement of the rule. In the web ACL, you assign a default
+action to take (allow, block) for any request that does not match any of the rules. The rules in a web ACL can be
+a combination of the types Rule , RuleGroup , and managed rule group. You can associate a web ACL with one or more
+Amazon Web Services resources to protect. The resources can be an Amazon CloudFront distribution, an Amazon API
+Gateway REST API, an Application Load Balancer, or an AppSync GraphQL API.
+
+Args:
+    name(text): The name of the web ACL. You cannot change the name of a web ACL after you create it.
+    scope(text): Specifies whether this is for an Amazon CloudFront distribution or for a regional application.
+        A regional application can be an Application Load Balancer (ALB), an Amazon API Gateway REST API,
+        or an AppSync GraphQL API.
+        To work with CloudFront, you must also specify the Region US East (N. Virginia) as follows:
+          * CLI -- Specify the Region when you use the CloudFront scope: --scope=CLOUDFRONT --region=us-east-1 .
+          * API and SDKs -- For all calls, use the Region endpoint us-east-1.
+    default_action(Dict[str, Any]): The action to perform if none of the Rules contained in the WebACL match.
+        * Block (Dict[str, Any], optional): Specifies that WAF should block requests by default.
+            * CustomResponse (Dict[str, Any], optional): Defines a custom response for the web request. For information about customizing web requests
+                and responses, see Customizing web requests and responses in WAF in the WAF Developer Guide.
+                * ResponseCode (int): The HTTP status code to return to the client.  For a list of status codes that you can use in
+                    your custom reqponses, see Supported status codes for custom response in the WAF Developer
+                    Guide.
+                * CustomResponseBodyKey (str, optional): References the response body that you want WAF to return to the web request client. You can
+                    define a custom response for a rule action or a default web ACL action that is set to block. To
+                    do this, you first define the response body key and value in the CustomResponseBodies setting
+                    for the WebACL or RuleGroup where you want to use it. Then, in the rule action or web ACL
+                    default action BlockAction setting, you reference the response body using this key.
+                * ResponseHeaders (List[Dict[str, Any]], optional): The HTTP headers to use in the response. Duplicate header names are not allowed.  For
+                    information about the limits on count and size for custom request and response settings, see WAF
+                    quotas in the WAF Developer Guide.
+                    * Name (str): The name of the custom header.  For custom request header insertion, when WAF inserts the header
+                        into the request, it prefixes this name x-amzn-waf-, to avoid confusion with the headers that
+                        are already in the request. For example, for the header name sample, WAF inserts the header
+                        x-amzn-waf-sample.
+                    * Value (str): The value of the custom header.
+        * Allow (Dict[str, Any], optional): Specifies that WAF should allow requests by default.
+            * CustomRequestHandling (Dict[str, Any], optional): Defines custom handling for the web request. For information about customizing web requests and
+                responses, see Customizing web requests and responses in WAF in the WAF Developer Guide.
+                * InsertHeaders (List[&#39;CustomHTTPHeader&#39;]): The HTTP headers to insert into the request. Duplicate header names are not allowed.  For
+                    information about the limits on count and size for custom request and response settings, see WAF
+                    quotas in the WAF Developer Guide.
+    visibility_config(Dict[str, Any]): Defines and enables Amazon CloudWatch metrics and web request sample collection.
+        * SampledRequestsEnabled (bool): A boolean indicating whether WAF should store a sampling of the web requests that match the
+            rules. You can view the sampled requests through the WAF console.
+        * CloudWatchMetricsEnabled (bool): A boolean indicating whether the associated resource sends metrics to Amazon CloudWatch. For the
+            list of available metrics, see WAF Metrics.
+        * MetricName (str): A name of the Amazon CloudWatch metric. The name can contain only the characters: A-Z, a-z, 0-9,
+            - (hyphen), and _ (underscore). The name can be from one to 128 characters long. It can&#39;t
+            contain whitespace or metric names reserved for WAF, for example &#34;All&#34; and &#34;Default_Action.&#34;
+    resource_id(text, optional): AWS WAF ID.
+    description(text, optional): A description of the web ACL that helps with identification.
+    rules(List[Dict[str, Any]], optional): The Rule statements used to identify the web requests that you want to allow, block, or count.
+            Each rule includes one top-level statement that WAF uses to identify matching web requests, and
+            parameters that govern how WAF handles them. Defaults to None.
+        * Name (str): The name of the rule. You can&#39;t change the name of a Rule after you create it.
+        * Priority (int): If you define more than one Rule in a WebACL, WAF evaluates each request against the Rules in
+            order based on the value of Priority. WAF processes rules with lower priority first. The
+            priorities don&#39;t need to be consecutive, but they must all be different.
+            * Statement (Dict[str, Any]): The WAF processing statement for the rule, for example ByteMatchStatement or
+            SizeConstraintStatement.
+            * ByteMatchStatement (Dict[str, Any], optional): A rule statement that defines a string match search for WAF to apply to web requests. The byte
+                match statement provides the bytes to search for, the location in requests that you want WAF to
+                search, and other settings. The bytes to search for are typically a string that corresponds with
+                ASCII characters. In the WAF console and the developer guide, this is refered to as a string
+                match statement.
+                * SearchString (ByteString): A string value that you want WAF to search for.
+                * FieldToMatch (Dict[str, Any]): The part of the web request that you want WAF to inspect. For more information, see
+                    FieldToMatch.
+                    * SingleHeader (Dict[str, Any], optional): Inspect a single header. Provide the name of the header to inspect, for example, User-Agent or
+                        Referer. This setting isn&#39;t case sensitive. Example JSON: &#34;SingleHeader&#34;: { &#34;Name&#34;: &#34;haystack&#34; }
+                        Alternately, you can filter and inspect all headers with the Headers FieldToMatch setting.
+                        * Name (str): The name of the query header to inspect.
+                    * SingleQueryArgument (Dict[str, Any], optional): Inspect a single query argument. Provide the name of the query argument to inspect, such as
+                        UserName or SalesRegion. The name can be up to 30 characters long and isn&#39;t case sensitive.
+                        Example JSON: &#34;SingleQueryArgument&#34;: { &#34;Name&#34;: &#34;myArgument&#34; }
+                        * Name (str): The name of the query argument to inspect.
+                    * AllQueryArguments (Dict, optional): Inspect all query arguments.
+                    * UriPath (Dict, optional): Inspect the request URI path. This is the part of the web request that identifies a resource,
+                        for example, /images/daily-ad.jpg.
+                    * QueryString (Dict, optional): Inspect the query string. This is the part of a URL that appears after a ? character, if any.
+                    * Body (Dict[str, Any], optional): Inspect the request body as plain text. The request body immediately follows the request
+                        headers. This is the part of a request that contains any additional data that you want to send
+                        to your web server as the HTTP request body, such as data from a form.  Only the first 8 KB
+                        (8192 bytes) of the request body are forwarded to WAF for inspection by the underlying host
+                        service. For information about how to handle oversized request bodies, see the Body object
+                        configuration.
+                        * OversizeHandling (str, optional): What WAF should do if the body is larger than WAF can inspect.
+                    * Method (Dict, optional): Inspect the HTTP method. The method indicates the type of operation that the request is asking
+                        the origin to perform.
+                    * JsonBody (Dict[str, Any], optional): Inspect the request body as JSON. The request body immediately follows the request headers. This
+                        is the part of a request that contains any additional data that you want to send to your web
+                        server as the HTTP request body, such as data from a form.  Only the first 8 KB (8192 bytes) of
+                        the request body are forwarded to WAF for inspection by the underlying host service. For
+                        information about how to handle oversized request bodies, see the JsonBody object configuration.
+                        * MatchPattern (Dict[str, Any]): The patterns to look for in the JSON body. WAF inspects the results of these pattern matches
+                            against the rule inspection criteria.
+                            * All (Dict, optional): Match all of the elements. See also MatchScope in JsonBody.  You must specify either this
+                                setting or the IncludedPaths setting, but not both.
+                            * IncludedPaths (List[str], optional): Match only the specified include paths. See also MatchScope in JsonBody.  Provide the include
+                                paths using JSON Pointer syntax. For example, &#34;IncludedPaths&#34;: [&#34;/dogs/0/name&#34;, &#34;/dogs/1/name&#34;].
+                                For information about this syntax, see the Internet Engineering Task Force (IETF) documentation
+                                JavaScript Object Notation (JSON) Pointer.  You must specify either this setting or the All
+                                setting, but not both.  Don&#39;t use this option to include all paths. Instead, use the All
+                                setting.
+                        * MatchScope (str): The parts of the JSON to match against using the MatchPattern. If you specify All, WAF matches
+                            against keys and values.
+                        * InvalidFallbackBehavior (str, optional): What WAF should do if it fails to completely parse the JSON body.
+                            The options are the following:
+                                EVALUATE_AS_STRING - Inspect the body as plain text. WAF applies the text transformations and
+                                    inspection criteria that you defined for the JSON inspection to the body text string.
+                                MATCH - Treat the web request as matching the rule statement. WAF applies the rule action to the request.
+                                NO_MATCH - Treat the web request as not matching the rule statement.
+                        * OversizeHandling (str, optional): What WAF should do if the body is larger than WAF can inspect.
+                    * Headers (Dict[str, Any], optional): Inspect the request headers. You must configure scope and pattern matching filters in the
+                        Headers object, to define the set of headers to and the parts of the headers that WAF inspects.
+                        Only the first 8 KB (8192 bytes) of a request&#39;s headers and only the first 200 headers are
+                        forwarded to WAF for inspection by the underlying host service. You must configure how to handle
+                        any oversize header content in the Headers object. WAF applies the pattern matching filters to
+                        the headers that it receives from the underlying host service.
+                        * MatchPattern (Dict[str, Any]): The filter to use to identify the subset of headers to inspect in a web request.  You must
+                            specify exactly one setting: either All, IncludedHeaders, or ExcludedHeaders. Example JSON:
+                            &#34;HeaderMatchPattern&#34;: { &#34;ExcludedHeaders&#34;: {&#34;KeyToExclude1&#34;, &#34;KeyToExclude2&#34;} }
+                            * All (Dict, optional): Inspect all headers.
+                            * IncludedHeaders (List[str], optional): Inspect only the headers that have a key that matches one of the strings specified here.
+                            * ExcludedHeaders (List[str], optional): Inspect only the headers whose keys don&#39;t match any of the strings specified here.
+                        * MatchScope (str): The parts of the headers to match with the rule inspection criteria. If you specify All, WAF
+                            inspects both keys and values.
+                        * OversizeHandling (str): What WAF should do if the headers of the request are larger than WAF can inspect.
+                    * Cookies (Dict[str, Any], optional): Inspect the request cookies. You must configure scope and pattern matching filters in the
+                        Cookies object, to define the set of cookies and the parts of the cookies that WAF inspects.
+                        Only the first 8 KB (8192 bytes) of a request&#39;s cookies and only the first 200 cookies are
+                        forwarded to WAF for inspection by the underlying host service. You must configure how to handle
+                        any oversize cookie content in the Cookies object. WAF applies the pattern matching filters to
+                        the cookies that it receives from the underlying host service.
+                        * MatchPattern (Dict[str, Any]): The filter to use to identify the subset of cookies to inspect in a web request.  You must
+                            specify exactly one setting: either All, IncludedCookies, or ExcludedCookies. Example JSON:
+                            &#34;CookieMatchPattern&#34;: { &#34;IncludedCookies&#34;: {&#34;KeyToInclude1&#34;, &#34;KeyToInclude2&#34;, &#34;KeyToInclude3&#34;} }
+                            * All (Dict, optional): Inspect all cookies.
+                            * IncludedCookies (List[str], optional): Inspect only the cookies that have a key that matches one of the strings specified here.
+                            * ExcludedCookies (List[str], optional): Inspect only the cookies whose keys don&#39;t match any of the strings specified here.
+                        * MatchScope (str): The parts of the cookies to inspect with the rule inspection criteria. If you specify All, WAF
+                            inspects both keys and values.
+                        * OversizeHandling (str): What WAF should do if the cookies of the request are larger than WAF can inspect.
+                * TextTransformations (List[Dict[str, Any]]): Text transformations eliminate some of the unusual formatting that attackers use in web requests
+                    in an effort to bypass detection. If you specify one or more transformations in a rule
+                    statement, WAF performs all transformations on the content of the request component identified
+                    by FieldToMatch, starting from the lowest priority setting, before inspecting the content for a
+                    match.
+                    * Priority (int): Sets the relative processing order for multiple transformations that are defined for a rule
+                        statement. WAF processes all transformations, from lowest priority to highest, before inspecting
+                        the transformed content. The priorities don&#39;t need to be consecutive, but they must all be
+                        different.
+                    * Type (str): You can specify the following transformation types:
+                        BASE64_DECODE - Decode a Base64-encoded string.
+                        BASE64_DECODE_EXT - Decode a Base64-encoded string, but use a forgiving implementation
+                            that ignores characters that aren&#39;t valid.
+                        CMD_LINE - Command-line transformations. These are helpful in reducing effectiveness of attackers who inject an operating system command-line
+                            command and use unusual formatting to disguise some or all of the command.
+                * PositionalConstraint (str): The area within the portion of the web request that you want WAF to search for SearchString.
+                    Valid values include the following:  CONTAINS  The specified part of the web request must
+                    include the value of SearchString, but the location doesn&#39;t matter.  CONTAINS_WORD  The
+                    specified part of the web request must include the value of SearchString, and SearchString must
+                    contain only alphanumeric characters or underscore (A-Z, a-z, 0-9, or _). In addition,
+                    SearchString must be a word, which means that both of the following are true:    SearchString is
+                    at the beginning of the specified part of the web request or is preceded by a character other
+                    than an alphanumeric character or underscore (_). Examples include the value of a header and
+                    ;BadBot.    SearchString is at the end of the specified part of the web request or is followed
+                    by a character other than an alphanumeric character or underscore (_), for example, BadBot; and
+                    -BadBot;.    EXACTLY  The value of the specified part of the web request must exactly match the
+                    value of SearchString.  STARTS_WITH  The value of SearchString must appear at the beginning of
+                    the specified part of the web request.  ENDS_WITH  The value of SearchString must appear at the
+                    end of the specified part of the web request.
+            * SqliMatchStatement (Dict[str, Any], optional): Attackers sometimes insert malicious SQL code into web requests in an effort to extract data
+                from your database. To allow or block web requests that appear to contain malicious SQL code,
+                create one or more SQL injection match conditions. An SQL injection match condition identifies
+                the part of web requests, such as the URI or the query string, that you want WAF to inspect.
+                Later in the process, when you create a web ACL, you specify whether to allow or block requests
+                that appear to contain malicious SQL code.
+                * FieldToMatch (&#39;FieldToMatch&#39;): The part of the web request that you want WAF to inspect. For more information, see
+                    FieldToMatch.
+                * TextTransformations (List[&#39;TextTransformation&#39;]): Text transformations eliminate some of the unusual formatting that attackers use in web requests
+                    in an effort to bypass detection. If you specify one or more transformations in a rule
+                    statement, WAF performs all transformations on the content of the request component identified
+                    by FieldToMatch, starting from the lowest priority setting, before inspecting the content for a
+                    match.
+            * XssMatchStatement (Dict[str, Any], optional): A rule statement that defines a cross-site scripting (XSS) match search for WAF to apply to web
+                requests. XSS attacks are those where the attacker uses vulnerabilities in a benign website as a
+                vehicle to inject malicious client-site scripts into other legitimate web browsers. The XSS
+                match statement provides the location in requests that you want WAF to search and text
+                transformations to use on the search area before WAF searches for character sequences that are
+                likely to be malicious strings.
+                * FieldToMatch (&#39;FieldToMatch&#39;): The part of the web request that you want WAF to inspect. For more information, see
+                    FieldToMatch.
+                * TextTransformations (List[&#39;TextTransformation&#39;]): Text transformations eliminate some of the unusual formatting that attackers use in web requests
+                    in an effort to bypass detection. If you specify one or more transformations in a rule
+                    statement, WAF performs all transformations on the content of the request component identified
+                    by FieldToMatch, starting from the lowest priority setting, before inspecting the content for a
+                    match.
+            * SizeConstraintStatement (Dict[str, Any], optional): A rule statement that compares a number of bytes against the size of a request component, using
+                    a comparison operator, such as greater than (&gt;) or less than (&lt;). For example, you can use a
+                    size constraint statement to look for query strings that are longer than 100 bytes.  If you
+                    configure WAF to inspect the request body, WAF inspects only the first 8192 bytes (8 KB). If the
+                    request body for your web requests never exceeds 8192 bytes, you can create a size constraint
+                    condition and block requests that have a request body greater than 8192 bytes. If you choose URI
+                    for the value of Part of the request to filter on, the slash (/) in the URI counts as one
+                    character. For example, the URI /logo.jpg is nine characters long.
+                * FieldToMatch (&#39;FieldToMatch&#39;): The part of the web request that you want WAF to inspect. For more information, see
+                    FieldToMatch.
+                * ComparisonOperator (str): The operator to use to compare the request part to the size setting.
+                * Size (int): The size, in byte, to compare to the request part, after any transformations.
+                * TextTransformations (List[&#39;TextTransformation&#39;]): Text transformations eliminate some of the unusual formatting that attackers use in web requests
+                    in an effort to bypass detection. If you specify one or more transformations in a rule
+                    statement, WAF performs all transformations on the content of the request component identified
+                    by FieldToMatch, starting from the lowest priority setting, before inspecting the content for a
+                    match.
+            * GeoMatchStatement (Dict[str, Any], optional): A rule statement used to identify web requests based on country of origin.
+                * CountryCodes (List[str], optional): An array of two-character country codes, for example, [ &#34;US&#34;, &#34;CN&#34; ], from the alpha-2 country
+                    ISO codes of the ISO 3166 international standard.
+                * ForwardedIPConfig (Dict[str, Any], optional): The configuration for inspecting IP addresses in an HTTP header that you specify, instead of
+                    using the IP address that&#39;s reported by the web request origin. Commonly, this is the
+                    X-Forwarded-For (XFF) header, but you can specify any header name.   If the specified header
+                    isn&#39;t present in the request, WAF doesn&#39;t apply the rule to the web request at all.
+                    * HeaderName (str): The name of the HTTP header to use for the IP address. For example, to use the X-Forwarded-For
+                        (XFF) header, set this to X-Forwarded-For.  If the specified header isn&#39;t present in the
+                        request, WAF doesn&#39;t apply the rule to the web request at all.
+                    * FallbackBehavior (str): The match status to assign to the web request if the request doesn&#39;t have a valid IP address in
+                        the specified position.  If the specified header isn&#39;t present in the request, WAF doesn&#39;t apply
+                        the rule to the web request at all.  You can specify the following fallback behaviors:
+                            MATCH - Treat the web request as matching the rule statement. WAF applies the rule action to the request.
+                            NO_MATCH - Treat the web request as not matching the rule statement.
+            * RuleGroupReferenceStatement (Dict[str, Any], optional): A rule statement used to run the rules that are defined in a RuleGroup. To use this, create a
+                rule group with your rules, then provide the ARN of the rule group in this statement. You cannot
+                nest a RuleGroupReferenceStatement, for example for use inside a NotStatement or OrStatement.
+                You can only use a rule group reference statement at the top level inside a web ACL.
+                * ARN (str): The Amazon Resource Name (ARN) of the entity.
+                * ExcludedRules (List[Dict[str, Any]], optional): The rules in the referenced rule group whose actions are set to Count. When you exclude a rule,
+                    WAF evaluates it exactly as it would if the rule action setting were Count. This is a useful
+                    option for testing the rules in a rule group without modifying how they handle your web traffic.
+                    * Name (str): The name of the rule whose action you want to override to Count.
+            * IPSetReferenceStatement (Dict[str, Any], optional): A rule statement used to detect web requests coming from particular IP addresses or address
+                ranges. To use this, create an IPSet that specifies the addresses you want to detect, then use
+                the ARN of that set in this statement. To create an IP set, see CreateIPSet. Each IP set rule
+                statement references an IP set. You create and maintain the set independent of your rules. This
+                allows you to use the single set in multiple rules. When you update the referenced set, WAF
+                automatically updates all rules that reference it.
+                * ARN (str): The Amazon Resource Name (ARN) of the IPSet that this statement references.
+                * IPSetForwardedIPConfig (Dict[str, Any], optional): The configuration for inspecting IP addresses in an HTTP header that you specify, instead of
+                    using the IP address that&#39;s reported by the web request origin. Commonly, this is the
+                    X-Forwarded-For (XFF) header, but you can specify any header name.   If the specified header
+                    isn&#39;t present in the request, WAF doesn&#39;t apply the rule to the web request at all.
+                    * HeaderName (str): The name of the HTTP header to use for the IP address. For example, to use the X-Forwarded-For
+                        (XFF) header, set this to X-Forwarded-For.  If the specified header isn&#39;t present in the
+                        request, WAF doesn&#39;t apply the rule to the web request at all.
+                    * FallbackBehavior (str): The match status to assign to the web request if the request doesn&#39;t have a valid IP address in
+                        the specified position.  If the specified header isn&#39;t present in the request, WAF doesn&#39;t apply
+                        the rule to the web request at all.  You can specify the following fallback behaviors:
+                            MATCH - Treat the web request as matching the rule statement. WAF applies the rule action to the request.
+                            NO_MATCH - Treat the web request as not matching the rule statement.
+                    * Position (str): The position in the header to search for the IP address. The header can contain IP addresses of
+                        the original client and also of proxies. For example, the header value could be 10.1.1.1,
+                        127.0.0.0, 10.10.10.10 where the first IP address identifies the original client and the rest
+                        identify proxies that the request went through.  The options for this setting are the following:
+                        FIRST - Inspect the first IP address in the list of IP addresses in the header. This is usually
+                        the client&#39;s original IP.   LAST - Inspect the last IP address in the list of IP addresses in
+                        the header.   ANY - Inspect all IP addresses in the header for a match. If the header contains
+                        more than 10 IP addresses, WAF inspects the last 10.
+            * RegexPatternSetReferenceStatement (Dict[str, Any], optional): A rule statement used to search web request components for matches with regular expressions. To
+                use this, create a RegexPatternSet that specifies the expressions that you want to detect, then
+                use the ARN of that set in this statement. A web request matches the pattern set rule statement
+                if the request component matches any of the patterns in the set. To create a regex pattern set,
+                see CreateRegexPatternSet. Each regex pattern set rule statement references a regex pattern set.
+                You create and maintain the set independent of your rules. This allows you to use the single set
+                in multiple rules. When you update the referenced set, WAF automatically updates all rules that
+                reference it.
+                * ARN (str): The Amazon Resource Name (ARN) of the RegexPatternSet that this statement references.
+                * FieldToMatch (&#39;FieldToMatch&#39;): The part of the web request that you want WAF to inspect. For more information, see
+                    FieldToMatch.
+                * TextTransformations (List[&#39;TextTransformation&#39;]): Text transformations eliminate some of the unusual formatting that attackers use in web requests
+                    in an effort to bypass detection. If you specify one or more transformations in a rule
+                    statement, WAF performs all transformations on the content of the request component identified
+                    by FieldToMatch, starting from the lowest priority setting, before inspecting the content for a
+                    match.
+            * RateBasedStatement (Dict[str, Any], optional): A rate-based rule tracks the rate of requests for each originating IP address, and triggers the
+                rule action when the rate exceeds a limit that you specify on the number of requests in any
+                5-minute time span. You can use this to put a temporary block on requests from an IP address
+                that is sending excessive requests.  WAF tracks and manages web requests separately for each
+                instance of a rate-based rule that you use. For example, if you provide the same rate-based rule
+                settings in two web ACLs, each of the two rule statements represents a separate instance of the
+                rate-based rule and gets its own tracking and management by WAF. If you define a rate-based rule
+                inside a rule group, and then use that rule group in multiple places, each use creates a
+                separate instance of the rate-based rule that gets its own tracking and management by WAF.  When
+                the rule action triggers, WAF blocks additional requests from the IP address until the request
+                rate falls below the limit. You can optionally nest another statement inside the rate-based
+                statement, to narrow the scope of the rule so that it only counts requests that match the nested
+                statement. For example, based on recent requests that you have seen from an attacker, you might
+                create a rate-based rule with a nested AND rule statement that contains the following nested
+                statements:   An IP match statement with an IP set that specified the address 192.0.2.44.   A
+                string match statement that searches in the User-Agent header for the string BadBot.   In this
+                rate-based rule, you also define a rate limit. For this example, the rate limit is 1,000.
+                Requests that meet both of the conditions in the statements are counted. If the count exceeds
+                1,000 requests per five minutes, the rule action triggers. Requests that do not meet both
+                conditions are not counted towards the rate limit and are not affected by this rule. You cannot
+                nest a RateBasedStatement inside another statement, for example inside a NotStatement or
+                OrStatement. You can define a RateBasedStatement inside a web ACL and inside a rule group.
+                * Limit (int): The limit on requests per 5-minute period for a single originating IP address. If the statement
+                    includes a ScopeDownStatement, this limit is applied only to the requests that match the
+                    statement.
+                * AggregateKeyType (str): Setting that indicates how to aggregate the request counts. The options are the following:
+                   IP - Aggregate the request counts on the IP address from the web request origin.
+                   FORWARDED_IP - Aggregate the request counts on the first IP address in an HTTP header. If you use this,
+                    configure the ForwardedIPConfig, to specify the header to use.
+                * ScopeDownStatement (&#39;Statement&#39;, optional): An optional nested statement that narrows the scope of the web requests that are evaluated by
+                    the rate-based statement. Requests are only tracked by the rate-based statement if they match
+                    the scope-down statement. You can use any nestable Statement in the scope-down statement, and
+                    you can nest statements at any level, the same as you can for a rule statement.
+                * ForwardedIPConfig (&#39;ForwardedIPConfig&#39;, optional): The configuration for inspecting IP addresses in an HTTP header that you specify, instead of
+                    using the IP address that&#39;s reported by the web request origin. Commonly, this is the
+                    X-Forwarded-For (XFF) header, but you can specify any header name.   If the specified header
+                    isn&#39;t present in the request, WAF doesn&#39;t apply the rule to the web request at all.  This is
+                    required if AggregateKeyType is set to FORWARDED_IP.
+            * AndStatement (Dict[str, Any], optional): A logical rule statement used to combine other rule statements with AND logic. You provide more
+                than one Statement within the AndStatement.
+                * Statements (List[Dict[str, Any]]): The statements to combine with AND logic. You can use any statements that can be nested.
+                    * ByteMatchStatement (&#39;ByteMatchStatement&#39;, optional): A rule statement that defines a string match search for WAF to apply to web requests. The byte
+                        match statement provides the bytes to search for, the location in requests that you want WAF to
+                        search, and other settings. The bytes to search for are typically a string that corresponds with
+                        ASCII characters. In the WAF console and the developer guide, this is refered to as a string
+                        match statement.
+                    * SqliMatchStatement (&#39;SqliMatchStatement&#39;, optional): Attackers sometimes insert malicious SQL code into web requests in an effort to extract data
+                        from your database. To allow or block web requests that appear to contain malicious SQL code,
+                        create one or more SQL injection match conditions. An SQL injection match condition identifies
+                        the part of web requests, such as the URI or the query string, that you want WAF to inspect.
+                        Later in the process, when you create a web ACL, you specify whether to allow or block requests
+                        that appear to contain malicious SQL code.
+                    * XssMatchStatement (&#39;XssMatchStatement&#39;, optional): A rule statement that defines a cross-site scripting (XSS) match search for WAF to apply to web
+                        requests. XSS attacks are those where the attacker uses vulnerabilities in a benign website as a
+                        vehicle to inject malicious client-site scripts into other legitimate web browsers. The XSS
+                        match statement provides the location in requests that you want WAF to search and text
+                        transformations to use on the search area before WAF searches for character sequences that are
+                        likely to be malicious strings.
+                    * SizeConstraintStatement (&#39;SizeConstraintStatement&#39;, optional): A rule statement that compares a number of bytes against the size of a request component, using
+                        a comparison operator, such as greater than (&gt;) or less than (&lt;). For example, you can use a
+                        size constraint statement to look for query strings that are longer than 100 bytes.  If you
+                        configure WAF to inspect the request body, WAF inspects only the first 8192 bytes (8 KB). If the
+                        request body for your web requests never exceeds 8192 bytes, you can create a size constraint
+                        condition and block requests that have a request body greater than 8192 bytes. If you choose URI
+                        for the value of Part of the request to filter on, the slash (/) in the URI counts as one
+                        character. For example, the URI /logo.jpg is nine characters long.
+                    * GeoMatchStatement (&#39;GeoMatchStatement&#39;, optional): A rule statement used to identify web requests based on country of origin.
+                    * RuleGroupReferenceStatement (&#39;RuleGroupReferenceStatement&#39;, optional): A rule statement used to run the rules that are defined in a RuleGroup. To use this, create a
+                        rule group with your rules, then provide the ARN of the rule group in this statement. You cannot
+                        nest a RuleGroupReferenceStatement, for example for use inside a NotStatement or OrStatement.
+                        You can only use a rule group reference statement at the top level inside a web ACL.
+                    * IPSetReferenceStatement (&#39;IPSetReferenceStatement&#39;, optional): A rule statement used to detect web requests coming from particular IP addresses or address
+                        ranges. To use this, create an IPSet that specifies the addresses you want to detect, then use
+                        the ARN of that set in this statement. To create an IP set, see CreateIPSet. Each IP set rule
+                        statement references an IP set. You create and maintain the set independent of your rules. This
+                        allows you to use the single set in multiple rules. When you update the referenced set, WAF
+                        automatically updates all rules that reference it.
+                    * RegexPatternSetReferenceStatement (&#39;RegexPatternSetReferenceStatement&#39;, optional): A rule statement used to search web request components for matches with regular expressions. To
+                        use this, create a RegexPatternSet that specifies the expressions that you want to detect, then
+                        use the ARN of that set in this statement. A web request matches the pattern set rule statement
+                        if the request component matches any of the patterns in the set. To create a regex pattern set,
+                        see CreateRegexPatternSet. Each regex pattern set rule statement references a regex pattern set.
+                        You create and maintain the set independent of your rules. This allows you to use the single set
+                        in multiple rules. When you update the referenced set, WAF automatically updates all rules that
+                        reference it.
+                    * RateBasedStatement (&#39;RateBasedStatement&#39;, optional): A rate-based rule tracks the rate of requests for each originating IP address, and triggers the
+                        rule action when the rate exceeds a limit that you specify on the number of requests in any
+                        5-minute time span. You can use this to put a temporary block on requests from an IP address
+                        that is sending excessive requests.  WAF tracks and manages web requests separately for each
+                        instance of a rate-based rule that you use. For example, if you provide the same rate-based rule
+                        settings in two web ACLs, each of the two rule statements represents a separate instance of the
+                        rate-based rule and gets its own tracking and management by WAF. If you define a rate-based rule
+                        inside a rule group, and then use that rule group in multiple places, each use creates a
+                        separate instance of the rate-based rule that gets its own tracking and management by WAF.  When
+                        the rule action triggers, WAF blocks additional requests from the IP address until the request
+                        rate falls below the limit. You can optionally nest another statement inside the rate-based
+                        statement, to narrow the scope of the rule so that it only counts requests that match the nested
+                        statement. For example, based on recent requests that you have seen from an attacker, you might
+                        create a rate-based rule with a nested AND rule statement that contains the following nested
+                        statements:   An IP match statement with an IP set that specified the address 192.0.2.44.   A
+                        string match statement that searches in the User-Agent header for the string BadBot.   In this
+                        rate-based rule, you also define a rate limit. For this example, the rate limit is 1,000.
+                        Requests that meet both of the conditions in the statements are counted. If the count exceeds
+                        1,000 requests per five minutes, the rule action triggers. Requests that do not meet both
+                        conditions are not counted towards the rate limit and are not affected by this rule. You cannot
+                        nest a RateBasedStatement inside another statement, for example inside a NotStatement or
+                        OrStatement. You can define a RateBasedStatement inside a web ACL and inside a rule group.
+                    * AndStatement (&#39;AndStatement&#39;, optional): A logical rule statement used to combine other rule statements with AND logic. You provide more
+                        than one Statement within the AndStatement.
+                    * OrStatement (Dict[str, Any], optional): A logical rule statement used to combine other rule statements with OR logic. You provide more
+                        than one Statement within the OrStatement.
+                        * Statements (List[&#39;Statement&#39;]): The statements to combine with OR logic. You can use any statements that can be nested.
+                    * NotStatement (Dict[str, Any], optional): A logical rule statement used to negate the results of another rule statement. You provide one
+                        Statement within the NotStatement.
+                        * Statement (&#39;Statement&#39;): The statement to negate. You can use any statement that can be nested.
+                    * ManagedRuleGroupStatement (Dict[str, Any], optional): A rule statement used to run the rules that are defined in a managed rule group. To use this,
+                        provide the vendor name and the name of the rule group in this statement. You can retrieve the
+                        required names by calling ListAvailableManagedRuleGroups. You cannot nest a
+                        ManagedRuleGroupStatement, for example for use inside a NotStatement or OrStatement. It can only
+                        be referenced as a top-level statement within a rule.
+                        * VendorName (str): The name of the managed rule group vendor. You use this, along with the rule group name, to
+                            identify the rule group.
+                        * Name (str): The name of the managed rule group. You use this, along with the vendor name, to identify the
+                            rule group.
+                        * Version (str, optional): The version of the managed rule group to use. If you specify this, the version setting is fixed
+                            until you change it. If you don&#39;t specify this, WAF uses the vendor&#39;s default version, and then
+                            keeps the version at the vendor&#39;s default when the vendor updates the managed rule group
+                            settings.
+                        * ExcludedRules (List[&#39;ExcludedRule&#39;], optional): The rules in the referenced rule group whose actions are set to Count. When you exclude a rule,
+                            WAF evaluates it exactly as it would if the rule action setting were Count. This is a useful
+                            option for testing the rules in a rule group without modifying how they handle your web traffic.
+                        * ScopeDownStatement (&#39;Statement&#39;, optional): An optional nested statement that narrows the scope of the web requests that are evaluated by
+                            the managed rule group. Requests are only evaluated by the rule group if they match the scope-
+                            down statement. You can use any nestable Statement in the scope-down statement, and you can nest
+                            statements at any level, the same as you can for a rule statement.
+                        * ManagedRuleGroupConfigs (List[Dict[str, Any]], optional): Additional information that&#39;s used by a managed rule group. Most managed rule groups don&#39;t
+                            require this. Use this for the account takeover prevention managed rule group
+                            AWSManagedRulesATPRuleSet, to provide information about the sign-in page of your application.
+                            You can provide multiple individual ManagedRuleGroupConfig objects for any rule group
+                            configuration, for example UsernameField and PasswordField. The configuration that you provide
+                            depends on the needs of the managed rule group. For the ATP managed rule group, you provide the
+                            following individual configuration objects: LoginPath, PasswordField, PayloadType and
+                            UsernameField.
+                            * LoginPath (str, optional): The path of the login endpoint for your application. For example, for the URL
+                                https://example.com/web/login, you would provide the path /web/login.
+                            * PayloadType (str, optional): The payload type for your login endpoint, either JSON or form encoded.
+                            * UsernameField (Dict[str, Any], optional): Details about your login page username field.
+                                * Identifier (str): The name of the username field. For example /form/username.
+                            * PasswordField (Dict[str, Any], optional): Details about your login page password field.
+                                * Identifier (str): The name of the password field. For example /form/password.
+                    * LabelMatchStatement (Dict[str, Any], optional): A rule statement that defines a string match search against labels that have been added to the
+                        web request by rules that have already run in the web ACL.  The label match statement provides
+                        the label or namespace string to search for. The label string can represent a part or all of the
+                        fully qualified label name that had been added to the web request. Fully qualified labels have a
+                        prefix, optional namespaces, and label name. The prefix identifies the rule group or web ACL
+                        context of the rule that added the label. If you do not provide the fully qualified name in your
+                        label match string, WAF performs the search for labels that were added in the same context as
+                        the label match statement.
+                        * Scope (str): Specify whether you want to match using the label name or just the namespace.
+                        * Key (str): The string to match against. The setting you provide for this depends on the match statement&#39;s
+                            Scope setting:    If the Scope indicates LABEL, then this specification must include the name
+                            and can include any number of preceding namespace specifications and prefix up to providing the
+                            fully qualified label name.    If the Scope indicates NAMESPACE, then this specification can
+                            include any number of contiguous namespace strings, and can include the entire label namespace
+                            prefix from the rule group or web ACL where the label originates.   Labels are case sensitive
+                            and components of a label must be separated by colon, for example NS1:NS2:name.
+                    * RegexMatchStatement (Dict[str, Any], optional): A rule statement used to search web request components for a match against a single regular
+                        expression.
+                        * RegexString (str): The string representing the regular expression.
+                        * FieldToMatch (&#39;FieldToMatch&#39;): The part of the web request that you want WAF to inspect. For more information, see
+                            FieldToMatch.
+                        * TextTransformations (List[&#39;TextTransformation&#39;]): Text transformations eliminate some of the unusual formatting that attackers use in web requests
+                            in an effort to bypass detection. If you specify one or more transformations in a rule
+                            statement, WAF performs all transformations on the content of the request component identified
+                            by FieldToMatch, starting from the lowest priority setting, before inspecting the content for a
+                            match.
+            * OrStatement (&#39;OrStatement&#39;, optional): A logical rule statement used to combine other rule statements with OR logic. You provide more
+                than one Statement within the OrStatement.
+            * NotStatement (&#39;NotStatement&#39;, optional): A logical rule statement used to negate the results of another rule statement. You provide one
+                Statement within the NotStatement.
+            * ManagedRuleGroupStatement (&#39;ManagedRuleGroupStatement&#39;, optional): A rule statement used to run the rules that are defined in a managed rule group. To use this,
+                provide the vendor name and the name of the rule group in this statement. You can retrieve the
+                required names by calling ListAvailableManagedRuleGroups. You cannot nest a
+                ManagedRuleGroupStatement, for example for use inside a NotStatement or OrStatement. It can only
+                be referenced as a top-level statement within a rule.
+            * LabelMatchStatement (&#39;LabelMatchStatement&#39;, optional): A rule statement that defines a string match search against labels that have been added to the
+                web request by rules that have already run in the web ACL.  The label match statement provides
+                the label or namespace string to search for. The label string can represent a part or all of the
+                fully qualified label name that had been added to the web request. Fully qualified labels have a
+                prefix, optional namespaces, and label name. The prefix identifies the rule group or web ACL
+                context of the rule that added the label. If you do not provide the fully qualified name in your
+                label match string, WAF performs the search for labels that were added in the same context as
+                the label match statement.
+            * RegexMatchStatement (&#39;RegexMatchStatement&#39;, optional): A rule statement used to search web request components for a match against a single regular
+                expression.
+        * Action (Dict[str, Any], optional): The action that WAF should take on a web request when it matches the rule statement. Settings at
+            the web ACL level can override the rule action setting.  This is used only for rules whose
+            statements do not reference a rule group. Rule statements that reference a rule group include
+            RuleGroupReferenceStatement and ManagedRuleGroupStatement.  You must specify either this Action
+            setting or the rule OverrideAction setting, but not both:   If the rule statement does not
+            reference a rule group, use this rule action setting and not the rule override action setting.
+            If the rule statement references a rule group, use the override action setting and not this
+            action setting.
+            * Block (Dict[str, Any], optional): Instructs WAF to block the web request.
+                * CustomResponse (Dict[str, Any], optional): Defines a custom response for the web request. For information about customizing web requests
+                    and responses, see Customizing web requests and responses in WAF in the WAF Developer Guide.
+                    * ResponseCode (int): The HTTP status code to return to the client.  For a list of status codes that you can use in
+                        your custom reqponses, see Supported status codes for custom response in the WAF Developer
+                        Guide.
+                    * CustomResponseBodyKey (str, optional): References the response body that you want WAF to return to the web request client. You can
+                        define a custom response for a rule action or a default web ACL action that is set to block. To
+                        do this, you first define the response body key and value in the CustomResponseBodies setting
+                        for the WebACL or RuleGroup where you want to use it. Then, in the rule action or web ACL
+                        default action BlockAction setting, you reference the response body using this key.
+                    * ResponseHeaders (List[Dict[str, Any]], optional): The HTTP headers to use in the response. Duplicate header names are not allowed.  For
+                        information about the limits on count and size for custom request and response settings, see WAF
+                        quotas in the WAF Developer Guide.
+                        * Name (str): The name of the custom header.  For custom request header insertion, when WAF inserts the header
+                            into the request, it prefixes this name x-amzn-waf-, to avoid confusion with the headers that
+                            are already in the request. For example, for the header name sample, WAF inserts the header
+                            x-amzn-waf-sample.
+                        * Value (str): The value of the custom header.
+            * Allow (Dict[str, Any], optional): Instructs WAF to allow the web request.
+                * CustomRequestHandling (Dict[str, Any], optional): Defines custom handling for the web request. For information about customizing web requests and
+                    responses, see Customizing web requests and responses in WAF in the WAF Developer Guide.
+                    * InsertHeaders (List[&#39;CustomHTTPHeader&#39;]): The HTTP headers to insert into the request. Duplicate header names are not allowed.  For
+                        information about the limits on count and size for custom request and response settings, see WAF
+                        quotas in the WAF Developer Guide.
+            * Count (Dict[str, Any], optional): Instructs WAF to count the web request and allow it.
+                * CustomRequestHandling (&#39;CustomRequestHandling&#39;, optional): Defines custom handling for the web request. For information about customizing web requests and
+                    responses, see Customizing web requests and responses in WAF in the WAF Developer Guide.
+            * Captcha (Dict[str, Any], optional): Instructs WAF to run a CAPTCHA check against the web request.
+                * CustomRequestHandling (&#39;CustomRequestHandling&#39;, optional): Defines custom handling for the web request. For information about customizing web requests and
+                    responses, see Customizing web requests and responses in WAF in the WAF Developer Guide.
+        * OverrideAction (Dict[str, Any], optional): The action to use in the place of the action that results from the rule group evaluation. Set
+            the override action to none to leave the result of the rule group alone. Set it to count to
+            override the result to count only.  You can only use this for rule statements that reference a
+            rule group, like RuleGroupReferenceStatement and ManagedRuleGroupStatement.   This option is
+            usually set to none. It does not affect how the rules in the rule group are evaluated. If you
+            want the rules in the rule group to only count matches, do not use this and instead exclude
+            those rules in your rule group reference statement settings.
+            * Count (&#39;CountAction&#39;, optional): Override the rule group evaluation result to count only.   This option is usually set to none.
+                It does not affect how the rules in the rule group are evaluated. If you want the rules in the
+                rule group to only count matches, do not use this and instead exclude those rules in your rule
+                group reference statement settings.
+            * None (Dict, optional): Don&#39;t override the rule group evaluation result. This is the most common setting.
+        * RuleLabels (List[Dict[str, Any]], optional): Labels to apply to web requests that match the rule match statement. WAF applies fully qualified
+            labels to matching web requests. A fully qualified label is the concatenation of a label
+            namespace and a rule label. The rule&#39;s rule group or web ACL defines the label namespace.  Rules
+            that run after this rule in the web ACL can match against these labels using a
+            LabelMatchStatement. For each label, provide a case-sensitive string containing optional
+            namespaces and a label name, according to the following guidelines:   Separate each component of
+            the label with a colon.    Each namespace or name can have up to 128 characters.   You can
+            specify up to 5 namespaces in a label.   Don&#39;t use the following reserved words in your label
+            specification: aws, waf, managed, rulegroup, webacl, regexpatternset, or ipset.   For example,
+            myLabelName or nameSpace1:nameSpace2:myLabelName.
+            * Name (str): The label string.
+        * VisibilityConfig (Dict[str, Any]): Defines and enables Amazon CloudWatch metrics and web request sample collection.
+            * SampledRequestsEnabled (bool): A boolean indicating whether WAF should store a sampling of the web requests that match the
+                rules. You can view the sampled requests through the WAF console.
+            * CloudWatchMetricsEnabled (bool): A boolean indicating whether the associated resource sends metrics to Amazon CloudWatch. For the
+                list of available metrics, see WAF Metrics.
+            * MetricName (str): A name of the Amazon CloudWatch metric. The name can contain only the characters: A-Z, a-z, 0-9,
+                - (hyphen), and _ (underscore). The name can be from one to 128 characters long. It can&#39;t
+                contain whitespace or metric names reserved for WAF, for example &#34;All&#34; and &#34;Default_Action.&#34;
+        * CaptchaConfig (Dict[str, Any], optional): Specifies how WAF should handle CAPTCHA evaluations. If you don&#39;t specify this, WAF uses the
+            CAPTCHA configuration that&#39;s defined for the web ACL.
+            * ImmunityTimeProperty (Dict[str, Any], optional): Determines how long a CAPTCHA token remains valid after the client successfully solves a CAPTCHA
+                puzzle.
+                * ImmunityTime (int): The amount of time, in seconds, that a CAPTCHA token is valid. The default setting is 300.
+    custom_response_bodies(dict, optional): A map of custom response keys and content bodies. When you create a rule with a
+        block action, you can send a custom response to the web request. You define these for the web ACL, and then
+        use them in the rules and default actions that you define in the web ACL.
+    captcha_config(dict, optional): Specifies how WAF should handle CAPTCHA evaluations for rules that don&#39;t have their own
+        CaptchaConfig settings. If you don&#39;t specify this, WAF uses its default settings for CaptchaConfig.
+          * ImmunityTimeProperty (dict) -- Determines how long a CAPTCHA token remains valid after the client
+                successfully solves a CAPTCHA puzzle.
+              * ImmunityTime(integer) -- The amount of time, in seconds, that a CAPTCHA token is valid. The default
+                    setting is 300.
+    tags(list, optional): A tag associated with an Amazon Web Services resource. Tags are key:value pairs that you can use to
+        categorize and manage your resources, for purposes like billing or other management. Typically, the tag key
+        represents a category, such as &#34;environment&#34;, and the tag value represents a specific value within that
+        category, such as &#34;test,&#34; &#34;development,&#34; or &#34;production&#34;. Or you might set the tag key to &#34;customer&#34; and
+        the value to the customer name or ID. You can specify one or more tags to add to each Amazon Web Services
+        resource, up to 50 tags for a resource.
+        list of tags in the format of [{&#34;Key&#34;: tag-key, &#34;Value&#34;: tag-value}] or dict in the format of
+            {tag-key: tag-value}
+
+Request Syntax:
+    [web-acl-name]::
+        aws.wafv2.web_acl.present:
+        - name: &#39;string&#39;
+        - scope: &#39;string&#39;
+        - default_action: &#39;dict&#39;
+        - description: &#39;string&#39;
+        - rules: [&#39;string&#39;]
+        - visibility_config: &#39;dict&#39;
+        - custom_response_bodies: &#39;dict&#39;
+        - captcha_config: &#39;dict&#39;
+        - tags:
+          - Key: &#39;string&#39;
+            Value: &#39;string&#39;
+
+Examples:
+
+    .. code-block:: sls
+    demo_waf:
+        aws.wafv2.web_acl.present:
+        - name: demo_waf.
+        - scope: REGIONAL
+        - default_action:
+            Allow: {}
+        - description: waf to support REGIONAL resources.
+        - rules:
+            - Name: AWS-AWSManagedRulesBotControlRuleSet
+              OverrideAction:
+              None: {}
+              Priority: 1
+              Statement:
+                ManagedRuleGroupStatement:
+                Name: AWSManagedRulesBotControlRuleSet
+                VendorName: AWS
+              VisibilityConfig:
+                CloudWatchMetricsEnabled: false
+                MetricName: AWS-AWSManagedRulesBotControlRuleSet
+                SampledRequestsEnabled: true
+        - visibility_config:
+            CloudWatchMetricsEnabled: false
+            MetricName: test_metric_waf
+            SampledRequestsEnabled: true
+        - tags:
+          - Key: type
+            Value: REGIONAL
+
+Returns:
+    Dict[str, Any]
+</code></pre></div></div><p>Full plugin documentation is available on the Idem documentation site - <a href=https://docs.idemproject.io/idem-aws/en/latest/ref/states/wafv2/web_acl.html target=_blank><i class="fa fa-external-link-alt fa-sm" aria-hidden=true></i> aws.wafv2.web_acl
+</a>.</p><div class=edit-meta>Last updated on 20 Sep 2022<br><a href=https://github.com/cmbu-tmm-sites/learnidem/edit/main/content/Getting%20Started/Cloud%20Plug-Ins/Idem%20AWS%20Plug-In/States/aws.wafv2.web_acl/_index.md class=edit-page><i class="fas fa-pen-square"></i>&nbsp;Edit on GitHub</a></div><nav class=pagination><a class="nav nav-prev" href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.wafv2.associate_web_acl/ title=aws.wafv2.associate_web_acl><i class="fas fa-arrow-left" aria-hidden=true></i>&nbsp;Prev - aws.wafv2.associate_web_acl</a>
+<a class="nav nav-next" href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/ title="Idem Azure Plug-In">Next - Idem Azure Plug-In <i class="fas fa-arrow-right" aria-hidden=true></i></a></nav><footer><p class=powered>Powered by <a href=https://gohugo.io>Hugo</a>. Theme adapted from <a href=https://github.com/thingsym/hugo-theme-techdoc>Thingsym</a>.</p></footer></main><div class=sidebar><nav class=slide-menu><ul><li><a href=https://learnidem.github.io>Home</a></li><li class="parent has-sub-menu"><a href=https://learnidem.github.io/getting-started/>Getting Started<span class="mark opened">-</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/getting-started/install-idem/>Install Idem</a></li><li class="parent has-sub-menu"><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/>Cloud Plug-Ins<span class="mark opened">-</span></a><ul class=sub-menu><li class="parent has-sub-menu"><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/>Idem AWS Plug-In<span class="mark opened">-</span></a><ul class=sub-menu><li class="parent has-sub-menu"><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/>Idem AWS Plug-In States<span class="mark opened">-</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.acm.certificate_manager/>aws.acm.certificate_manager</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.acm.certificate_validation/>aws.acm.certificate_validation</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigateway.integration/>aws.apigateway.integration</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigateway.method/>aws.apigateway.method</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigateway.method_response/>aws.apigateway.method_response</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigateway.resource/>aws.apigateway.resource</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigateway.rest_api/>aws.apigateway.rest_api</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigatewayv2.api/>aws.apigatewayv2.api</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigatewayv2.authorizer/>aws.apigatewayv2.authorizer</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigatewayv2.domain_name/>aws.apigatewayv2.domain_name</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigatewayv2.integration/>aws.apigatewayv2.integration</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigatewayv2.route/>aws.apigatewayv2.route</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.apigatewayv2.stage/>aws.apigatewayv2.stage</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.application_autoscaling.scalable_target/>aws.application_autoscaling.scalable_target</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.application_autoscaling.scaling_policy/>aws.application_autoscaling.scaling_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.autoscaling.auto_scaling_group/>aws.autoscaling.auto_scaling_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.autoscaling.launch_configuration/>aws.autoscaling.launch_configuration</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.autoscaling.scaling_policy/>aws.autoscaling.scaling_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.budgets.budget/>aws.budgets.budget</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.budgets.budget_action/>aws.budgets.budget_action</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.caller_identity/>aws.caller_identity</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.cloudfront.distribution/>aws.cloudfront.distribution</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.cloudtrail.trail/>aws.cloudtrail.trail</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.cloudwatch.log_group/>aws.cloudwatch.log_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.cloudwatch.metric_alarm/>aws.cloudwatch.metric_alarm</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.cloudwatchlogs.resource_policy/>aws.cloudwatchlogs.resource_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.config.config_recorder/>aws.config.config_recorder</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.config.delivery_channel/>aws.config.delivery_channel</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.config.rule/>aws.config.rule</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.costexplorer.anomaly_monitor/>aws.costexplorer.anomaly_monitor</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.costexplorer.anomaly_subscription/>aws.costexplorer.anomaly_subscription</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.costexplorer.cost_category/>aws.costexplorer.cost_category</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.data/>aws.data</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.docdb.db_subnet_group/>aws.docdb.db_subnet_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.dynamodb.table/>aws.dynamodb.table</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.ami/>aws.ec2.ami</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.dhcp_option/>aws.ec2.dhcp_option</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.dhcp_option_association/>aws.ec2.dhcp_option_association</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.elastic_ip/>aws.ec2.elastic_ip</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.flow_log/>aws.ec2.flow_log</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.instance/>aws.ec2.instance</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.internet_gateway/>aws.ec2.internet_gateway</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.key_pair/>aws.ec2.key_pair</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.nat_gateway/>aws.ec2.nat_gateway</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.placement_group/>aws.ec2.placement_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.route_table/>aws.ec2.route_table</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.route_table_association/>aws.ec2.route_table_association</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.security_group/>aws.ec2.security_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.security_group_rule/>aws.ec2.security_group_rule</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.snapshot/>aws.ec2.snapshot</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.spot_instance_request/>aws.ec2.spot_instance_request</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.subnet/>aws.ec2.subnet</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.transit_gateway/>aws.ec2.transit_gateway</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.transit_gateway_vpc_attachment/>aws.ec2.transit_gateway_vpc_attachment</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.volume/>aws.ec2.volume</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.vpc/>aws.ec2.vpc</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.vpc_endpoint/>aws.ec2.vpc_endpoint</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ec2.vpc_peering_connection/>aws.ec2.vpc_peering_connection</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ecr.repository/>aws.ecr.repository</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.ecr.repository_policy/>aws.ecr.repository_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.efs.file_system/>aws.efs.file_system</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.efs.mount_target/>aws.efs.mount_target</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.eks.addon/>aws.eks.addon</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.eks.cluster/>aws.eks.cluster</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.eks.fargate_profile/>aws.eks.fargate_profile</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.eks.nodegroup/>aws.eks.nodegroup</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.elasticache.cache_parameter_group/>aws.elasticache.cache_parameter_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.elasticache.cache_subnet_group/>aws.elasticache.cache_subnet_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.elasticache.replication_group/>aws.elasticache.replication_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.elb.load_balancer/>aws.elb.load_balancer</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.elbv2.load_balancer/>aws.elbv2.load_balancer</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.elbv2.target_group/>aws.elbv2.target_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.events.rule/>aws.events.rule</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.guardduty.detector/>aws.guardduty.detector</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.access_key/>aws.iam.access_key</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.instance_profile/>aws.iam.instance_profile</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.open_id_connect_provider/>aws.iam.open_id_connect_provider</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.password_policy/>aws.iam.password_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.policy/>aws.iam.policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.role/>aws.iam.role</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.role_policy/>aws.iam.role_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.role_policy_attachment/>aws.iam.role_policy_attachment</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.service_linked_role/>aws.iam.service_linked_role</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.user/>aws.iam.user</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.user_policy/>aws.iam.user_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.user_policy_attachment/>aws.iam.user_policy_attachment</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.iam.user_ssh_key/>aws.iam.user_ssh_key</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.kms.alias/>aws.kms.alias</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.kms.key/>aws.kms.key</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.lambda_aws.function/>aws.lambda_aws.function</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.lambda_aws.function_event_invoke_config/>aws.lambda_aws.function_event_invoke_config</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.lambda_aws.function_permission/>aws.lambda_aws.function_permission</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.logs.subscription_filter/>aws.logs.subscription_filter</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.neptune.db_cluster/>aws.neptune.db_cluster</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.neptune.db_cluster_parameter_group/>aws.neptune.db_cluster_parameter_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.neptune.db_instance/>aws.neptune.db_instance</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.neptune.db_parameter_group/>aws.neptune.db_parameter_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.neptune.db_subnet_group/>aws.neptune.db_subnet_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.organizations.account/>aws.organizations.account</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.organizations.organization/>aws.organizations.organization</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.organizations.organization_unit/>aws.organizations.organization_unit</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.organizations.policy/>aws.organizations.policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.organizations.policy_attachment/>aws.organizations.policy_attachment</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.rds.db_cluster/>aws.rds.db_cluster</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.rds.db_cluster_parameter_group/>aws.rds.db_cluster_parameter_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.rds.db_instance/>aws.rds.db_instance</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.rds.db_parameter_group/>aws.rds.db_parameter_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.rds.db_subnet_group/>aws.rds.db_subnet_group</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.route53.hosted_zone/>aws.route53.hosted_zone</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.route53.hosted_zone_association/>aws.route53.hosted_zone_association</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.route53.resource_record/>aws.route53.resource_record</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket/>aws.s3.bucket</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket_encryption/>aws.s3.bucket_encryption</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket_lifecycle/>aws.s3.bucket_lifecycle</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket_logging/>aws.s3.bucket_logging</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket_notification/>aws.s3.bucket_notification</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket_policy/>aws.s3.bucket_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.bucket_versioning/>aws.s3.bucket_versioning</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.s3.public_access_block/>aws.s3.public_access_block</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.sns.subscription/>aws.sns.subscription</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.sns.topic/>aws.sns.topic</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.sns.topic_policy/>aws.sns.topic_policy</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.sqs.queue/>aws.sqs.queue</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.wafv2.associate_web_acl/>aws.wafv2.associate_web_acl</a></li><li class=active><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-aws-plug-in/states/aws.wafv2.web_acl/>aws.wafv2.web_acl</a></li></ul></li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/>Idem Azure Plug-In<span class="mark closed">+</span></a><ul class=sub-menu><li class=has-sub-menu><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/>Idem Azure Plug-In States<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.authorization.role_assignments/>azure.authorization.role_assignments</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.authorization.role_definitions/>azure.authorization.role_definitions</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.compute.virtual_machines/>azure.compute.virtual_machines</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.management_groups.management_groups/>azure.management_groups.management_groups</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.policy.policy_assignments/>azure.policy.policy_assignments</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.policy.policy_definitions/>azure.policy.policy_definitions</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.resource_management.resource_groups/>azure.resource_management.resource_groups</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.subscription.attach_subscriptions/>azure.subscription.attach_subscriptions</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.subscription.subscriptions/>azure.subscription.subscriptions</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.virtual_networks.network_interfaces/>azure.virtual_networks.network_interfaces</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.virtual_networks.subnets/>azure.virtual_networks.subnets</a></li><li><a href=https://learnidem.github.io/getting-started/cloud-plug-ins/idem-azure-plug-in/states/azure.virtual_networks.virtual_networks/>azure.virtual_networks.virtual_networks</a></li></ul></li></ul></li></ul></li><li><a href=https://learnidem.github.io/getting-started/authenticate/>Authenticate</a></li><li><a href=https://learnidem.github.io/getting-started/basic-commands/>Basic Commands</a></li><li><a href=https://learnidem.github.io/getting-started/troubleshooting/>Troubleshooting</a></li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/>How to use Idem<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/how-to-use-idem/describe/>Describe command</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/filter-flag/>Filter Flag</a></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/states/>States<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/how-to-use-idem/states/present/>Present</a></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/states/present-update/>Present Update<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/how-to-use-idem/states/present-update/force-update/>Force Update</a></li></ul></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/absent/>Absent</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/test-flag/>Test Flag</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/describe-2-state/>Describe 2 State</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/reconciler-flag/>Reconcilier Flag</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/jinja-templates/>Jinja Templates</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/states/sleep-and-data_write/>Sleep and Data.Write</a></li></ul></li><li class=has-sub-menu><a href=https://learnidem.github.io/how-to-use-idem/use-cases/>Use Cases<span class="mark closed">+</span></a><ul class=sub-menu><li><a href=https://learnidem.github.io/how-to-use-idem/use-cases/resources-and-sls/>Resources and SLS</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/use-cases/end-to-end-azure-vm/>End to End Azure VM</a></li><li><a href=https://learnidem.github.io/how-to-use-idem/use-cases/aws-instance-vpc-and-subnet/>AWS Instance VPC and Subnet Resources</a></li></ul></li></ul></li><li><a href=https://learnidem.github.io/documentation-resources/>Documentation Resources</a></li></ul></nav><div class=sidebar-footer></div></div></div><a href=# id=backtothetop-fixed class=backtothetop data-backtothetop-duration=600 data-backtothetop-easing=easeOutQuart data-backtothetop-fixed-fadein=1000 data-backtothetop-fixed-fadeout=1000 data-backtothetop-fixed-bottom=10 data-backtothetop-fixed-right=20><span class="fa-layers fa-fw"><i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i></span></a></div></body></html>
